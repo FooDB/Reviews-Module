@@ -1,8 +1,15 @@
-var faker = require('faker');
+import ReviewList from './ReviewList.jsx';
+import React from 'react';
 
 class App extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            reviews: []
+        }
+    }
+    componentDidMount() {
+        this.pullDataById()
     }
     insertData() {
         console.log('insertdata not called but clicked');
@@ -10,13 +17,17 @@ class App extends React.Component {
     }
     pullDataById() {
         console.log('pulled data called');
-        axios.get(`/pullData/${1}`).then(res => console.log(res));
+        axios.get(`/pullData/${1}`).then(res => {
+            this.setState({reviews: res.data})
+            console.log(res.data);
+        });
     }
     render() {
         return (
             <div>
                 <button onClick={() => this.insertData()}>insertData</button>
-                <button onClick={() => this.pullDataById()}>GetData</button>               
+                <button onClick={() => this.pullDataById()}>GetData</button>   
+                <ReviewList reviews={this.state.reviews}/>   
             </div>
         )
     }
