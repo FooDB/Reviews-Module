@@ -9,8 +9,8 @@ class ReviewList extends React.Component {
     }
     render() {
         return (
-            <div> Test reviewlist
-                {this.props.reviews.map(review => <Review review={review}/>)}
+            <div>Reviews
+                {this.props.reviews.map(review => <Review review={review} key={review.id}/>)}
             </div>
         )
     }
