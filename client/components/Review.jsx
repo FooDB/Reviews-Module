@@ -18,10 +18,11 @@ class Review extends React.Component {
         this.setState({helpful: this.state.helpful});
     }
     readMoreToggle() {
-        this.state.readMoreClicked = !this.state.readMoreClicked;
-        this.setState({readMoreClicked: this.state.readMoreClicked})
-        this.state.reviewText.length < 301 ? this.state.reviewText = this.props.review.reviewText : this.state.reviewText = this.props.review.reviewText.slice(0, 300);
-        this.setState({reviewText: this.state.reviewText})
+        // this.state.readMoreClicked = !this.state.readMoreClicked;
+        this.setState({readMoreClicked: !this.state.readMoreClicked})
+        this.state.reviewText.length < 301 
+        ? this.setState({reviewText: this.props.review.reviewText}) 
+        : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
     getRating() {
         console.log('getrating called')
