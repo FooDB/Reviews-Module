@@ -9,7 +9,8 @@ class ReviewList extends React.Component {
     }
     render() {
         return (
-            <div>Reviews
+            <div>
+                <h1>Reviews</h1>
                 {this.props.reviews.map(review => <Review review={review} key={review.id}/>)}
             </div>
         )

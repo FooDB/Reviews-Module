@@ -25,8 +25,8 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.insertData()}>insertData</button>
-                <button onClick={() => this.pullDataById()}>GetData</button>   
+                {/* <button onClick={() => this.insertData()}>insertData</button> */}
+                {/* <button onClick={() => this.pullDataById()}>GetData</button>    */}
                 <ReviewList reviews={this.state.reviews}/>   
             </div>
         )

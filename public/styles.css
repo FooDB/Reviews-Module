@@ -1,0 +1,11 @@
+.img-Circle {
+    width: 45px;
+    height: 45px;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
+}
