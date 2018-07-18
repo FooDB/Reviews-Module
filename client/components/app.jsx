@@ -1,5 +1,5 @@
 import ReviewList from './ReviewList.jsx';
-import React from 'react';
+import ReviewSummary from './ReviewSummary.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -27,6 +27,7 @@ class App extends React.Component {
             <div>
                 {/* <button onClick={() => this.insertData()}>insertData</button> */}
                 {/* <button onClick={() => this.pullDataById()}>GetData</button>    */}
+                <ReviewSummary reviews={this.state.reviews}/>
                 <ReviewList reviews={this.state.reviews}/>   
             </div>
         )

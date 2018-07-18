@@ -1,5 +1,5 @@
 import Review from './Review.jsx';
-import React from 'react';
+
 class ReviewList extends React.Component {
     constructor(props) {
         super(props)
@@ -10,7 +10,7 @@ class ReviewList extends React.Component {
     render() {
         return (
             <div>
-                <h1>Reviews Workflow Test</h1>
+                <h1>Reviews</h1>
                 {this.props.reviews.map(review => <Review review={review} key={review.id}/>)}
             </div>
         )
