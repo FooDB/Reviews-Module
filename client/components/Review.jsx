@@ -7,40 +7,41 @@ class Review extends React.Component {
             helpful: false,
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300),
-            rating: this.props.review.overallRating
+            rating: this.props.review.overallRating,
+            stars: []
         }
     }
-    componentDidMount() {
-
+    componentWillMount() {
+        for (var i = 0; i < 5; i++) {
+            if (this.state.rating > 0) {
+                this.state.stars.push("./images/star-16.png")
+            } else {
+                this.state.stars.push("./images/unfilled_star.png")
+            }
+            this.state.rating--;
+        }
     }
     helpfulClick() {
         this.state.helpful = !this.state.helpful;
         this.setState({helpful: this.state.helpful});
     }
     readMoreToggle() {
-        // this.state.readMoreClicked = !this.state.readMoreClicked;
         this.setState({readMoreClicked: !this.state.readMoreClicked})
         this.state.reviewText.length < 301 
         ? this.setState({reviewText: this.props.review.reviewText}) 
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
-    getRating() {
-        console.log('getrating called')
-        var source;
-        this.state.rating > 0 ? source = "./images/star-16.png" : source = "./images/unfilled_star.png"
-        this.state.rating--;
-        return source
-    }
+    // getRating() {
+    //     console.log('getrating called')
+    //     var source;
+    //     this.state.rating > 0 ? source = "./images/star-16.png" : source = "./images/unfilled_star.png"
+    //     this.state.rating--;
+    //     return source
+    // }
     render() {
-        var helpHover, readMorePhrase, source;
+        var helpHover, readMorePhrase;
         this.state.hoveronHelp ? helpHover = 'helpHovered' : helpHover = '';
         this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more';
-        // if (this.state.rating > 0) {
-        //     source = "./images/star-16.png";
-        //     this.state.rating--;
-        // } else {
-        //     source = "./images/unfilled_star.png"
-        // }
         return (
             <div>
                 <div>
@@ -54,22 +55,17 @@ class Review extends React.Component {
                                 </span>
                             </div>
                             <div className="rating">
-                                <div>
-                                    {/* <div><img src="./images/star-16.png" /></div>
-                                    <div><img className="greyStar" src="./images/unfilled_star.png" /></div>
-                                    <div>Rating: {this.props.review.overallRating}</div>
-                                    <div>Rating: {this.props.review.overallRating}</div>
-                                    <div>Rating: {this.props.review.overallRating}</div> */}
-                                    <div><img className="star" src={this.getRating()} /></div>
-                                    <div><img className="star" src={this.getRating()} /></div>
-                                    <div><img className="star" src={this.getRating()} /></div>
-                                    <div><img className="star" src={this.getRating()} /></div>
-                                    <div><img className="star" src={this.getRating()} /></div>
-                                </div>
-                                <div>
+                                <span>
+                                    <span><img className="star" src={this.state.stars[0]} /></span>
+                                    <span><img className="star" src={this.state.stars[1]} /></span>
+                                    <span><img className="star" src={this.state.stars[2]} /></span>
+                                    <span><img className="star" src={this.state.stars[3]} /></span>
+                                    <span><img className="star" src={this.state.stars[4]} /></span>
+                                </span>
+                                <span>
                                     <span>{this.props.review.overallRating}.0 </span>
                                     <span> Dined on {this.props.review.dinedDate}</span>
-                                </div>
+                                </span>
                             </div>
                         </div>
                     </div>
