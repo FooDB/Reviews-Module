@@ -11,9 +11,15 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
 app.get('/insertData', (req, res) => {
-    db.inserRestaurantData()
+    db.insertRestaurantData()
     console.log('get request received');
     res.send('all good');
+})
+app.get('/pullData/:id', (req, res) => {
+    console.log('pull data request received params', req.params);
+    db.pullFromDB((err, data) => {
+        res.send(data);
+    }, req.params.id)
 })
 
 

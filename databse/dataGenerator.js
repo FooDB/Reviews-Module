@@ -1,37 +1,31 @@
 const mysql = require('mysql');
+const faker = require('faker');
+
+
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'mysqlsucks',
     database: 'reviews'
 })
-const restaurantNames = ['Steak Restaurant', 'Seafood Restaurant', 'Italian Restaurant'];
-const restaurantArea = ['Bayview', 'Financial District', 'Marina'];
-const filterPhrase = ['steak', 'seafood', 'drinks', 'pasta'];
+// const restaurantNames = ['Steak Restaurant', 'Seafood Restaurant', 'Italian Restaurant'];
+// const restaurantArea = ['Bayview', 'Financial District', 'Marina'];
+// const filterPhrase = ['steak', 'seafood', 'drinks', 'pasta'];
 const rating = [1,2,3,4,5];
 const trueFalse = [0,1];
-const userNames = ['Chris W', 'John L', 'Ben Cronin', 'Shruti Raj', 'Michael Lee', 'Ian McK', 'Justus Kovats'];
+// const userNames = ['Chris W', 'John L', 'Ben Cronin', 'Shruti Raj', 'Michael Lee', 'Ian McK', 'Justus Kovats'];
 const userPhotos = ['url1', 'url2', 'url3'];
 const userArea = ['SF', 'Oakland', 'LA', 'Santa Barbara'];
 const reviewText = ['longwindedReview1', 'longwindedReview2', 'longwindedReview3', 'longwindedReview4'];
 const dates = ['2018-06-16', '2018-06-10', '2018-06-12', '2018-06-13'];
 const noise = [0, 1, 2];
 
-const inserRestaurantData = () => {
-    for (let i = 0; i < 10; i++) {
+const insertRestaurantData = () => {
+    for (let i = 0; i < 100; i++) {
 
-        let randName = restaurantNames[Math.floor(Math.random() * restaurantNames.length)];
-        let randArea = restaurantArea[Math.floor(Math.random() * restaurantArea.length)];
-        let randRestId = Math.floor(Math.random() * 100);
-        let filterThing = filterPhrase[Math.floor(Math.random() * filterPhrase.length)];
-        let randUserName = userNames[Math.floor(Math.random() * userNames.length)];
-        let randuserPhotos = userPhotos[Math.floor(Math.random() * userPhotos.length)];
-        let randuserArea = userArea[Math.floor(Math.random() * userArea.length)];
-        let randreviewText = reviewText[Math.floor(Math.random() * reviewText.length)];
-        let randDate = dates[Math.floor(Math.random() * dates.length)];
-        let randNoise = noise[Math.floor(Math.random() * noise.length)];
-        let randRating = rating[Math.floor(Math.random() * rating.length)];
-        let randtrueFalse = trueFalse[Math.floor(Math.random() * trueFalse.length)];
+        let randName = faker.company.companyName();
+        let randArea = faker.address.county();
+        let filterThing = faker.commerce.product();
 
         con.query(`INSERT INTO Restaurant (restaurantName, restaurantArea) VALUES ('${randName}', '${randArea}');`, (err, result) => {
             console.log(result);
@@ -42,14 +36,33 @@ const inserRestaurantData = () => {
         con.query(`INSERT INTO LovedFor (things, rest_id) VALUES ('${filterThing}', ${i});`, (err, result) => {
             console.log(result);
         })
-        con.query(`INSERT INTO Reviews (userName, userPhoto, userArea, reviewText, recommended, dinedDate, 
-        helpful, overallRating, foodRating, serviceRating, ambianceRating, valueRating, noise, rest_id) 
-        VALUES ('${randUserName}', '${randuserPhotos}', '${randuserArea}', '${randreviewText}', ${randtrueFalse}
-        , '${randDate}', ${randtrueFalse}, ${randRating}, ${randRating}, ${randRating}
-        , ${randRating}, ${randRating}, ${randNoise}, ${i});`, (err, result) => {
-            console.log(result);
-        })
+        let reviewCount = Math.random() * 300;
+        for (let j = 0; j < reviewCount; j++) {
+            let randUserName = faker.name.findName();
+            let randuserPhotos = faker.internet.avatar() + '';
+            let randuserArea = faker.address.city();
+            let randreviewText = faker.lorem.paragraphs();
+            let randDate = (new Date()).toISOString().substring(0, 10);
+            let randNoise = noise[Math.floor(Math.random() * noise.length)];
+            let randRating = rating[Math.floor(Math.random() * rating.length)];
+            let randtrueFalse = trueFalse[Math.floor(Math.random() * trueFalse.length)];
+            con.query(`INSERT INTO Reviews (userName, userPhoto, userArea, reviewText, recommended, dinedDate, 
+            helpful, overallRating, foodRating, serviceRating, ambianceRating, valueRating, noise, rest_id) 
+            VALUES ('${randUserName}', '${randuserPhotos}', '${randuserArea}', '${randreviewText}', ${randtrueFalse}
+            , '${randDate}', ${randtrueFalse}, ${randRating}, ${randRating}, ${randRating}
+            , ${randRating}, ${randRating}, ${randNoise}, ${i});`, (err, result) => {
+                console.log(result);
+            })
+        }
     }
+    
+}
+
+const pullFromDB = (cb, id) => {
+    con.query(`SELECT * FROM REVIEWS WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${id});`, (err, data) => {
+        console.log(data);
+        cb(null, data)
+    })
 }
 
 // INSERT INTO Reviews (userName, userPhoto, userArea, reviewText, recommended, dinedDate, 
@@ -61,7 +74,8 @@ const inserRestaurantData = () => {
 //     ALTER TABLE Reviews
 // DROP COLUMN restaurantArea;
 module.exports = {
-    inserRestaurantData
+    insertRestaurantData,
+    pullFromDB
 }
 // CREATE TABLE Reviews (
 //     id int NOT NULL AUTO_INCREMENT,
