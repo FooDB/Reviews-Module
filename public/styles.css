@@ -9,3 +9,10 @@
     justify-content: center;
     display: inline-block;
 }
+#helpHovered {
+    background-color: red;
+}
+.star {
+    width: 16px;
+    height: 16px;
+}
