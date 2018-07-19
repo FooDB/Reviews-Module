@@ -12,7 +12,7 @@ class Review extends React.Component {
         }
     }
     componentWillMount() {
-        for (var i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             if (this.state.rating > 0) {
                 this.state.stars.push("./images/star-16.png")
             } else {
@@ -34,7 +34,7 @@ class Review extends React.Component {
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
     render() {
-        var helpHover, readMorePhrase;
+        let helpHover, readMorePhrase;
         this.state.hoveronHelp ? helpHover = 'helpHovered' : helpHover = '';
         this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more';
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
