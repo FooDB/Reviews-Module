@@ -17,11 +17,13 @@ class Review extends React.Component {
             this.state.rating > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
             this.state.rating--;
         }
+        if (this.props.review.is_helpful) this.setState({helpful: true});
     }
     helpfulClick(e) {
         this.state.helpful = !this.state.helpful;
         this.setState({helpful: this.state.helpful});
-        axios.post(`/helpfulEvent/${this.props.review.is_helpful}`)
+        this.props.review.is_helpful ? this.props.review.is_helpful = 0 : this.props.review.is_helpful = 1;
+        axios.post(`/helpfulEvent/${this.props.review.is_helpful}/id/${this.props.review.id}`)
         .then(res => console.log(res))
         .catch(err => console.log(err));
     }

@@ -8,15 +8,22 @@ const con = mysql.createConnection({
     database: process.env.DB_DATABASE
 })
 
-const pullFromDB = (cb, id) => {
-    con.query(`SELECT * FROM REVIEWS WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${id});`, (err, data) => {
+const pullFromDB = (query, cb) => {
+    con.query(query, (err, data) => {
         if (err) console.log(err, 'err');
-        console.log(data);
         cb(null, data)
+    })
+}
+const postToDB = (query, cb) => {
+    con.query(query, (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        cb(null, result);
     })
 }
 
 module.exports = {
     pullFromDB,
-    con
+    con,
+    postToDB
 }

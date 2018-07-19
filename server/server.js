@@ -12,13 +12,17 @@ app.use(parser.urlencoded({extended: true}));
 
 app.get('/reviews/:id', (req, res) => {
     console.log('pull data request received params', req.params);
-    db.pullFromDB((err, data) => {
+    db.pullFromDB(`SELECT * FROM REVIEWS WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
         if (err) console.log(err);
         res.send(data);
-    }, req.params.id)
+    })
 })
-app.post('/helpfulEvent/:is_helpful', (req, res) => {
-    console.log('helpful post received');
+app.post('/helpfulEvent/:is_helpful/id/:id', (req, res) => {
+    console.log('helpful post received', req.params);
+    db.postToDB(`UPDATE Reviews SET is_helpful = ${req.params.is_helpful} WHERE id = ${req.params.id};`, (err, result) => {
+        if (err) console.log(err);
+        res.send(result);
+    })
 })
 
 app.set('port', port);
