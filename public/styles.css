@@ -7,16 +7,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    display: inline-block;
+    display: inline;
 }
-#helpHovered {
+.helpHovered {
     background-color: red;
+    margin: 0 0 0 0;
 }
 #reviewContainer {
     font-family: 'Open Sans', sans-serif;
+    margin-bottom: 50;
+    border-bottom: 1px solid #000;
+}
+#reviewsContainer {
+    margin: 50px;
+    width: 500px;
+    justify-content: center;
 }
 #flagIcon {
     height: 1.5rem;
+    display: inline-block;
     width: 1.5rem;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -32,4 +41,13 @@
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' style='background:%23fff'%3E%3Ctitle%3Eicon/ic_upvote%3C/title%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cg transform='translate(3 3)");
     background-repeat: no-repeat;
     background-position: 50%;
+}
+#reportHelpful {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+#reportText {
+    margin-right: 20px;
 }

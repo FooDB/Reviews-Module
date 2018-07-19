@@ -40,7 +40,7 @@ class Review extends React.Component {
         this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more';
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
         return (
-            <div  id="reviewContainer">
+            <div id="reviewContainer">
                 <div>
                     <div>
                         <div><img className="img-Circle" src={this.props.review.userPhoto} /></div> 
@@ -70,22 +70,22 @@ class Review extends React.Component {
                 <div>
                     <p id="reviewText">{this.state.reviewText}</p>
                 </div>
-                <div>
+                <div  id="reportHelpful">
                     <div>
                         <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
                     <div>
-                        <div>
+                        <span>
                             <div id="flagIcon"></div>
-                            <div id="reportText">Report</div>
-                        </div>
-                        <div id={helpHover} onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
+                            <span id="reportText">Report</span>
+                        </span>
+                        <span id={helpHover} onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
                         onMouseOver={() => this.setState({hoveronHelp: true})} 
                         onMouseLeave={() => this.setState({hoveronHelp: false})}
                         value={this.props.review.is_helpful}>
-                            <div id="upvoteIcon"><i></i></div>
-                            <div id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</div>
-                        </div>
+                            <span id="upvoteIcon" className={helpHover}>[ ] </span>
+                            <span id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</span>
+                        </span>
                     </div>
                 </div>
             </div>
