@@ -6,6 +6,11 @@ const ratingOptions = [1,2,3,4,5];
 const trueFalseOptions = [0,1];
 const noiseOptions = [0,1,2];
 
+const listRandomizer = (list) => {
+    let i = Math.floor(Math.random() * list.length);
+    return list[i];
+}
+
 const insertRestaurantData = () => {
     for (let i = 0; i < 100; i++) {
         let randName = faker.company.companyName();
@@ -31,9 +36,9 @@ const insertRestaurantData = () => {
             let randuserArea = faker.address.city();
             let randreviewText = faker.lorem.paragraphs();
             let randDate = (new Date()).toISOString().substring(0, 10);
-            let randNoise = noiseOptions[Math.floor(Math.random() * noiseOptions.length)];
-            let randRating = ratingOptions[Math.floor(Math.random() * ratingOptions.length)];
-            let randtrueFalse = trueFalseOptions[Math.floor(Math.random() * trueFalseOptions.length)];
+            let randNoise = listRandomizer(noiseOptions);
+            let randRating = listRandomizer(ratingOptions);
+            let randtrueFalse = listRandomizer(trueFalseOptions);
             db.con.query(`INSERT INTO Reviews 
             (userName, userPhoto, userArea, reviewText, is_recommended, dinedDate, 
             is_helpful, overallRating, foodRating, serviceRating, ambianceRating, valueRating, noise, rest_id) 
