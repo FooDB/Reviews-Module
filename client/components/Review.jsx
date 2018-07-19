@@ -36,7 +36,7 @@ class Review extends React.Component {
         this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more';
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
         return (
-            <div>
+            <div  id="reviewContainer">
                 <div>
                     <div>
                         <div><img className="img-Circle" src={this.props.review.userPhoto} /></div> 
@@ -63,7 +63,7 @@ class Review extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div id="reviewBodyContainer">
+                <div>
                     <p id="reviewText">{this.state.reviewText}</p>
                 </div>
                 <div>
@@ -72,11 +72,11 @@ class Review extends React.Component {
                     </div>
                     <div>
                         <div id="report" >
-                            <div id="flagImg"><i>Flag</i></div>
+                            <div id="flagIcon"></div>
                             <div id="reportText">Report</div>
                         </div>
                         <div id={helpHover} onClick={(e) => this.helpfulClick(e)} onMouseOver={() => this.setState({hoveronHelp: true})} onMouseLeave={() => this.setState({hoveronHelp: false})}>
-                            <div id="upvote"><i>Upvote</i></div>
+                            <div id="upvoteIcon"><i></i></div>
                             <div id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</div>
                         </div>
                     </div>
