@@ -19,9 +19,11 @@ class Review extends React.Component {
         }
     }
     helpfulClick(e) {
-        e.preventDefault();
         this.state.helpful = !this.state.helpful;
         this.setState({helpful: this.state.helpful});
+        axios.post(`/helpfulEvent/${this.props.review.is_helpful}`)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     }
     readMoreToggle(e) {
         e.preventDefault();
@@ -71,11 +73,14 @@ class Review extends React.Component {
                         <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
                     <div>
-                        <div id="report" >
+                        <div>
                             <div id="flagIcon"></div>
                             <div id="reportText">Report</div>
                         </div>
-                        <div id={helpHover} onClick={(e) => this.helpfulClick(e)} onMouseOver={() => this.setState({hoveronHelp: true})} onMouseLeave={() => this.setState({hoveronHelp: false})}>
+                        <div id={helpHover} onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
+                        onMouseOver={() => this.setState({hoveronHelp: true})} 
+                        onMouseLeave={() => this.setState({hoveronHelp: false})}
+                        value={this.props.review.is_helpful}>
                             <div id="upvoteIcon"><i></i></div>
                             <div id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</div>
                         </div>

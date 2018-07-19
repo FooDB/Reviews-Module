@@ -17,6 +17,9 @@ app.get('/reviews/:id', (req, res) => {
         res.send(data);
     }, req.params.id)
 })
+app.post('/helpfulEvent/:is_helpful', (req, res) => {
+    console.log('helpful post received');
+})
 
 app.set('port', port);
 app.listen(port);

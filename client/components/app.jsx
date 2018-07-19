@@ -13,10 +13,12 @@ class App extends React.Component {
     }
     pullDataById() {
         console.log('pulled data called');
-        axios.get(`/reviews/${86}`).then(res => {
+        axios.get(`/reviews/${86}`)
+        .then(res => {
             this.setState({reviews: res.data})
             console.log(res.data);
-        });
+        })
+        .catch(err => console.log(err));
     }
     render() {
         return (

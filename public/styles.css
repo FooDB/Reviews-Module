@@ -29,7 +29,7 @@
 #upvoteIcon {
     height: 1.5rem;
     width: 1.5rem;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24' height='24' viewBox='0 0…2' x='1' y='1' width='16' height='16' rx='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' style='background:%23fff'%3E%3Ctitle%3Eicon/ic_upvote%3C/title%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cg transform='translate(3 3)");
     background-repeat: no-repeat;
     background-position: 50%;
 }
