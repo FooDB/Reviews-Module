@@ -1,6 +1,6 @@
 const express = require('express');
 const parser = require('body-parser');
-const db = require('../databse/dataGenerator.js');
+const db = require('../database/db.js');
 
 const app = express();
 
@@ -9,7 +9,6 @@ const port = process.env.PORT || 3005;
 app.use(express.static('./public'));
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
-
 
 app.get('/reviews/:id', (req, res) => {
     console.log('pull data request received params', req.params);

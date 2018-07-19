@@ -41,3 +41,4 @@ CREATE TABLE Reviews (
     rest_id int NOT NULL,
     PRIMARY KEY (id)
 );
+-- mysql -u root -p < schema.sql

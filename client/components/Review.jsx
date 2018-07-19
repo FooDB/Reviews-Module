@@ -37,6 +37,7 @@ class Review extends React.Component {
         var helpHover, readMorePhrase;
         this.state.hoveronHelp ? helpHover = 'helpHovered' : helpHover = '';
         this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more';
+        if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
         return (
             <div>
                 <div>

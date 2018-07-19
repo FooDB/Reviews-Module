@@ -7,10 +7,10 @@
     "test": "jest",
     "build": "webpack -d --watch",
     "start": "nodemon ./server/server.js",
-    "seed": "./database/dataGenerator.js"
+    "seed": "node ./seed/dataGenerator.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Christopher Wildenradt",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
