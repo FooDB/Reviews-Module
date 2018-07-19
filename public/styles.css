@@ -15,12 +15,13 @@
 }
 #reviewContainer {
     font-family: 'Open Sans', sans-serif;
-    margin-bottom: 50;
+    padding-bottom: 18px;
+    margin: 10px;
     border-bottom: 1px solid #000;
 }
 #reviewsContainer {
     margin: 50px;
-    width: 500px;
+    width: 700px;
     justify-content: center;
 }
 #flagIcon {

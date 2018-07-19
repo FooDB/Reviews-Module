@@ -43,7 +43,7 @@ class Review extends React.Component {
             <div id="reviewContainer">
                 <div>
                     <div>
-                        <div><img className="img-Circle" src={this.props.review.userPhoto} /></div> 
+                        <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
                         <div>
                             <div id="authorArea">
                                 <span>

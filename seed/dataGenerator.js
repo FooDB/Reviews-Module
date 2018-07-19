@@ -39,12 +39,13 @@ const insertRestaurantData = () => {
             let randNoise = listRandomizer(noiseOptions);
             let randRating = listRandomizer(ratingOptions);
             let randtrueFalse = listRandomizer(trueFalseOptions);
+            let randUserReviewCount = Math.floor(Math.random * 50);
             db.con.query(`INSERT INTO Reviews 
             (userName, userPhoto, userArea, reviewText, is_recommended, dinedDate, 
-            is_helpful, overallRating, foodRating, serviceRating, ambianceRating, valueRating, noise, rest_id) 
+            is_helpful, overallRating, foodRating, serviceRating, ambianceRating, valueRating, noise, userReviewCount, rest_id) 
             VALUES ('${randUserName}', '${randuserPhotos}', '${randuserArea}', '${randreviewText}', ${randtrueFalse}
             , '${randDate}', ${randtrueFalse}, ${randRating}, ${randRating}, ${randRating}
-            , ${randRating}, ${randRating}, ${randNoise}, ${i});`, (err, result) => {
+            , ${randRating}, ${randRating}, ${randNoise}, ${randUserReviewCount}, ${i});`, (err, result) => {
                 if (err) console.log(err);
                 console.log(result);
             })

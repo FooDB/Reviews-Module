@@ -38,6 +38,7 @@ CREATE TABLE Reviews (
     ambianceRating int NOT NUll,
     valueRating int NOT NUll,
     noise int NOT NUll,
+    userReviewCount int NOT NULL,
     rest_id int NOT NULL,
     PRIMARY KEY (id)
 );
