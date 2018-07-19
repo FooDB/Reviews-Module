@@ -17,7 +17,7 @@ class App extends React.Component {
     }
     pullDataById() {
         console.log('pulled data called');
-        axios.get(`/pullData/${1}`).then(res => {
+        axios.get(`/reviews/${1}`).then(res => {
             this.setState({reviews: res.data})
             console.log(res.data);
         });

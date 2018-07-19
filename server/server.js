@@ -10,18 +10,14 @@ app.use(express.static('./public'));
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
-app.get('/insertData', (req, res) => {
-    db.insertRestaurantData()
-    console.log('get request received');
-    res.send('all good');
-})
-app.get('/pullData/:id', (req, res) => {
+
+app.get('/reviews/:id', (req, res) => {
     console.log('pull data request received params', req.params);
     db.pullFromDB((err, data) => {
+        if (err) console.log(err);
         res.send(data);
     }, req.params.id)
 })
-
 
 app.set('port', port);
 app.listen(port);

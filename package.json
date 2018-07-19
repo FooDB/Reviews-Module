@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build": "webpack -d --watch",
-    "start": "nodemon ./server/server.js"
+    "start": "nodemon ./server/server.js",
+    "seed" : "./database/dataGenerator.js"
   },
   "keywords": [],
   "author": "",
@@ -30,8 +31,10 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.1.0",
+    "eslint-config-airbnb-standard": "^2.1.6",
     "faker": "^4.1.0",
     "jest": "^22.3.0",
-    "supertest": "^3.1.0"
+    "supertest": "^3.1.0",
+    "nodemon": "^1.18.3"
   }
 }

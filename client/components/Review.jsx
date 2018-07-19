@@ -21,23 +21,18 @@ class Review extends React.Component {
             this.state.rating--;
         }
     }
-    helpfulClick() {
+    helpfulClick(e) {
+        e.preventDefault();
         this.state.helpful = !this.state.helpful;
         this.setState({helpful: this.state.helpful});
     }
-    readMoreToggle() {
+    readMoreToggle(e) {
+        e.preventDefault();
         this.setState({readMoreClicked: !this.state.readMoreClicked})
         this.state.reviewText.length < 301 
         ? this.setState({reviewText: this.props.review.reviewText}) 
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
-    // getRating() {
-    //     console.log('getrating called')
-    //     var source;
-    //     this.state.rating > 0 ? source = "./images/star-16.png" : source = "./images/unfilled_star.png"
-    //     this.state.rating--;
-    //     return source
-    // }
     render() {
         var helpHover, readMorePhrase;
         this.state.hoveronHelp ? helpHover = 'helpHovered' : helpHover = '';
@@ -75,14 +70,14 @@ class Review extends React.Component {
                 </div>
                 <div>
                     <div>
-                        <a id="readMore" href="#" onClick={() => this.readMoreToggle()}>{readMorePhrase}</a>
+                        <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
                     <div>
                         <div id="report" >
                             <div id="flagImg"><i>Flag</i></div>
                             <div id="reportText">Report</div>
                         </div>
-                        <div id={helpHover} onClick={() => this.helpfulClick()} onMouseOver={() => this.setState({hoveronHelp: true})} onMouseLeave={() => this.setState({hoveronHelp: false})}>
+                        <div id={helpHover} onClick={(e) => this.helpfulClick(e)} onMouseOver={() => this.setState({hoveronHelp: true})} onMouseLeave={() => this.setState({hoveronHelp: false})}>
                             <div id="upvote"><i>Upvote</i></div>
                             <div id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</div>
                         </div>
