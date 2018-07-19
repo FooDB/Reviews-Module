@@ -1,17 +1,18 @@
+require('dotenv').config()
+const dotEnv = console.log(require('dotenv').config())
 const mysql = require('mysql');
 const faker = require('faker');
-const env = require('dotenv').config()
 
 const con = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'mysqlsucks',
-    database: 'reviews'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE
 })
 
 const ratingOptions = [1,2,3,4,5];
 const trueFalseOptions = [0,1];
-const noiseOptions = [0, 1, 2];
+const noiseOptions = [0,1,2];
 
 const insertRestaurantData = () => {
     for (let i = 0; i < 100; i++) {
@@ -52,12 +53,12 @@ const insertRestaurantData = () => {
             })
         }
     }
-    
+
 }
 
 const pullFromDB = (cb, id) => {
     con.query(`SELECT * FROM REVIEWS WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${id});`, (err, data) => {
-        if (err) console.log(err);
+        if (err) console.log(err, 'err');
         console.log(data);
         cb(null, data)
     })

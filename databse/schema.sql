@@ -11,14 +11,14 @@ CREATE TABLE Restaurant (
 
 CREATE TABLE Filters (
     id int NOT NULL AUTO_INCREMENT,
-    filterPhrase VARCHAR(30) NOT NULL,
+    filterKeyword VARCHAR(30) NOT NULL,
     rest_id int NOT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE LovedFor (
     id int NOT NULL AUTO_INCREMENT,
-    things VARCHAR(30) NOT NULL,
+    menuItem VARCHAR(30) NOT NULL,
     rest_id int NOT NULL,
     PRIMARY KEY (id)
 );
@@ -29,9 +29,9 @@ CREATE TABLE Reviews (
     userPhoto VARCHAR(400) NOT NULL,
     userArea VARCHAR(50) NOT NULL,
     reviewText VARCHAR(2000) NOT NULL,
-    recommended  boolean NOT NULL default 0,
+    is_recommended  boolean NOT NULL default 0,
     dinedDate DATE NOT NULL,
-    helpful boolean NOT NULL default 0,
+    is_helpful boolean NOT NULL default 0,
     overallRating int NOT NUll,
     foodRating int NOT NUll,
     serviceRating int NOT NUll,
