@@ -8,16 +8,13 @@ class Review extends React.Component {
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300),
             rating: this.props.review.overallRating,
-            stars: []
+            stars: [],
+            date: this.props.review.dinedDate.split('-')
         }
     }
     componentWillMount() {
         for (let i = 0; i < 5; i++) {
-            if (this.state.rating > 0) {
-                this.state.stars.push("./images/star-16.png")
-            } else {
-                this.state.stars.push("./images/unfilled_star.png")
-            }
+            this.state.rating > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
             this.state.rating--;
         }
     }
@@ -60,7 +57,7 @@ class Review extends React.Component {
                                 </span>
                                 <span>
                                     <span>{this.props.review.overallRating}.0 </span>
-                                    <span> Dined on {this.props.review.dinedDate}</span>
+                                    <span> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
                                 </span>
                             </div>
                         </div>
