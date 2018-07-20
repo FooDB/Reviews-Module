@@ -5,6 +5,7 @@ class Review extends React.Component {
         this.state = {
             hoveronHelp: false,
             helpful: false,
+            upvoteIcon: './images/whiteUpvote.png',
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300) + '...',
             rating: this.props.review.overallRating,
@@ -22,6 +23,7 @@ class Review extends React.Component {
     helpfulClick(e) {
         this.state.helpful = !this.state.helpful;
         this.setState({helpful: this.state.helpful});
+        this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
         this.props.review.is_helpful ? this.props.review.is_helpful = 0 : this.props.review.is_helpful = 1;
         axios.post(`/helpfulEvent/${this.props.review.is_helpful}/id/${this.props.review.id}`)
         .then(res => console.log(res))
@@ -82,13 +84,16 @@ class Review extends React.Component {
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
                         </span>
-                        <span id={helpHover} 
+                        <span className="flex" id={helpHover} 
                         onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
-                        onMouseOver={() => this.setState({hoveronHelp: true})} 
-                        onMouseLeave={() => this.setState({hoveronHelp: false})}
+                        onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                        onMouseLeave={() => {
+                            this.setState({hoveronHelp: false});
+                            this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+                        }}
                         value={this.props.review.is_helpful}>
-                            <span className="flex" ><img src="" /></span>
-                            <span className="flex">Helpful {this.state.helpful ? '(1)' : ''}</span>
+                            <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
+                            <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                         </span>
                     </div>
                 </div>
