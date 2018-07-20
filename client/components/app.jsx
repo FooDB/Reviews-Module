@@ -19,7 +19,8 @@ class App extends React.Component {
                 noise: 0,
                 recommended: 0
             },
-            is_filtered: false
+            is_filtered: false,
+            stars: []
         }
     }
     componentWillMount() {
@@ -53,6 +54,11 @@ class App extends React.Component {
                     recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
                 }
             })
+            // for (let i = 0; i < 5; i++) {
+            //     debugger;
+            //     this.state.ratings.totalAverage > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
+            // }
+            // this.setState({stars: this.state.stars})
         })
         .catch(err => console.log(err));
     }
@@ -72,6 +78,8 @@ class App extends React.Component {
             this.setState({reviews: filtered, is_filtered: !this.state.is_filtered});
         } else {
             this.setState({reviews: this.state.allReviews});
+            this.setState({is_filtered: !this.state.is_filtered})
+            console.log('filter reviews called', target);
         }
     }
     sortReviewsBySelect() {
@@ -87,11 +95,12 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div id="appMaster Container">
                 <ReviewSummary reviews={this.state.reviews} ratings={this.state.ratings}/>
                 <ReviewToolbar keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviews.bind(this)}/>
+                filterReviews={this.filterReviews.bind(this)}
+                stars={this.state.stars}/>
                 <ReviewList reviews={this.state.reviews}/>   
             </div>
         )
