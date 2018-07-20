@@ -18,10 +18,11 @@ class App extends React.Component {
                 valueAverage: 0,
                 noise: 0,
                 recommended: 0
-            }
+            },
+            is_filtered: false
         }
     }
-    componentDidMount() {
+    componentWillMount() {
         this.pullDataById()
         this.pullKeywordsById()
     }
@@ -30,7 +31,7 @@ class App extends React.Component {
         for (let i = 0; i < reviews.length; i++) {
             sum += reviews[i][criteria]
         }
-        return Number.parseFloat(sum / reviews.length).toFixed(3);
+        return Number.parseFloat(sum / reviews.length).toFixed(1);
     }
     pullDataById() {
         console.log('pulled data called');
@@ -49,7 +50,7 @@ class App extends React.Component {
                     ambianceAverage: this.getAverage(res.data, 'ambianceRating'),
                     valueAverage: this.getAverage(res.data, 'valueRating'),
                     noise: this.getAverage(res.data, 'noise'),
-                    recommended: (this.getAverage(res.data, 'is_recommended')) * 100
+                    recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
                 }
             })
         })
@@ -65,9 +66,13 @@ class App extends React.Component {
         .catch(err => console.log(err));      
     }
     filterReviews(target) {
-        console.log('filter reviews called', target);
-        let filtered = this.state.reviews.filter((x) => x.reviewText.includes('qui'))
-        this.setState({reviews: filtered});
+        if (!this.state.is_filtered) {
+            console.log('filter reviews called', target);
+            let filtered = this.state.reviews.filter((x) => x.reviewText.includes(target))
+            this.setState({reviews: filtered, is_filtered: !this.state.is_filtered});
+        } else {
+            this.setState({reviews: this.state.allReviews});
+        }
     }
     sortReviewsBySelect() {
         let sortMethod = document.getElementById('sortMethod').value;

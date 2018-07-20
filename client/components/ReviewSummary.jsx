@@ -8,9 +8,10 @@ class ReviewSummary extends React.Component {
     }
     componentWillMount() {
         for (let i = 0; i < 5; i++) {
-            this.props.ratings.totalAverage > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
-            this.props.ratings.totalAverage--;
+            this.state.overallRating > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
+            this.state.overallRating--;
         }
+        this.setState({stars: this.state.stars});
     }
     render() {
         let noiseLevel;
