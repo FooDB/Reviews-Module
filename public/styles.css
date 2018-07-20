@@ -50,10 +50,11 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    cursor: pointer;
 }
 #subReportHelpful {
     display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 #reportText {
     margin-right: 20px;
@@ -64,5 +65,12 @@
 }
 #authorArea {
     display: flex;
-    align-items: center;  
+    align-items: center;
+    margin-bottom: 10px;  
+}
+.ratingDate {
+    margin-left: 5px;
+}
+.flex {
+    display: flex;
 }

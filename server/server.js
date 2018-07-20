@@ -12,7 +12,14 @@ app.use(parser.urlencoded({extended: true}));
 
 app.get('/reviews/:id', (req, res) => {
     console.log('pull data request received params', req.params);
-    db.pullFromDB(`SELECT * FROM REVIEWS WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
+    db.pullFromDB(`SELECT * FROM Reviews WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
+        if (err) console.log(err);
+        res.send(data);
+    })
+})
+app.get('/filterKeywords/:id', (req, res) => {
+    console.log('pull filter words request received params', req.params);
+    db.pullFromDB(`SELECT * FROM Filters WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
         if (err) console.log(err);
         res.send(data);
     })
