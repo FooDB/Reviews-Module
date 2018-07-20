@@ -64,6 +64,11 @@ class App extends React.Component {
         })
         .catch(err => console.log(err));      
     }
+    filterReviews(target) {
+        console.log('filter reviews called', target);
+        let filtered = this.state.reviews.filter((x) => x.reviewText.includes('qui'))
+        this.setState({reviews: filtered});
+    }
     sortReviewsBySelect() {
         let sortMethod = document.getElementById('sortMethod').value;
         if (sortMethod === 'Highest') {
@@ -79,7 +84,9 @@ class App extends React.Component {
         return (
             <div>
                 <ReviewSummary reviews={this.state.reviews} ratings={this.state.ratings}/>
-                <ReviewToolbar keyWords={this.state.keyWords} sortReviews={this.sortReviewsBySelect.bind(this)}/>
+                <ReviewToolbar keyWords={this.state.keyWords} 
+                sortReviews={this.sortReviewsBySelect.bind(this)}
+                filterReviews={this.filterReviews.bind(this)}/>
                 <ReviewList reviews={this.state.reviews}/>   
             </div>
         )

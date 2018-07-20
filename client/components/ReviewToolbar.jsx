@@ -20,7 +20,7 @@ class ReviewToolbar extends React.Component {
                 </div>
                 <div>Filters</div>
                 <div>
-                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id}/>)}
+                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id} filterReviews={this.props.filterReviews}/>)}
                 </div>
             </div>
         )

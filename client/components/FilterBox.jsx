@@ -7,7 +7,7 @@ class FilterBox extends React.Component {
     }
     render() {
         return (
-        <span>
+        <span onClick={() => this.props.filterReviews(this.props.keyWord.filterKeyword)} >
             <input type="checkbox" />
             <label>
                 <span>{this.props.keyWord.filterKeyword}</span>
