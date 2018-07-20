@@ -29,21 +29,27 @@
     "webpack": "^3.11.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^3.5.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^5.1.0",
     "eslint-config-airbnb-standard": "^2.1.6",
     "faker": "^4.1.0",
-    "jest": "^22.3.0",
-    "supertest": "^3.1.0",
-    "nodemon": "^1.18.3"
+    "jest": "^22.4.4",
+    "mocha": "2.3.3",
+    "nodemon": "^1.18.3",
+    "puppeteer": "^1.6.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "sinon": "1.17.3",
+    "supertest": "^3.1.0"
   },
-    "jest": {
-      "moduleNameMapper": {
-        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-          "<rootDir>/test/__mocks__/fileMock.js",
-        "\\.(css|less)$": "<rootDir>/public/styles.css"
-      }
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/public/styles.css"
     }
-  
+  }
 }

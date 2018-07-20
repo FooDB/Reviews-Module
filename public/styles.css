@@ -8,7 +8,9 @@
     align-items: center;
     justify-content: center;
     display: inline;
+    background-color: red;
 }
+
 .helpHovered {
     background-color: red;
     margin: 0 0 0 0;
@@ -48,6 +50,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    cursor: pointer;
 }
 #reportText {
     margin-right: 20px;

@@ -13,7 +13,7 @@ class App extends React.Component {
     }
     pullDataById() {
         console.log('pulled data called');
-        axios.get(`/reviews/${86}`)
+        axios.get(`/reviews/${3}`)
         .then(res => {
             this.setState({reviews: res.data})
             console.log(res.data);

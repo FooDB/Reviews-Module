@@ -37,15 +37,15 @@ const insertRestaurantData = () => {
             let randreviewText = faker.lorem.paragraphs();
             let randDate = (new Date()).toISOString().substring(0, 10);
             let randNoise = listRandomizer(noiseOptions);
-            let randRating = listRandomizer(ratingOptions);
+            let randRating = [listRandomizer(ratingOptions), listRandomizer(ratingOptions), listRandomizer(ratingOptions), listRandomizer(ratingOptions)]
             let randtrueFalse = listRandomizer(trueFalseOptions);
-            let randUserReviewCount = Math.floor(Math.random * 50);
+            let randUserReviewCount = Math.floor(Math.random() * 50);
             db.con.query(`INSERT INTO Reviews 
             (userName, userPhoto, userArea, reviewText, is_recommended, dinedDate, 
             is_helpful, overallRating, foodRating, serviceRating, ambianceRating, valueRating, noise, userReviewCount, rest_id) 
             VALUES ('${randUserName}', '${randuserPhotos}', '${randuserArea}', '${randreviewText}', ${randtrueFalse}
-            , '${randDate}', ${randtrueFalse}, ${randRating}, ${randRating}, ${randRating}
-            , ${randRating}, ${randRating}, ${randNoise}, ${randUserReviewCount}, ${i});`, (err, result) => {
+            , '${randDate}', ${randtrueFalse}, ${randRating[0]}, ${randRating[1]}, ${randRating[2]}
+            , ${randRating[3]}, ${randRating[0]}, ${randNoise}, ${randUserReviewCount}, ${i});`, (err, result) => {
                 if (err) console.log(err);
                 console.log(result);
             })

@@ -34,6 +34,9 @@ class Review extends React.Component {
         ? this.setState({reviewText: this.props.review.reviewText}) 
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
+    reportPopUp() {
+        
+    }
     render() {
         let helpHover, readMorePhrase;
         this.state.hoveronHelp ? helpHover = 'helpHovered' : helpHover = '';
@@ -43,28 +46,30 @@ class Review extends React.Component {
             <div id="reviewContainer">
                 <div>
                     <div>
-                        <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
-                        <div>
-                            <div id="authorArea">
-                                <span>
-                                    <span>{this.props.review.userName}</span>
-                                    <span> ({this.props.review.userArea})</span>
-                                </span>
+                        <span>
+                            <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
+                            <div>
+                                <div id="authorArea">
+                                    <span>
+                                        <span>{this.props.review.userName}</span>
+                                        <span> ({this.props.review.userArea})</span>
+                                    </span>
+                                </div>
+                                <div className="rating">
+                                    <div>
+                                        <span><img className="star" src={this.state.stars[0]} /></span>
+                                        <span><img className="star" src={this.state.stars[1]} /></span>
+                                        <span><img className="star" src={this.state.stars[2]} /></span>
+                                        <span><img className="star" src={this.state.stars[3]} /></span>
+                                        <span><img className="star" src={this.state.stars[4]} /></span>
+                                        <span> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
+                                    </div>
+                                    <div>
+                                        <span>Overall {this.props.review.overallRating} * Food {this.props.review.foodRating} * Service {this.props.review.serviceRating} * Ambiance {this.props.review.ambianceRating} </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="rating">
-                                <span>
-                                    <span><img className="star" src={this.state.stars[0]} /></span>
-                                    <span><img className="star" src={this.state.stars[1]} /></span>
-                                    <span><img className="star" src={this.state.stars[2]} /></span>
-                                    <span><img className="star" src={this.state.stars[3]} /></span>
-                                    <span><img className="star" src={this.state.stars[4]} /></span>
-                                </span>
-                                <span>
-                                    <span>{this.props.review.overallRating}.0 </span>
-                                    <span> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
-                                </span>
-                            </div>
-                        </div>
+                        </span>
                     </div>
                 </div>
                 <div>
@@ -75,7 +80,7 @@ class Review extends React.Component {
                         <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
                     <div>
-                        <span>
+                        <span onClick={() => this.reportPopUp()}>
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
                         </span>
