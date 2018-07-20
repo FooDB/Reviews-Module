@@ -2,7 +2,8 @@ class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stars: []
+            stars: [],
+            overallRating: this.props.ratings.totalAverage
         }
     }
     componentWillMount() {
@@ -39,7 +40,7 @@ class ReviewSummary extends React.Component {
                                 </div>
                                 <div>
                                     <span>{this.props.ratings.totalAverage}</span>
-                                    <span>Based on Recent Ratings</span>
+                                    <span> Based on Recent Ratings</span>
                                 </div>
                             </div>
                             <div>
