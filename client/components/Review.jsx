@@ -51,7 +51,7 @@ class Review extends React.Component {
                                 <span>
                                     <span id="authorArea">
                                         <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
-                                        <span>{this.props.review.userName}</span>
+                                        <span>{this.props.review.userName} &nbsp;</span>
                                         <span> ({this.props.review.userArea})</span>
                                     </span>
                                 </span>
@@ -78,7 +78,7 @@ class Review extends React.Component {
                         <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
                     <div id="subReportHelpful">
-                        <span onClick={() => this.reportPopUp()}>
+                        <span className="flex" onClick={() => this.reportPopUp()}>
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
                         </span>
@@ -87,8 +87,8 @@ class Review extends React.Component {
                         onMouseOver={() => this.setState({hoveronHelp: true})} 
                         onMouseLeave={() => this.setState({hoveronHelp: false})}
                         value={this.props.review.is_helpful}>
-                            <span id="upvoteIcon" className={helpHover}>[ ] </span>
-                            <span id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</span>
+                            <span className="flex" ><img src="" /></span>
+                            <span className="flex">Helpful {this.state.helpful ? '(1)' : ''}</span>
                         </span>
                     </div>
                 </div>
