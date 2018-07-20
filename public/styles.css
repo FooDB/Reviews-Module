@@ -52,6 +52,17 @@
     width: 100%;
     cursor: pointer;
 }
+#subReportHelpful {
+    display: flex;
+}
 #reportText {
     margin-right: 20px;
+}
+#starsAndDate {
+    display: flex;
+    align-items: center;
+}
+#authorArea {
+    display: flex;
+    align-items: center;  
 }

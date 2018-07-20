@@ -6,7 +6,7 @@ class Review extends React.Component {
             hoveronHelp: false,
             helpful: false,
             readMoreClicked: false,
-            reviewText: this.props.review.reviewText.slice(0, 300),
+            reviewText: this.props.review.reviewText.slice(0, 300) + '...',
             rating: this.props.review.overallRating,
             stars: [],
             date: this.props.review.dinedDate.split('-')
@@ -48,15 +48,15 @@ class Review extends React.Component {
                     <div>
                         <span>
                             <span>
-                                <span id="authorArea">
-                                    <span>
+                                <span>
+                                    <span id="authorArea">
                                         <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
                                         <span>{this.props.review.userName}</span>
                                         <span> ({this.props.review.userArea})</span>
                                     </span>
                                 </span>
                                 <div className="rating">
-                                    <span>
+                                    <span id="starsAndDate">
                                         <span><img className="star" src={this.state.stars[0]} /></span>
                                         <span><img className="star" src={this.state.stars[1]} /></span>
                                         <span><img className="star" src={this.state.stars[2]} /></span>
@@ -80,19 +80,19 @@ class Review extends React.Component {
                     <div>
                         <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
-                    <div>
-                        <span onClick={() => this.reportPopUp()}>
+                    <div id="subReportHelpful">
+                        {/* <span onClick={() => this.reportPopUp()}> */}
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
-                        </span>
-                        <span id={helpHover} 
+                        {/* </span> */}
+                        {/* <span id={helpHover} 
                         onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
                         onMouseOver={() => this.setState({hoveronHelp: true})} 
                         onMouseLeave={() => this.setState({hoveronHelp: false})}
-                        value={this.props.review.is_helpful}>
+                        value={this.props.review.is_helpful}> */}
                             <span id="upvoteIcon" className={helpHover}>[ ] </span>
                             <span id="helpfulText">Helpful {this.state.helpful ? '(1)' : ''}</span>
-                        </span>
+                        {/* </span> */}
                     </div>
                 </div>
             </div>
