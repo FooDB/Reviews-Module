@@ -2,10 +2,24 @@ class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            stars: []
+        }
+    }
+    componentWillMount() {
+        for (let i = 0; i < 5; i++) {
+            this.props.ratings.totalAverage > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
+            this.props.ratings.totalAverage--;
         }
     }
     render() {
+        let noiseLevel;
+        if (this.props.ratings.noise > 1) {
+            noiseLevel = 'Loud';
+        } else if (this.props.ratings.noise < 1 && this.props.ratings.noise > 0) {
+            noiseLevel = 'Moderate';
+        } else {
+            noiseLevel = 'Quiet';
+        }
         return (
             <div>
                 <div>
@@ -17,45 +31,45 @@ class ReviewSummary extends React.Component {
                             <div>Reviews can only be made by diners who have eaten at this restaurant</div>
                             <div>
                                 <div>
-                                    <span><img className="star" /></span>
-                                    <span><img className="star" /></span>
-                                    <span><img className="star" /></span>
-                                    <span><img className="star" /></span>
-                                    <span><img className="star" /></span>
+                                    <span><img className="star" src={this.state.stars[0]}/></span>
+                                    <span><img className="star" src={this.state.stars[1]}/></span>
+                                    <span><img className="star" src={this.state.stars[2]}/></span>
+                                    <span><img className="star" src={this.state.stars[3]}/></span>
+                                    <span><img className="star" src={this.state.stars[4]}/></span>
                                 </div>
                                 <div>
-                                    <span>4.8</span>
+                                    <span>{this.props.ratings.totalAverage}</span>
                                     <span>Based on Recent Ratings</span>
                                 </div>
                             </div>
                             <div>
                                 <div>
-                                    <div>4.8</div>
                                     <div>Food</div>
+                                    <div>{this.props.ratings.foodAverage}</div>
                                 </div>
                                 <div>
-                                    <div>4.5</div>
                                     <div>Service</div>
+                                    <div>{this.props.ratings.serviceAverage}</div>
                                 </div>
                                 <div>
-                                    <div>4.7</div>
                                     <div>Ambiance</div>
+                                    <div>{this.props.ratings.ambianceAverage}</div>
                                 </div>
                                 <div>
-                                    <div>4.3</div>
                                     <div>Value</div>
+                                    <div>{this.props.ratings.valueAverage}</div>
                                 </div>
                             </div>
                             <div>
                                 <div>
                                     <div><i>icon</i></div>
-                                    <div>Noise<span>Moderate</span></div>
+                                    <div>Noise <span> {noiseLevel}</span></div>
                                 </div>
                             </div>
                             <div>
                                 <div>
                                     <div><i>Icon</i></div>
-                                    <div>93% of people<span>Would recommend to Friend</span></div>
+                                    <div>{this.props.ratings.recommended}% of people <span> Would recommend to Friend</span></div>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +99,7 @@ class ReviewSummary extends React.Component {
                         </div>
                     </div>
 
-
+                
                     <div>
                         <div>
                             <div>Loved For <a>link</a><i></i></div>
