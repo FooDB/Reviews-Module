@@ -1,20 +1,10 @@
 class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            stars: [],
-            overallRating: this.props.ratings.totalAverage
-        }
-    }
-    componentWillMount() {
-        for (let i = 0; i < 5; i++) {
-            this.state.overallRating > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
-            this.state.overallRating--;
-        }
-        this.setState({stars: this.state.stars});
+
     }
     render() {
-        let noiseLevel;
+        let noiseLevel, starSource;
         if (this.props.ratings.noise > 1) {
             noiseLevel = 'Loud';
         } else if (this.props.ratings.noise < 1 && this.props.ratings.noise > 0) {
@@ -22,6 +12,7 @@ class ReviewSummary extends React.Component {
         } else {
             noiseLevel = 'Quiet';
         }
+        this.props.stars ? starSource = this.props.stars : starSource = ['','','','',''];
         return (
             <div>
                 <div>
@@ -33,11 +24,11 @@ class ReviewSummary extends React.Component {
                             <div>Reviews can only be made by diners who have eaten at this restaurant</div>
                             <div>
                                 <div>
-                                    <span><img className="star" src={this.state.stars[0]}/></span>
-                                    <span><img className="star" src={this.state.stars[1]}/></span>
-                                    <span><img className="star" src={this.state.stars[2]}/></span>
-                                    <span><img className="star" src={this.state.stars[3]}/></span>
-                                    <span><img className="star" src={this.state.stars[4]}/></span>
+                                    <span><img className="star" src={starSource[0]}/></span>
+                                    <span><img className="star" src={starSource[1]}/></span>
+                                    <span><img className="star" src={starSource[2]}/></span>
+                                    <span><img className="star" src={starSource[3]}/></span>
+                                    <span><img className="star" src={starSource[4]}/></span>
                                 </div>
                                 <div>
                                     <span>{this.props.ratings.totalAverage}</span>

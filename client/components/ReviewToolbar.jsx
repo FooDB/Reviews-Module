@@ -13,7 +13,7 @@ class ReviewToolbar extends React.Component {
                 <div id="toolbarSortText">Sort By</div>
                 <div id="sortSelection">
                     <select id="sortMethod" onChange={() => this.props.sortReviews()}>
-                        <option value="Newest"><strong>Newest</strong></option>
+                        <option value="Newest">Newest</option>
                         <option value="Highest">Highest Rating</option>
                         <option value="Lowest">Lowest Rating</option>
                     </select>

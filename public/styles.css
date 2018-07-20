@@ -115,10 +115,10 @@
     align-items: center;
 }
 .filterCheckBox:hover {
-    border: 2px red solid;
+    border: 1px red solid;
 }
 #filtersHeader {
     font-family: 'Open Sans', sans-serif;
-    padding: 0 0 10px 5px;
+    margin: 0 0 20px 5px;
     display: flex;
 }

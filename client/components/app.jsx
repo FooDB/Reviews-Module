@@ -53,17 +53,17 @@ class App extends React.Component {
                     noise: this.getAverage(res.data, 'noise'),
                     recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
                 }
+            }, () => {
+                for (let i = 0; i < 5; i++) {
+                    this.state.ratings.totalAverage > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+                    this.state.ratings.totalAverage--;
+                }
+                this.setState({stars: this.state.stars})
             })
-            // for (let i = 0; i < 5; i++) {
-            //     debugger;
-            //     this.state.ratings.totalAverage > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
-            // }
-            // this.setState({stars: this.state.stars})
         })
         .catch(err => console.log(err));
     }
     pullKeywordsById() {
-        console.log('pulled keywords called');
         axios.get(`/filterKeywords/${3}`)
         .then(res => {
             this.setState({keyWords: res.data})
@@ -73,14 +73,13 @@ class App extends React.Component {
     }
     filterReviews(target) {
         if (!this.state.is_filtered) {
-            console.log('filter reviews called', target);
             let filtered = this.state.reviews.filter((x) => x.reviewText.includes(target))
             this.setState({reviews: filtered, is_filtered: !this.state.is_filtered});
         } else {
             this.setState({reviews: this.state.allReviews});
             this.setState({is_filtered: !this.state.is_filtered})
-            console.log('filter reviews called', target);
         }
+        console.log('filter reviews called', target);
     }
     sortReviewsBySelect() {
         let sortMethod = document.getElementById('sortMethod').value;
@@ -96,7 +95,7 @@ class App extends React.Component {
     render() {
         return (
             <div id="appMaster Container">
-                <ReviewSummary reviews={this.state.reviews} ratings={this.state.ratings}/>
+                <ReviewSummary reviews={this.state.reviews} ratings={this.state.ratings} stars={this.state.stars}/>
                 <ReviewToolbar keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
                 filterReviews={this.filterReviews.bind(this)}

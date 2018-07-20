@@ -15,7 +15,7 @@ class Review extends React.Component {
     }
     componentWillMount() {
         for (let i = 0; i < 5; i++) {
-            this.state.rating > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
+            this.state.rating > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
             this.state.rating--;
         }
         if (this.props.review.is_helpful) this.setState({helpful: true});
