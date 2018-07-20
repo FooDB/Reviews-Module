@@ -64,5 +64,9 @@
 }
 #authorArea {
     display: flex;
-    align-items: center;  
+    align-items: center;
+    margin-bottom: 10px;  
+}
+.ratingDate {
+    margin-left: 5px;
 }
