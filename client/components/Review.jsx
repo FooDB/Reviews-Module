@@ -35,7 +35,7 @@ class Review extends React.Component {
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
     reportPopUp() {
-        
+
     }
     render() {
         let helpHover, readMorePhrase;
@@ -47,28 +47,29 @@ class Review extends React.Component {
                 <div>
                     <div>
                         <span>
-                            <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
-                            <div>
-                                <div id="authorArea">
+                            <span>
+                                <span id="authorArea">
                                     <span>
+                                        <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
                                         <span>{this.props.review.userName}</span>
                                         <span> ({this.props.review.userArea})</span>
                                     </span>
-                                </div>
+                                </span>
                                 <div className="rating">
-                                    <div>
+                                    <span>
                                         <span><img className="star" src={this.state.stars[0]} /></span>
                                         <span><img className="star" src={this.state.stars[1]} /></span>
                                         <span><img className="star" src={this.state.stars[2]} /></span>
                                         <span><img className="star" src={this.state.stars[3]} /></span>
                                         <span><img className="star" src={this.state.stars[4]} /></span>
+                                        <span>{this.props.review.overallRating}.0 </span>
                                         <span> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
-                                    </div>
-                                    <div>
-                                        <span>Overall {this.props.review.overallRating} * Food {this.props.review.foodRating} * Service {this.props.review.serviceRating} * Ambiance {this.props.review.ambianceRating} </span>
-                                    </div>
+                                    </span>
+                                    <span>
+                                        {/* <span>Overall {this.props.review.overallRating} * Food {this.props.review.foodRating} * Service {this.props.review.serviceRating} * Ambiance {this.props.review.ambianceRating} </span> */}
+                                    </span>
                                 </div>
-                            </div>
+                            </span>
                         </span>
                     </div>
                 </div>
@@ -84,7 +85,8 @@ class Review extends React.Component {
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
                         </span>
-                        <span id={helpHover} onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
+                        <span id={helpHover} 
+                        onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
                         onMouseOver={() => this.setState({hoveronHelp: true})} 
                         onMouseLeave={() => this.setState({hoveronHelp: false})}
                         value={this.props.review.is_helpful}>
