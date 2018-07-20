@@ -12,15 +12,15 @@ class ReviewToolbar extends React.Component {
             <div>
                 <div>Sort By</div>
                 <div>
-                    <select>
-                        <option>Newest</option>
-                        <option>Highest Rating</option>
-                        <option>Lowest Rating</option>
+                    <select id="sortMethod" onChange={() => this.props.sortReviews()}>
+                        <option value="Newest">Newest</option>
+                        <option value="Highest">Highest Rating</option>
+                        <option value="Lowest">Lowest Rating</option>
                     </select>
                 </div>
                 <div>Filters</div>
                 <div>
-                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} />)}
+                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id}/>)}
                 </div>
             </div>
         )
