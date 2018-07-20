@@ -34,11 +34,14 @@ class App extends React.Component {
         })
         .catch(err => console.log(err));      
     }
+    sortReviewsBySelect(sortMethod) {
+        console.log('sort called, sortmethod:', sortMethod);
+    }
     render() {
         return (
             <div>
                 <ReviewSummary reviews={this.state.reviews}/>
-                <ReviewToolbar keyWords={this.state.keyWords}/>
+                <ReviewToolbar keyWords={this.state.keyWords} sortMethod={this.sortReviewsBySelect.bind(this)}/>
                 <ReviewList reviews={this.state.reviews}/>   
             </div>
         )

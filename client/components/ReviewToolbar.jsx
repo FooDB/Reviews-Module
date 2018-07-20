@@ -1,3 +1,5 @@
+import FilterBox from './FilterBox.jsx';
+
 class ReviewToolbar extends React.Component {
     constructor(props) {
         super(props);
@@ -18,36 +20,7 @@ class ReviewToolbar extends React.Component {
                 </div>
                 <div>Filters</div>
                 <div>
-                    <span>
-                        <input type="checkbox" />
-                        <label>
-                            <span>Good For Groups</span>
-                        </label>
-                    </span>
-                    <span>
-                        <input type="checkbox" />
-                        <label>
-                            <span>KeyWord</span>
-                        </label>
-                    </span>
-                    <span>
-                        <input type="checkbox" />
-                        <label>
-                            <span>KeyWord</span>
-                        </label>
-                    </span>
-                    <span>
-                        <input type="checkbox" />
-                        <label>
-                            <span>KeyWord</span>
-                        </label>
-                    </span>
-                    <span>
-                        <input type="checkbox" />
-                        <label>
-                            <span>KeyWord</span>
-                        </label>
-                    </span>
+                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} />)}
                 </div>
             </div>
         )
