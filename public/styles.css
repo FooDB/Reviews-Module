@@ -155,6 +155,7 @@
 #leftSummaryContainer {
     display: inline-block;
     margin: auto;
+    margin-bottom: 20px;
 }
 #reviewConditional {
     width: 290px;
@@ -178,7 +179,7 @@
     margin-bottom: 2rem;
     border-bottom: solid 1px #d8d9db;
 }
-#thumbsUpIcon {
+.summaryIcon {
     height: 1.125rem;
     width: 1.125rem;
 }

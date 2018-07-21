@@ -24,6 +24,13 @@ app.get('/filterKeywords/:id', (req, res) => {
         res.send(data);
     })
 })
+app.get('/LovedFor/:id', (req, res) => {
+    console.log('pull LovedFor words request received params', req.params);
+    db.pullFromDB(`SELECT * FROM LovedFor WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
+        if (err) console.log(err);
+        res.send(data);
+    })
+})
 app.post('/helpfulEvent/:is_helpful/id/:id', (req, res) => {
     console.log('helpful post received', req.params);
     db.postToDB(`UPDATE Reviews SET is_helpful = ${req.params.is_helpful} WHERE id = ${req.params.id};`, (err, result) => {

@@ -55,13 +55,13 @@ class ReviewSummary extends React.Component {
                             </div>
                             <div>
                                 <div className="inlineBlock">
-                                    <span><img id="thumbsUpIcon" src="./images/risingBars.png" /></span>
+                                    <span><img className="summaryIcon" src="./images/risingBars.png" /></span>
                                     <span>Noise &#8226;<span> {noiseLevel}</span></span>
                                 </div>
                             </div>
                             <div>
                                 <div className="inlineBlock">
-                                    <span><img id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
+                                    <span><img className="summaryIcon" src="./images/thumbsUp.png" /></span>
                                     <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
                                 </div>
                             </div>
@@ -95,14 +95,14 @@ class ReviewSummary extends React.Component {
                 
                     <div>
                         <div>
-                            <div><strong>Loved For </strong><a><img src="./images/infoIcon" /></a></div>
+                            <div><strong>Loved For </strong><a><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
                             <div>
                                 <a>
                                     <div>
                                         <div>
                                             <div><i>Icon</i></div>
                                             <div>
-                                                <div>Italian</div>
+                                                <div>{this.props.lovedFor[0].menuItem}</div>
                                                 <div>San Francisco</div>
                                             </div>
                                         </div>    

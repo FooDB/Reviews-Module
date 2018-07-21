@@ -11,6 +11,7 @@ class App extends React.Component {
             allReviews: [],
             filteredReviews: [],
             keyWords: [],
+            lovedFor: [],
             ratings: {
                 totalAverage: 0,
                 foodAverage: 0,
@@ -25,8 +26,9 @@ class App extends React.Component {
         }
     }
     componentWillMount() {
-        this.pullKeywordsById()
-        this.pullDataById()
+        this.pullKeywordsById();
+        this.pullMenuItemsById();
+        this.pullDataById();
     }
     getAverage(reviews, criteria) {
         let sum = 0;
@@ -58,7 +60,6 @@ class App extends React.Component {
                 let totalAverageCopy = this.state.ratings.totalAverage
                 let starsToGo = false;
                 for (let i = 0; i < 5; i++) {
-
                     if (totalAverageCopy - 1 < 0 && !starsToGo) {
                         totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
                         totalAverageCopy--;
@@ -80,7 +81,15 @@ class App extends React.Component {
             this.setState({keyWords: res.data})
             console.log(res.data);
         })
-        .catch(err => console.log(err));      
+        .catch(err => console.log(err));   
+    }
+    pullMenuItemsById() {
+        axios.get(`/LovedFor/${3}`)
+        .then(res => {
+            this.setState({lovedFor: res.data})
+            console.log(res.data, 'lovedfordata');
+        })
+        .catch(err => console.log(err));    
     }
     filterReviews(target) {
         if (!this.state.is_filtered) {
@@ -106,12 +115,17 @@ class App extends React.Component {
     render() {
         return (
             <div id="appMasterContainer">
-                <ReviewSummary reviews={this.state.reviews} ratings={this.state.ratings} stars={this.state.stars}/>
-                <ReviewToolbar keyWords={this.state.keyWords} 
+                <ReviewSummary 
+                reviews={this.state.reviews} 
+                ratings={this.state.ratings} 
+                stars={this.state.stars}
+                lovedFor={this.state.lovedFor}/>
+                <ReviewToolbar 
+                keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviews.bind(this)}
-                stars={this.state.stars}/>
-                <ReviewList reviews={this.state.reviews}/>   
+                filterReviews={this.filterReviews.bind(this)}/>
+                <ReviewList 
+                reviews={this.state.reviews}/>   
             </div>
         )
     }
