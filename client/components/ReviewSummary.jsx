@@ -55,14 +55,14 @@ class ReviewSummary extends React.Component {
                             </div>
                             <div>
                                 <div className="inlineBlock">
-                                    <span><img id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
-                                    <span>Noise <span> {noiseLevel}</span></span>
+                                    <span><img id="thumbsUpIcon" src="./images/risingBars.png" /></span>
+                                    <span>Noise &#8226;<span> {noiseLevel}</span></span>
                                 </div>
                             </div>
                             <div>
                                 <div className="inlineBlock">
-                                    <div><i>Icon</i></div>
-                                    <div>{this.props.ratings.recommended}% of people <span> Would recommend to Friend</span></div>
+                                    <span><img id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
+                                    <span>{this.props.ratings.recommended}% of people <span> Would recommend to Friend</span></span>
                                 </div>
                             </div>
                         </div>

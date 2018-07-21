@@ -158,7 +158,7 @@
 }
 #leftSummaryContainer {
     display: inline-block;
-    margin: 50px;
+    margin: auto;
 }
 #reviewConditional {
     width: 290px;
