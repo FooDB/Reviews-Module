@@ -23,20 +23,20 @@ class ReviewSummary extends React.Component {
                             <div>Overall ratings and reviews</div>
                             <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
                             <div>
-                                <div className="summaryRating">
+                                <div className="summaryStarRating">
                                     <span><img className="star" src={starSource[0]}/></span>
                                     <span><img className="star" src={starSource[1]}/></span>
                                     <span><img className="star" src={starSource[2]}/></span>
                                     <span><img className="star" src={starSource[3]}/></span>
                                     <span><img className="star" src={starSource[4]}/></span>
                                 </div>
-                                <div className="summaryRating">
+                                <div className="summaryStarRating">
                                     <span> &nbsp; {this.props.ratings.totalAverage}</span>
                                     <span> Based on Recent Ratings</span>
                                 </div>
                             </div>
                             <div>
-                                <div className="summaryRating">
+                                <div className="summaryRating" id="summaryFirstRating">
                                     <div>Food</div>
                                     <div>{this.props.ratings.foodAverage}</div>
                                 </div>

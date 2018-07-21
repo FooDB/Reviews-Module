@@ -25,8 +25,8 @@ class App extends React.Component {
         }
     }
     componentWillMount() {
-        this.pullDataById()
         this.pullKeywordsById()
+        this.pullDataById()
     }
     getAverage(reviews, criteria) {
         let sum = 0;

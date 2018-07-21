@@ -1,9 +1,13 @@
 #appMasterContainer {
     font-family: 'Open Sans', sans-serif;
+    width: 640px;
+    padding: 0 1rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*** Syling for ReviewsFeed ***/
-.img-Circle {
+.imgCircle {
     width: 45px;
     height: 45px;
     margin-right: 0.5rem;
@@ -130,10 +134,23 @@
 
 
 /*** Summary Styles ***/
+.summaryStarRating {
+    display: inline-block;
+    margin: 5px;  
+    text-align: center;
+}
 .summaryRating {
     display: inline-block;
     margin: 5px;
+    flex-direction: column;
+    list-style: none;
+    padding: 0 0.5rem;
+    position: relative;
     text-align: center;
+    border-left: solid 1px #d8d9db;
+}
+#summaryFirstRating {
+    border-left: none;
 }
 #summaryToolbarContainer {
     display: inline-block;
