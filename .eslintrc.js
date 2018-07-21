@@ -1,12 +1,4 @@
-process.chdir(__dirname);
-module.exports = {
-  root: true,
-  parser: 'babel-eslint',
-  parserOptions: {
-    allowImportExportEverywhere: true,
-    codeFrame: false
-  },
-  extends: [
-    'airbnb-standard',
-  ],
+
+module.exports = {  
+  extends: '/Users/chris/code/reviewModule/Reviews-Module/node_modules/eslint-config-airbnb-standard/node_modules/eslint-config-airbnb/index.js'
 };

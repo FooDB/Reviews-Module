@@ -1,36 +1,58 @@
-## Customize the test machine
-machine:
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:8.11.3-browsers
+        environment:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: photo_gallery
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
 
-  timezone:
-    America/Los_Angeles # Set the timezone
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
 
-  javascript:
+    working_directory: ~/repo
 
-  # Override /etc/hosts
-  hosts:
-    circlehost: 127.0.0.1
-    dev.mycompany.com: 127.0.0.1
+    steps:
+      - checkout
 
+      - run:
+          name: install mysql
+          command: 'sudo apt install -y mysql-client'
+      # Download and cache dependencies
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
 
-## Customize checkout
-checkout:
-  post:
-    - git submodule sync
-    - git submodule update --init # use submodules
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
 
-## Customize dependencies
-dependencies:
-  pre:
-    - npm install coffeescript # install from a different package manager
+      - run: npm install
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: dependency-cache-{{ checksum "package.json" }}
 
-  override:
-    - bundle install: # note ':' here
-        timeout: 180 # fail if command has no output for 3 minutes
-        # IMPORTANT NOTE: ^^ the timeout modifier above must be
-        # double indented (four spaces) from the previous line
-  
-  # we automatically cache and restore many dependencies between
-  # builds. If you need to, you can add custom paths to cache:
-  cache_directories:
-    - "custom_1"   # relative to the build directory
-    - "~/custom_2" # relative to the user's home directory
+      - run:
+          name: Mysql database setup
+          command: npm run reset-db-ci
+
+      - run:
+          command: npm start
+          background: true
+
+      # run tests!
+      - run: npm run test
