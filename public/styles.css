@@ -1,4 +1,6 @@
-
+#appMasterContainer {
+    font-family: 'Open Sans', sans-serif;
+}
 
 /*** Syling for ReviewsFeed ***/
 .img-Circle {
@@ -44,9 +46,7 @@
 #upvoteIcon {
     height: 1.5rem;
     width: 1.5rem;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' style='background:%23fff'%3E%3Ctitle%3Eicon/ic_upvote%3C/title%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M0 0h24v24H0z'/%3E%3Cg transform='translate(3 3)");
-    background-repeat: no-repeat;
-    background-position: 50%;
+    display: flex;
 }
 #reportHelpful {
     display: flex;
@@ -66,14 +66,82 @@
     display: flex;
     align-items: center;
 }
-#authorArea {
-    display: flex;
+.authorArea {
+    display: inline-block;
     align-items: center;
     margin-bottom: 10px;  
+    vertical-align: top;
 }
 .ratingDate {
     margin-left: 5px;
 }
 .flex {
     display: flex;
+}
+
+/*** Styles for Review Toolbar ***/
+#sortMethod {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0.25rem;
+    font-family: 'Open Sans', sans-serif;
+    -webkit-appearance: menulist-button;
+    height: 30px;
+    width: 300px;
+}
+#toolbarSortText {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    display: flex;
+    font-family: 'Open Sans', sans-serif;
+    padding: .5rem;
+}
+#sortSelection {
+    padding: 0 0 .5rem 0;
+    display: flex;
+    margin-left: 7px;
+}
+#toolbarContainer {
+    margin: 50px;
+    width: 700px;
+    justify-content: center; 
+}
+.filterCheckBox {
+    padding: 1.0rem;
+    border: 1px solid;
+    margin: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+.filterCheckBox:hover {
+    border: 1px red solid;
+}
+#filtersHeader {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 0 20px 5px;
+    display: flex;
+}
+
+
+/*** Summary Styles ***/
+.summaryRating {
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+}
+#summaryToolbarContainer {
+    display: inline-block;
+
+}
+#leftSummaryContainer {
+    display: inline-block;
+    margin: 50px;
+}
+#reviewConditional {
+    width: 290px;
+}
+.inlineBlock {
+    display: inline-block;
 }

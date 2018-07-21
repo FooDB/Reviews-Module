@@ -15,20 +15,22 @@ const insertRestaurantData = () => {
     for (let i = 0; i < 100; i++) {
         let randName = faker.company.companyName();
         let randArea = faker.address.county();
-        let filterKeyWord = faker.commerce.product();
-
+        
         db.con.query(`INSERT INTO Restaurant (restaurantName, restaurantArea) VALUES ('${randName}', '${randArea}');`, (err, result) => {
             if (err) console.log(err);
             console.log(result);
         })
-        db.con.query(`INSERT INTO Filters (filterKeyword, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
-            if (err) console.log(err);
-            console.log(result);
-        })
-        db.con.query(`INSERT INTO LovedFor (menuItem, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
-            if (err) console.log(err);
-            console.log(result);
-        })
+        for (let j = 0; j < 5; j++) {
+            let filterKeyWord = faker.lorem.paragraph().split(' ')[2];
+            db.con.query(`INSERT INTO Filters (filterKeyword, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
+                if (err) console.log(err);
+                console.log(result);
+            })
+            db.con.query(`INSERT INTO LovedFor (menuItem, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
+                if (err) console.log(err);
+                console.log(result);
+            })
+        }
         let reviewCount = Math.random() * 300;
         for (let j = 0; j < reviewCount; j++) {
             let randUserName = faker.name.findName();

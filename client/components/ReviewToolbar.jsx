@@ -9,18 +9,18 @@ class ReviewToolbar extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div>Sort By</div>
-                <div>
+            <div id="toolbarContainer">
+                <div id="toolbarSortText">Sort By</div>
+                <div id="sortSelection">
                     <select id="sortMethod" onChange={() => this.props.sortReviews()}>
                         <option value="Newest">Newest</option>
                         <option value="Highest">Highest Rating</option>
                         <option value="Lowest">Lowest Rating</option>
                     </select>
                 </div>
-                <div>Filters</div>
+                <div id="filtersHeader">Filters</div>
                 <div>
-                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id}/>)}
+                    {this.props.keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id} filterReviews={this.props.filterReviews}/>)}
                 </div>
             </div>
         )

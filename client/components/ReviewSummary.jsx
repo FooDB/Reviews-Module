@@ -1,19 +1,10 @@
 class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            stars: [],
-            overallRating: this.props.ratings.totalAverage
-        }
-    }
-    componentWillMount() {
-        for (let i = 0; i < 5; i++) {
-            this.props.ratings.totalAverage > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
-            this.props.ratings.totalAverage--;
-        }
+
     }
     render() {
-        let noiseLevel;
+        let noiseLevel, starSource;
         if (this.props.ratings.noise > 1) {
             noiseLevel = 'Loud';
         } else if (this.props.ratings.noise < 1 && this.props.ratings.noise > 0) {
@@ -21,60 +12,61 @@ class ReviewSummary extends React.Component {
         } else {
             noiseLevel = 'Quiet';
         }
+        this.props.stars ? starSource = this.props.stars : starSource = ['','','','',''];
         return (
-            <div>
+            <div id="reviewSummaryContainer">
                 <div>
                     <div><h1>What {this.props.reviews.length} People Are Saying</h1></div>
 
                     <div>
-                        <div>
+                        <div id="leftSummaryContainer">
                             <div>Overall ratings and reviews</div>
-                            <div>Reviews can only be made by diners who have eaten at this restaurant</div>
+                            <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
                             <div>
-                                <div>
-                                    <span><img className="star" src={this.state.stars[0]}/></span>
-                                    <span><img className="star" src={this.state.stars[1]}/></span>
-                                    <span><img className="star" src={this.state.stars[2]}/></span>
-                                    <span><img className="star" src={this.state.stars[3]}/></span>
-                                    <span><img className="star" src={this.state.stars[4]}/></span>
+                                <div className="summaryRating">
+                                    <span><img className="star" src={starSource[0]}/></span>
+                                    <span><img className="star" src={starSource[1]}/></span>
+                                    <span><img className="star" src={starSource[2]}/></span>
+                                    <span><img className="star" src={starSource[3]}/></span>
+                                    <span><img className="star" src={starSource[4]}/></span>
                                 </div>
-                                <div>
-                                    <span>{this.props.ratings.totalAverage}</span>
+                                <div className="summaryRating">
+                                    <span> &nbsp; {this.props.ratings.totalAverage}</span>
                                     <span> Based on Recent Ratings</span>
                                 </div>
                             </div>
                             <div>
-                                <div>
+                                <div className="summaryRating">
                                     <div>Food</div>
                                     <div>{this.props.ratings.foodAverage}</div>
                                 </div>
-                                <div>
+                                <div className="summaryRating">
                                     <div>Service</div>
                                     <div>{this.props.ratings.serviceAverage}</div>
                                 </div>
-                                <div>
+                                <div className="summaryRating">
                                     <div>Ambiance</div>
                                     <div>{this.props.ratings.ambianceAverage}</div>
                                 </div>
-                                <div>
-                                    <div>Value</div>
-                                    <div>{this.props.ratings.valueAverage}</div>
+                                <div className="summaryRating">
+                                    <span>Value</span>
+                                    <span>{this.props.ratings.valueAverage}</span>
                                 </div>
                             </div>
                             <div>
-                                <div>
-                                    <div><i>icon</i></div>
-                                    <div>Noise <span> {noiseLevel}</span></div>
+                                <div className="inlineBlock">
+                                    <span><i>icon</i></span>
+                                    <span>Noise <span> {noiseLevel}</span></span>
                                 </div>
                             </div>
                             <div>
-                                <div>
+                                <div className="inlineBlock">
                                     <div><i>Icon</i></div>
                                     <div>{this.props.ratings.recommended}% of people <span> Would recommend to Friend</span></div>
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div id="summaryToolbarContainer">
                             <div>
                                 <div>
                                     <span>5</span>

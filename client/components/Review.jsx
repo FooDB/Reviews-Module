@@ -5,6 +5,7 @@ class Review extends React.Component {
         this.state = {
             hoveronHelp: false,
             helpful: false,
+            upvoteIcon: './images/whiteUpvote.png',
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300) + '...',
             rating: this.props.review.overallRating,
@@ -14,7 +15,7 @@ class Review extends React.Component {
     }
     componentWillMount() {
         for (let i = 0; i < 5; i++) {
-            this.state.rating > 0 ? this.state.stars.push("./images/star-16.png") : this.state.stars.push("./images/unfilled_star.png");
+            this.state.rating > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
             this.state.rating--;
         }
         if (this.props.review.is_helpful) this.setState({helpful: true});
@@ -22,6 +23,7 @@ class Review extends React.Component {
     helpfulClick(e) {
         this.state.helpful = !this.state.helpful;
         this.setState({helpful: this.state.helpful});
+        this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
         this.props.review.is_helpful ? this.props.review.is_helpful = 0 : this.props.review.is_helpful = 1;
         axios.post(`/helpfulEvent/${this.props.review.is_helpful}/id/${this.props.review.id}`)
         .then(res => console.log(res))
@@ -47,16 +49,16 @@ class Review extends React.Component {
                 <div>
                     <div>
                         <span>
-                            <span>
-                                <span>
-                                    <span id="authorArea">
-                                        <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
+                            <div>
+                                <div className="authorArea">
+                                    <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
+                                </div>
+                                <div className="authorArea">
+                                    <div>
                                         <span>{this.props.review.userName} &nbsp;</span>
                                         <span> ({this.props.review.userArea})</span>
-                                    </span>
-                                </span>
-                                <div className="rating">
-                                    <span id="starsAndDate">
+                                    </div>
+                                    <div id="starsAndDate">
                                         <span><img className="star" src={this.state.stars[0]} /></span>
                                         <span><img className="star" src={this.state.stars[1]} /></span>
                                         <span><img className="star" src={this.state.stars[2]} /></span>
@@ -64,9 +66,9 @@ class Review extends React.Component {
                                         <span><img className="star" src={this.state.stars[4]} /></span>
                                         <span className="ratingDate"> {this.props.review.overallRating}.0 </span>
                                         <span className="ratingDate"> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
-                                    </span>
+                                    </div>
                                 </div>
-                            </span>
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -82,13 +84,16 @@ class Review extends React.Component {
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
                         </span>
-                        <span id={helpHover} 
+                        <span className="flex" id={helpHover} 
                         onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
-                        onMouseOver={() => this.setState({hoveronHelp: true})} 
-                        onMouseLeave={() => this.setState({hoveronHelp: false})}
+                        onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                        onMouseLeave={() => {
+                            this.setState({hoveronHelp: false});
+                            this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+                        }}
                         value={this.props.review.is_helpful}>
-                            <span className="flex" ><img src="" /></span>
-                            <span className="flex">Helpful {this.state.helpful ? '(1)' : ''}</span>
+                            <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
+                            <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                         </span>
                     </div>
                 </div>

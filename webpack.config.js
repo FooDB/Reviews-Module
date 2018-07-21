@@ -13,8 +13,14 @@ module.exports = {
         query: {
           presets: ['react', 'es2015', 'env']
         },
-      },
+      },      
+      {
+        test: /\.css$/,
+        include: SRC_DIR,
+        use: ['style-loader', 'css-loader']
+      }
     ],
+    
   },
   output: {
     path: __dirname + '/public',
