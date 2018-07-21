@@ -66,7 +66,7 @@
     display: flex;
     align-items: center;
 }
-#authorArea {
+.authorArea {
     display: inline-block;
     align-items: center;
     margin-bottom: 10px;  
@@ -125,3 +125,23 @@
 }
 
 
+/*** Summary Styles ***/
+.summaryRating {
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+}
+#summaryToolbarContainer {
+    display: inline-block;
+
+}
+#leftSummaryContainer {
+    display: inline-block;
+    margin: 50px;
+}
+#reviewConditional {
+    width: 290px;
+}
+.inlineBlock {
+    display: inline-block;
+}

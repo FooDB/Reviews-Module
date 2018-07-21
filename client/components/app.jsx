@@ -1,5 +1,5 @@
 import ReviewList from './ReviewList.jsx';
-// import '../../public/styles.css';
+import '../../public/styles.css';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
 
@@ -56,10 +56,13 @@ class App extends React.Component {
                 }
             }, () => {
                 let totalAverageCopy = this.state.ratings.totalAverage
+                let starsToGo = false;
                 for (let i = 0; i < 5; i++) {
-                    if (totalAverageCopy - 1 < 0) {
+
+                    if (totalAverageCopy - 1 < 0 && !starsToGo) {
                         totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
                         totalAverageCopy--;
+                        starsToGo = true
                         continue;
                     } else {
                         totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
