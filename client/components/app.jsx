@@ -91,15 +91,19 @@ class App extends React.Component {
         })
         .catch(err => console.log(err));    
     }
-    filterReviews(target) {
+    filterReviewsByKeyword(target) {
         if (!this.state.is_filtered) {
-            let filtered = this.state.reviews.filter((x) => x.reviewText.includes(target))
+            let filtered = this.state.reviews.filter((review) => review.reviewText.includes(target))
             this.setState({reviews: filtered, is_filtered: !this.state.is_filtered});
         } else {
             this.setState({reviews: this.state.allReviews});
             this.setState({is_filtered: !this.state.is_filtered})
         }
         console.log('filter reviews called', target);
+    }
+    filterReviewsByRating(target) {
+        let filtered = this.state.allReviews.filter((review) => review.overallRating === target);
+        this.setState({reviews: filtered});
     }
     sortReviewsBySelect() {
         let sortMethod = document.getElementById('sortMethod').value;
@@ -116,14 +120,16 @@ class App extends React.Component {
         return (
             <div id="appMasterContainer">
                 <ReviewSummary 
-                reviews={this.state.reviews} 
+                reviews={this.state.reviews}
+                length={this.state.allReviews.length} 
                 ratings={this.state.ratings} 
                 stars={this.state.stars}
-                lovedFor={this.state.lovedFor}/>
+                lovedFor={this.state.lovedFor}
+                filter={this.filterReviewsByRating.bind(this)}/>
                 <ReviewToolbar 
                 keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviews.bind(this)}/>
+                filterReviews={this.filterReviewsByKeyword.bind(this)}/>
                 <ReviewList 
                 reviews={this.state.reviews}/>   
             </div>

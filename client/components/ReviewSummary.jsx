@@ -18,7 +18,7 @@ class ReviewSummary extends React.Component {
         return (
             <div id="reviewSummaryContainer">
                 <div>
-                    <div className="summaryHeader">What {this.props.reviews.length} People Are Saying</div>
+                    <div className="summaryHeader">What {this.props.length} People Are Saying</div>
                     <div>
                         <div id="leftSummaryContainer">
                             <div>Overall ratings and reviews</div>
@@ -69,23 +69,23 @@ class ReviewSummary extends React.Component {
                         </div>
                         <div id="summaryToolbarContainer">
                             <div>
-                                <div>
+                                <div onClick={() => this.props.filter(5)}>
                                     <span>5</span>
                                     <span>toolbar<span></span></span>
                                 </div>
-                                <div>
+                                <div onClick={() => this.props.filter(4)}>
                                     <span>4</span>
                                     <span>toolbar<span></span></span>
                                 </div>
-                                <div>
+                                <div onClick={() => this.props.filter(3)}>
                                     <span>3</span>
                                     <span>toolbar<span></span></span>
                                 </div>
-                                <div>
+                                <div onClick={() => this.props.filter(2)}>
                                     <span>2</span>
                                     <span>toolbar<span></span></span>
                                 </div>
-                                <div>
+                                <div onClick={() => this.props.filter(1)}>
                                     <span>1</span>
                                     <span>toolbar<span></span></span>
                                 </div>
@@ -98,7 +98,7 @@ class ReviewSummary extends React.Component {
                         <div>
                             <div  id="lovedForContainer"><strong>Loved For </strong><a href="#"><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
                             <div >
-                                {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} />)}
+                                {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} key={item.id}/>)}
                             </div>
                         </div>
                     </div>
