@@ -31,9 +31,9 @@
     color: #2d333f;
 }
 #reviewsContainer {
-    margin: 50px;
+    /* margin: 50px;
     width: 700px;
-    justify-content: center;
+    justify-content: center; */
 }
 #flagIcon {
     height: 1.5rem;
@@ -108,9 +108,10 @@
     margin-left: 7px;
 }
 #toolbarContainer {
-    margin: 50px;
+    /* margin: 50px;
     width: 700px;
-    justify-content: center; 
+    justify-content: center;  */
+    margin-bottom: 2rem;
 }
 .filterCheckBox {
     padding: 1.0rem;
@@ -120,7 +121,8 @@
     align-items: center;
 }
 .filterCheckBox:hover {
-    border: 1px red solid;
+    border-color: transparent; /* remove the border's colour */
+    box-shadow: 0 0 0 2px red; /* emulate the border */
 }
 #filtersHeader {
     font-family: 'Open Sans', sans-serif;
@@ -150,7 +152,7 @@
 }
 #summaryToolbarContainer {
     display: inline-block;
-
+    line-height: 2.4
 }
 #leftSummaryContainer {
     display: inline-block;
@@ -185,4 +187,7 @@
 }
 #percentageRecommended {
     font-weight: bold;
+}
+#lovedForContainer {
+    margin-bottom: 3rem;
 }

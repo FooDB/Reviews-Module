@@ -1,3 +1,5 @@
+import LovedForBox from "./LovedForBox.jsx";
+
 class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
@@ -70,55 +72,34 @@ class ReviewSummary extends React.Component {
                             <div>
                                 <div>
                                     <span>5</span>
-                                    <div>toolbar<span></span></div>
+                                    <span>toolbar<span></span></span>
                                 </div>
                                 <div>
                                     <span>4</span>
-                                    <div>toolbar<span></span></div>
+                                    <span>toolbar<span></span></span>
                                 </div>
                                 <div>
                                     <span>3</span>
-                                    <div>toolbar<span></span></div>
+                                    <span>toolbar<span></span></span>
                                 </div>
                                 <div>
                                     <span>2</span>
-                                    <div>toolbar<span></span></div>
+                                    <span>toolbar<span></span></span>
                                 </div>
                                 <div>
                                     <span>1</span>
-                                    <div>toolbar<span></span></div>
+                                    <span>toolbar<span></span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 
-                    <div>
+                    <div id="lovedForContainer">
                         <div>
-                            <div><strong>Loved For </strong><a><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
-                            <div>
-                                <a>
-                                    <div>
-                                        <div>
-                                            <div><i>Icon</i></div>
-                                            <div>
-                                                <div>{this.props.lovedFor[0].menuItem}</div>
-                                                <div>San Francisco</div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                </a>
-                                <a>
-                                <div>
-                                    <div>
-                                        <div><i>icon</i></div>
-                                            <div>
-                                                <div>Italian</div>
-                                                <div>SF Bay Area</div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                </a>
+                            <div  id="lovedForContainer"><strong>Loved For </strong><a><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
+                            <div >
+                                {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} />)}
                             </div>
                         </div>
                     </div>
