@@ -62,7 +62,7 @@ class ReviewSummary extends React.Component {
                             <div>
                                 <div className="inlineBlock">
                                     <span><img id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
-                                    <span>{this.props.ratings.recommended}% of people <span> Would recommend to Friend</span></span>
+                                    <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@ class ReviewSummary extends React.Component {
                 
                     <div>
                         <div>
-                            <div>Loved For <a>link</a><i></i></div>
+                            <div><strong>Loved For </strong><a><img src="./images/infoIcon" /></a></div>
                             <div>
                                 <a>
                                     <div>
