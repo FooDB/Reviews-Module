@@ -49,16 +49,16 @@ class Review extends React.Component {
                 <div>
                     <div>
                         <span>
-                            <span>
-                                <span>
-                                    <span id="authorArea">
-                                        <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
+                            <div>
+                                <div className="authorArea">
+                                    <span><img className="img-Circle" src={this.props.review.userPhoto} /></span> 
+                                </div>
+                                <div className="authorArea">
+                                    <div>
                                         <span>{this.props.review.userName} &nbsp;</span>
                                         <span> ({this.props.review.userArea})</span>
-                                    </span>
-                                </span>
-                                <div className="rating">
-                                    <span id="starsAndDate">
+                                    </div>
+                                    <div id="starsAndDate">
                                         <span><img className="star" src={this.state.stars[0]} /></span>
                                         <span><img className="star" src={this.state.stars[1]} /></span>
                                         <span><img className="star" src={this.state.stars[2]} /></span>
@@ -66,9 +66,9 @@ class Review extends React.Component {
                                         <span><img className="star" src={this.state.stars[4]} /></span>
                                         <span className="ratingDate"> {this.props.review.overallRating}.0 </span>
                                         <span className="ratingDate"> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
-                                    </span>
+                                    </div>
                                 </div>
-                            </span>
+                            </div>
                         </span>
                     </div>
                 </div>

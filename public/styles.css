@@ -67,9 +67,10 @@
     align-items: center;
 }
 #authorArea {
-    display: flex;
+    display: inline-block;
     align-items: center;
     margin-bottom: 10px;  
+    vertical-align: top;
 }
 .ratingDate {
     margin-left: 5px;
@@ -122,3 +123,5 @@
     margin: 0 0 20px 5px;
     display: flex;
 }
+
+

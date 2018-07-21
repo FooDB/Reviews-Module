@@ -1,3 +1,4 @@
+import React from 'react';
 const request = require('supertest')('http://127.0.0.1:3005');
 import { shallow } from 'enzyme';
 import FilterBox from '../client/components/FilterBox';
@@ -34,6 +35,6 @@ describe('FilterBox', () => {
     it('should have a test state of 1', () => {
         const wrapper = shallow(<FilterBox />);
         const testState = wrapper.state().test;
-        expect(testState).to.equal(1);
+        expect(testState).toBe(1);
     })
 })

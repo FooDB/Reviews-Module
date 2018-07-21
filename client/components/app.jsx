@@ -1,4 +1,5 @@
 import ReviewList from './ReviewList.jsx';
+// import '../../public/styles.css';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
 
@@ -54,9 +55,16 @@ class App extends React.Component {
                     recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
                 }
             }, () => {
+                let totalAverageCopy = this.state.ratings.totalAverage
                 for (let i = 0; i < 5; i++) {
-                    this.state.ratings.totalAverage > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
-                    this.state.ratings.totalAverage--;
+                    if (totalAverageCopy - 1 < 0) {
+                        totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
+                        totalAverageCopy--;
+                        continue;
+                    } else {
+                        totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+                        totalAverageCopy--;
+                    }
                 }
                 this.setState({stars: this.state.stars})
             })
@@ -94,7 +102,7 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div id="appMaster Container">
+            <div id="appMasterContainer">
                 <ReviewSummary reviews={this.state.reviews} ratings={this.state.ratings} stars={this.state.stars}/>
                 <ReviewToolbar keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
