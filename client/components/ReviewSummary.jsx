@@ -19,7 +19,6 @@ class ReviewSummary extends React.Component {
             <div id="reviewSummaryContainer">
                 <div>
                     <div className="summaryHeader">What {this.props.reviews.length} People Are Saying</div>
-
                     <div>
                         <div id="leftSummaryContainer">
                             <div>Overall ratings and reviews</div>
@@ -39,29 +38,29 @@ class ReviewSummary extends React.Component {
                             </div>
                             <div>
                                 <div className="summaryRating" id="summaryFirstRating">
+                                    <div><strong>{this.props.ratings.foodAverage}</strong></div>
                                     <div>Food</div>
-                                    <div>{this.props.ratings.foodAverage}</div>
                                 </div>
                                 <div className="summaryRating">
+                                    <div><strong>{this.props.ratings.serviceAverage}</strong></div>
                                     <div>Service</div>
-                                    <div>{this.props.ratings.serviceAverage}</div>
                                 </div>
                                 <div className="summaryRating">
+                                    <div><strong>{this.props.ratings.ambianceAverage}</strong></div>
                                     <div>Ambiance</div>
-                                    <div>{this.props.ratings.ambianceAverage}</div>
                                 </div>
                                 <div className="summaryRating">
+                                    <div><strong>{this.props.ratings.valueAverage}</strong></div>
                                     <div>Value</div>
-                                    <div>{this.props.ratings.valueAverage}</div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
                                     <span><img className="summaryIcon" src="./images/risingBars.png" /></span>
                                     <span>Noise &#8226;<span> {noiseLevel}</span></span>
                                 </div>
                             </div>
-                            <div>
+                            <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
                                     <span><img className="summaryIcon" src="./images/thumbsUp.png" /></span>
                                     <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
@@ -97,7 +96,7 @@ class ReviewSummary extends React.Component {
                 
                     <div id="lovedForContainer">
                         <div>
-                            <div  id="lovedForContainer"><strong>Loved For </strong><a><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
+                            <div  id="lovedForContainer"><strong>Loved For </strong><a href="#"><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
                             <div >
                                 {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} />)}
                             </div>

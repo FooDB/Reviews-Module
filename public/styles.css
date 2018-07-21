@@ -152,7 +152,7 @@
 }
 #summaryToolbarContainer {
     display: inline-block;
-    line-height: 2.4
+    line-height: 2.95
 }
 #leftSummaryContainer {
     display: inline-block;
@@ -190,4 +190,7 @@
 }
 #lovedForContainer {
     margin-bottom: 3rem;
+}
+.summarySpacingContainer {
+    padding-top: 1rem;
 }
