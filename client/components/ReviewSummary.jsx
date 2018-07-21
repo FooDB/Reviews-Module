@@ -16,7 +16,7 @@ class ReviewSummary extends React.Component {
         return (
             <div id="reviewSummaryContainer">
                 <div>
-                    <div><h1>What {this.props.reviews.length} People Are Saying</h1></div>
+                    <div className="summaryHeader">What {this.props.reviews.length} People Are Saying</div>
 
                     <div>
                         <div id="leftSummaryContainer">
@@ -49,13 +49,13 @@ class ReviewSummary extends React.Component {
                                     <div>{this.props.ratings.ambianceAverage}</div>
                                 </div>
                                 <div className="summaryRating">
-                                    <span>Value</span>
-                                    <span>{this.props.ratings.valueAverage}</span>
+                                    <div>Value</div>
+                                    <div>{this.props.ratings.valueAverage}</div>
                                 </div>
                             </div>
                             <div>
                                 <div className="inlineBlock">
-                                    <span><i>icon</i></span>
+                                    <span><img id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
                                     <span>Noise <span> {noiseLevel}</span></span>
                                 </div>
                             </div>
