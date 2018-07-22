@@ -1,8 +1,9 @@
 import React from 'react';
 const request = require('supertest')('http://127.0.0.1:3005');
 import { shallow, mount } from 'enzyme';
-import App from '../client/components/App.jsx';
+// import App from '../client/components/App.jsx';
 import FilterBox from '../client/components/FilterBox.jsx'
+import LovedForBox from '../client/components/LovedForBox';
 describe('Server routes interact successfully', () => {
 
     it('expects a test of the testing suite to work', () => {
@@ -33,24 +34,35 @@ describe('Server routes interact successfully', () => {
 
 })
 describe('FilterBox', () => {
-    it('should have an empty box as the starting icon and switch to red on click', () => {
+    it('should start as an empty box icon and toggle to red on click', () => {
         const wrapper = mount(<FilterBox filterReviews={console.log.bind(this)} keyWord={{filterKeyword: ''}}/>);
         let testState = wrapper.state();
         expect(testState.icon).toBe('./images/emptyBox.png');
         expect(testState.clicked).toBe(false);
         wrapper.find('.filterCheckBox').simulate('click');
-        expect(testState.clicked).toBe(true);
         testState = wrapper.state();
+        expect(testState.clicked).toBe(true);
         expect(testState.icon).toBe('./images/redBox.png');
+        wrapper.find('.filterCheckBox').simulate('click');
+        testState = wrapper.state();
+        expect(testState.clicked).toBe(false);
+        expect(testState.icon).toBe('./images/emptyBox.png');
     })
 })
-// test('CheckboxWithLabel changes the text after click', () => {
-//     // Render a checkbox with label in the document
-//     const checkbox = shallow(<CheckboxWithLabel labelOn="On" labelOff="Off" />);
-  
-//     expect(checkbox.text()).toEqual('Off');
-  
-//     checkbox.find('input').simulate('change');
-  
-//     expect(checkbox.text()).toEqual('On');
+describe('lovedForBox', () => {
+    const component = mount(<LovedForBox lovedFor={{menuItem: 'Steak'}}/>);
+    it('should display the menuitem as text', () => {
+        expect(component.find('#menuItem').text()).toBe('Steak ');
+    })
+    it('should display the trophy icon as a clickable link', () => {
+        expect(component.html()).toBe("<a><span class=\"filterCheckBox\"><span><img class=\"star\" src=\"./images/trophy.png\"> </span><span id=\"menuItem\">Steak </span></span></a>");
+    })
+})
+// describe("<Logo />", () => {
+//     it("renders an image with src correctly", () => {
+//       const wrapper= shallow(<Logo src="yourlogo.png" />);
+//       expect(wrapper.html()).toEqual('<img src="yourlogo.png"/>'); // implement your ".toEqual(...)" to your Logo component result 
+//     });
 //   });
+//   const wrapper = mount(<Logo src="blah..."/>);
+// expect(wrapper.find({ prop: 'src' })).to.have.length(1);

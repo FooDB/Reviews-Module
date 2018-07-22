@@ -32,9 +32,7 @@
     color: #2d333f;
 }
 #reviewsContainer {
-    /* margin: 50px;
-    width: 700px;
-    justify-content: center; */
+
 }
 #flagIcon {
     height: 1.5rem;
@@ -109,9 +107,6 @@
     margin-left: 7px;
 }
 #toolbarContainer {
-    /* margin: 50px;
-    width: 700px;
-    justify-content: center;  */
     margin-bottom: 2rem;
 }
 .filterCheckBox {
@@ -122,8 +117,8 @@
     align-items: center;
 }
 .filterCheckBox:hover {
-    border-color: transparent; /* remove the border's colour */
-    box-shadow: 0 0 0 2px #da3743; /* emulate the border */
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #da3743;
 }
 #filtersHeader {
     font-family: 'Open Sans', sans-serif;
@@ -200,20 +195,6 @@
     margin-right: 0.5rem;
     width: 1rem;
     text-align: center;
-}
-.toolbarBox .toolbarBox:hover {
-    /* height: .25rem;
-    border: 1px solid #d8d9db;
-    /* padding-right: 232px; */
-    /* margin-left: 200px; */
-    /* width: 200px; */
-    /* box-sizing: border-box;
-    overflow: hidden;
-    margin-top: -1px;
-    margin-bottom: -2px; */ 
-    /* color: #000;
-    background-color: #f1f1f1;
-    display: inline-block; */
 }
 .toolbarAndNumber {
     cursor: pointer;
