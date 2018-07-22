@@ -1,3 +1,5 @@
+import React from 'react';
+import axios from 'axios';
 
 class Review extends React.Component {
     constructor(props) {
@@ -8,26 +10,26 @@ class Review extends React.Component {
             upvoteIcon: './images/whiteUpvote.png',
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300) + '...',
-            rating: this.props.review.overallRating,
             stars: [],
             date: this.props.review.dinedDate.split('-')
         }
     }
-    componentWillMount() {
+    componentDidMount() {
+        let initialRating = this.props.review.overallRating;
         for (let i = 0; i < 5; i++) {
-            this.state.rating > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
-            this.state.rating--;
+            initialRating > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+            initialRating--;
         }
         if (this.props.review.is_helpful) this.setState({helpful: true});
+        this.setState({stars: this.state.stars})
     }
-    helpfulClick(e) {
-        this.state.helpful = !this.state.helpful;
-        this.setState({helpful: this.state.helpful});
+    helpfulClick() {
+        this.setState({helpful: !this.state.helpful});
         this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
         this.props.review.is_helpful ? this.props.review.is_helpful = 0 : this.props.review.is_helpful = 1;
         axios.post(`/helpfulEvent/${this.props.review.is_helpful}/id/${this.props.review.id}`)
         .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
     readMoreToggle(e) {
         e.preventDefault();
@@ -40,9 +42,8 @@ class Review extends React.Component {
 
     }
     render() {
-        let helpHover, readMorePhrase;
-        this.state.hoveronHelp ? helpHover = 'helpHovered' : helpHover = '';
-        this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more';
+        let helpHover = (this.state.hoveronHelp ? 'helpHovered' : 'placeholder');
+        let readMorePhrase = (this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more');
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
         return (
             <div id="reviewContainer">
