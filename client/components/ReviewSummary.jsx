@@ -21,7 +21,7 @@ class ReviewSummary extends React.Component {
                     <div className="summaryHeader">What {this.props.length} People Are Saying</div>
                     <div>
                         <div id="leftSummaryContainer">
-                            <div>Overall ratings and reviews</div>
+                            <div><strong>Overall ratings and reviews</strong></div>
                             <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
                             <div>
                                 <div className="summaryStarRating">
@@ -69,25 +69,25 @@ class ReviewSummary extends React.Component {
                         </div>
                         <div id="summaryToolbarContainer">
                             <div>
-                                <div onClick={() => this.props.filter(5)}>
-                                    <span>5</span>
-                                    <span>toolbar<span></span></span>
+                                <div className="toolbarAndNumber" onClick={() => this.props.filter(5)}>
+                                    <span className="toolbarNumber">5</span>
+                                    <span className="toolbarBox">toolbar<span></span></span>
                                 </div>
-                                <div onClick={() => this.props.filter(4)}>
-                                    <span>4</span>
-                                    <span>toolbar<span></span></span>
+                                <div className="toolbarAndNumber" onClick={() => this.props.filter(4)}>
+                                    <span className="toolbarNumber">4</span>
+                                    <span className="toolbarBox">toolbar<span></span></span>
                                 </div>
-                                <div onClick={() => this.props.filter(3)}>
-                                    <span>3</span>
-                                    <span>toolbar<span></span></span>
+                                <div className="toolbarAndNumber" onClick={() => this.props.filter(3)}>
+                                    <span className="toolbarNumber">3</span>
+                                    <span className="toolbarBox">toolbar<span></span></span>
                                 </div>
-                                <div onClick={() => this.props.filter(2)}>
-                                    <span>2</span>
-                                    <span>toolbar<span></span></span>
+                                <div className="toolbarAndNumber" onClick={() => this.props.filter(2)}>
+                                    <span className="toolbarNumber">2</span>
+                                    <span className="toolbarBox">toolbar<span></span></span>
                                 </div>
-                                <div onClick={() => this.props.filter(1)}>
-                                    <span>1</span>
-                                    <span>toolbar<span></span></span>
+                                <div className="toolbarAndNumber" onClick={() => this.props.filter(1)}>
+                                    <span className="toolbarNumber">1</span>
+                                    <span className="toolbarBox">toolbar<span></span></span>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ class ReviewSummary extends React.Component {
                     </div>
 
 
-                    <div><a href="#">Best Restaurants</a></div>
+                    <div><a href="#">Best Restaurants in (restaurant area)</a></div>
                 </div>
             </div>
         )
