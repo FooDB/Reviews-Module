@@ -12,10 +12,7 @@ class ReviewSummary extends React.Component {
         console.log(this.props.allReviews)
         axios.get(`/reviews/${3}`)
         .then(res => {
-            this.setState({
-                reviews: res.data,
-                allReviews: res.data
-            })
+            this.state.allReviews = res.data
             let fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount;
             fiveStarCount=fourStarCount=threeStarCount=twoStarCount=oneStarCount=0;
             for (let i = 0; i < this.state.allReviews.length; i++) {
@@ -27,7 +24,7 @@ class ReviewSummary extends React.Component {
                 if (r === 5) fiveStarCount++;
             }
             const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
-            this.setState({percentages: counts.map(count => Math.round(count / this.state.reviews.length * 100) + '%')})
+            this.setState({percentages: counts.map(count => Math.round(count / this.state.allReviews.length * 100) + '%')})
         })
         .catch(err => console.log(err));
     }

@@ -10,7 +10,7 @@ jobs:
       - image: circleci/node:8.11.3-browsers
         environment:
           MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: photo_gallery
+          MYSQL_DB: reviews
           MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_PASSWORD:
