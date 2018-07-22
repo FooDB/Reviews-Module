@@ -1,9 +1,40 @@
 import LovedForBox from "./LovedForBox.jsx";
+import chartjs from 'chartjs';
+import {Bar} from 'react-chartjs-2';
 
 class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
 
+    }
+    componentDidMount() {
+        console.log(this.props.allReviews)
+        axios.get(`/reviews/${3}`)
+        .then(res => {
+            this.setState({
+                reviews: res.data,
+                allReviews: res.data
+            })
+            let fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount;
+            fiveStarCount=fourStarCount=threeStarCount=twoStarCount=oneStarCount=0;
+            for (let i = 0; i < this.state.allReviews.length; i++) {
+                let r = this.state.allReviews[i].overallRating;
+                if (r === 1) oneStarCount++;
+                if (r === 2) twoStarCount++;
+                if (r === 3) threeStarCount++;
+                if (r === 4) fourStarCount++;
+                if (r === 5) fiveStarCount++;
+            }
+            const counts = [0, fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
+            const percentages = counts.map(count => count / this.state.reviews.length * 100);
+            console.log(counts)
+            for (let i = 5; i > 0; i--) {
+                let el = document.getElementById('ratingBar' + i);
+                el.style.paddingRight = percentages[i] + "%";
+                el.style.backgroundColor = "red";
+            }
+        })
+        .catch(err => console.log(err));
     }
     render() {
         let noiseLevel, starSource;
@@ -18,7 +49,7 @@ class ReviewSummary extends React.Component {
         return (
             <div id="reviewSummaryContainer">
                 <div>
-                    <div className="summaryHeader">What {this.props.length} People Are Saying</div>
+                    <div className="summaryHeader">What {this.props.allReviews.length} People Are Saying</div>
                     <div>
                         <div id="leftSummaryContainer">
                             <div><strong>Overall ratings and reviews</strong></div>
@@ -57,7 +88,7 @@ class ReviewSummary extends React.Component {
                             <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
                                     <span><img className="summaryIcon" src="./images/risingBars.png" /></span>
-                                    <span>Noise &#8226;<span> {noiseLevel}</span></span>
+                                    <span><strong>Noise &#8226;</strong><span> {noiseLevel}</span></span>
                                 </div>
                             </div>
                             <div className="summarySpacingContainer">
@@ -71,28 +102,37 @@ class ReviewSummary extends React.Component {
                             <div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(5)}>
                                     <span className="toolbarNumber">5</span>
-                                    <span className="toolbarBox">toolbar<span></span></span>
+                                    <span className="toolbarBox"><span id="ratingBar5"></span></span>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(4)}>
                                     <span className="toolbarNumber">4</span>
-                                    <span className="toolbarBox">toolbar<span></span></span>
+                                    <span className="toolbarBox"><span id="ratingBar4"></span></span>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(3)}>
                                     <span className="toolbarNumber">3</span>
-                                    <span className="toolbarBox">toolbar<span></span></span>
+                                    <span className="toolbarBox"><span id="ratingBar3"></span></span>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(2)}>
                                     <span className="toolbarNumber">2</span>
-                                    <span className="toolbarBox">toolbar<span></span></span>
+                                    <span className="toolbarBox"><span id="ratingBar2"></span></span>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(1)}>
                                     <span className="toolbarNumber">1</span>
-                                    <span className="toolbarBox">toolbar<span></span></span>
+                                    <span className="toolbarBox"><span id="ratingBar1"></span></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    {/* <Bar data={  
+                        labels: ["January", "February", "March", "April", "May", "June", "July"],
+                        datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                        }]
+                        
+                    } /> */}
                 
                     <div id="lovedForContainer">
                         <div>

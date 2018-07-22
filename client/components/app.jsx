@@ -24,11 +24,14 @@ class App extends React.Component {
             is_filtered: false,
             stars: []
         }
-    }
-    componentWillMount() {
         this.pullKeywordsById();
         this.pullMenuItemsById();
         this.pullDataById();
+    }
+    componentDidMount() {
+        // this.pullKeywordsById();
+        // this.pullMenuItemsById();
+        // this.pullDataById();
     }
     getAverage(reviews, criteria) {
         let sum = 0;
@@ -121,7 +124,7 @@ class App extends React.Component {
             <div id="appMasterContainer">
                 <ReviewSummary 
                 reviews={this.state.reviews}
-                length={this.state.allReviews.length} 
+                allReviews={this.state.allReviews} 
                 ratings={this.state.ratings} 
                 stars={this.state.stars}
                 lovedFor={this.state.lovedFor}
