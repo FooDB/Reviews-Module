@@ -2,6 +2,7 @@ import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
+import Pagination from './Pagination.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class App extends React.Component {
         axios.get(`/reviews/${3}`)
         .then(res => {
             this.setState({
-                reviews: res.data,
+                reviews: res.data.slice(0,2),
                 allReviews: res.data
             })
             console.log(res.data);
@@ -116,10 +117,14 @@ class App extends React.Component {
         }
         this.setState({reviews: this.state.reviews})
     }
+    handlePageChange(page) {
+        console.log('pagechange called');
+        this.setState({reviews: this.state.allReviews.slice(page * 20, page * 20 + 20)})
+    }
     render() {
         return (
             <div id="appMasterContainer">
-                <ReviewSummary 
+                {/* <ReviewSummary 
                 reviews={this.state.reviews}
                 allReviews={this.state.allReviews} 
                 ratings={this.state.ratings} 
@@ -129,9 +134,12 @@ class App extends React.Component {
                 <ReviewToolbar 
                 keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                filterReviews={this.filterReviewsByKeyword.bind(this)}/> */}
                 <ReviewList 
                 reviews={this.state.reviews}/>   
+                <Pagination 
+                reviews={this.state.allReviews}
+                handlePageChange={this.handlePageChange.bind(this)}/>
             </div>
         )
     }
