@@ -1,7 +1,8 @@
 import React from 'react';
 const request = require('supertest')('http://127.0.0.1:3005');
-import { shallow } from 'enzyme';
-import FilterBox from '../client/components/FilterBox';
+import { shallow, mount } from 'enzyme';
+import App from '../client/components/App.jsx';
+import FilterBox from '../client/components/FilterBox.jsx'
 describe('Server routes interact successfully', () => {
 
     it('expects a test of the testing suite to work', () => {
@@ -31,10 +32,25 @@ describe('Server routes interact successfully', () => {
     // })
 
 })
-// describe('FilterBox', () => {
-//     it('should have a test state of 1', () => {
-//         const wrapper = shallow(<FilterBox />);
-//         const testState = wrapper.state().test;
-//         expect(testState).toBe(1);
-//     })
-// })
+describe('FilterBox', () => {
+    it('should have an empty box as the starting icon and switch to red on click', () => {
+        const wrapper = mount(<FilterBox filterReviews={console.log.bind(this)} keyWord={{filterKeyword: ''}}/>);
+        let testState = wrapper.state();
+        expect(testState.icon).toBe('./images/emptyBox.png');
+        expect(testState.clicked).toBe(false);
+        wrapper.find('.filterCheckBox').simulate('click');
+        expect(testState.clicked).toBe(true);
+        testState = wrapper.state();
+        expect(testState.icon).toBe('./images/redBox.png');
+    })
+})
+// test('CheckboxWithLabel changes the text after click', () => {
+//     // Render a checkbox with label in the document
+//     const checkbox = shallow(<CheckboxWithLabel labelOn="On" labelOff="Off" />);
+  
+//     expect(checkbox.text()).toEqual('Off');
+  
+//     checkbox.find('input').simulate('change');
+  
+//     expect(checkbox.text()).toEqual('On');
+//   });

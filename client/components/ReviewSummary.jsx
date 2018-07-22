@@ -1,3 +1,4 @@
+import React from 'react';
 import LovedForBox from "./LovedForBox.jsx";
 
 class ReviewSummary extends React.Component {

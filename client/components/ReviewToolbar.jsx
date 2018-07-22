@@ -1,3 +1,4 @@
+import React from 'react';
 import FilterBox from './FilterBox.jsx';
 
 class ReviewToolbar extends React.Component {

@@ -1,3 +1,4 @@
+import React from 'react';
 import Review from './Review.jsx';
 
 class ReviewList extends React.Component {
