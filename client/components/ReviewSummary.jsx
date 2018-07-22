@@ -1,11 +1,11 @@
 import LovedForBox from "./LovedForBox.jsx";
-import chartjs from 'chartjs';
-import {Bar} from 'react-chartjs-2';
 
 class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            percentages: ['0%', '0%', '0%', '0%', '0%']
+        }
     }
     componentDidMount() {
         console.log(this.props.allReviews)
@@ -25,14 +25,15 @@ class ReviewSummary extends React.Component {
                 if (r === 4) fourStarCount++;
                 if (r === 5) fiveStarCount++;
             }
-            const counts = [0, fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
-            const percentages = counts.map(count => count / this.state.reviews.length * 100);
-            console.log(counts)
-            for (let i = 5; i > 0; i--) {
-                let el = document.getElementById('ratingBar' + i);
-                el.style.paddingRight = percentages[i] + "%";
-                el.style.backgroundColor = "red";
-            }
+            const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
+            this.setState({percentages: counts.map(count => Math.round(count / this.state.reviews.length * 100) + '%')}, () => {
+
+                console.log(counts, this.state.percentages)
+            })
+            // for (let i = 5; i > 0; i--) {
+            //     let el = document.getElementById('ratingBar' + i);
+            //     el.style.width = percentages[i] + "%";
+            // }
         })
         .catch(err => console.log(err));
     }
@@ -51,6 +52,7 @@ class ReviewSummary extends React.Component {
                 <div>
                     <div className="summaryHeader">What {this.props.allReviews.length} People Are Saying</div>
                     <div>
+
                         <div id="leftSummaryContainer">
                             <div><strong>Overall ratings and reviews</strong></div>
                             <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
@@ -98,41 +100,42 @@ class ReviewSummary extends React.Component {
                                 </div>
                             </div>
                         </div>
+
                         <div id="summaryToolbarContainer">
                             <div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(5)}>
                                     <span className="toolbarNumber">5</span>
-                                    <span className="toolbarBox"><span id="ratingBar5"></span></span>
+                                    <div className="w3-light-grey">
+                                        <div className="w3-green" style={{width: this.state.percentages[4]}}></div>
+                                    </div>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(4)}>
                                     <span className="toolbarNumber">4</span>
-                                    <span className="toolbarBox"><span id="ratingBar4"></span></span>
+                                    <div className="w3-light-grey">
+                                        <div className="w3-green" style={{width: this.state.percentages[3]}}></div>
+                                    </div>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(3)}>
                                     <span className="toolbarNumber">3</span>
-                                    <span className="toolbarBox"><span id="ratingBar3"></span></span>
+                                    <div className="w3-light-grey">
+                                        <div className="w3-green" style={{width: this.state.percentages[2]}}></div>
+                                    </div>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => this.props.filter(2)}>
                                     <span className="toolbarNumber">2</span>
-                                    <span className="toolbarBox"><span id="ratingBar2"></span></span>
+                                    <div className="w3-light-grey">
+                                        <div className="w3-green" style={{width: this.state.percentages[1]}}></div>
+                                    </div>
                                 </div>
-                                <div className="toolbarAndNumber" onClick={() => this.props.filter(1)}>
+                                <div  className="toolbarAndNumber" onClick={() => this.props.filter(1)}>
                                     <span className="toolbarNumber">1</span>
-                                    <span className="toolbarBox"><span id="ratingBar1"></span></span>
+                                    <div className="w3-light-grey">
+                                        <div className="w3-green" style={{width: this.state.percentages[0]}}></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {/* <Bar data={  
-                        labels: ["January", "February", "March", "April", "May", "June", "July"],
-                        datasets: [{
-                        label: "My First dataset",
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: [0, 10, 5, 2, 20, 30, 45],
-                        }]
-                        
-                    } /> */}
                 
                     <div id="lovedForContainer">
                         <div>
@@ -142,7 +145,6 @@ class ReviewSummary extends React.Component {
                             </div>
                         </div>
                     </div>
-
 
                     <div><a href="#">Best Restaurants in (restaurant area)</a></div>
                 </div>

@@ -201,14 +201,19 @@
     width: 1rem;
     text-align: center;
 }
-.toolbarBox {
-    height: .25rem;
+.toolbarBox .toolbarBox:hover {
+    /* height: .25rem;
     border: 1px solid #d8d9db;
-    padding-right: 232px;
-    box-sizing: border-box;
+    /* padding-right: 232px; */
+    /* margin-left: 200px; */
+    /* width: 200px; */
+    /* box-sizing: border-box;
     overflow: hidden;
     margin-top: -1px;
-    margin-bottom: -2px;
+    margin-bottom: -2px; */ 
+    color: #000;
+    background-color: #f1f1f1;
+    display: inline-block;
 }
 .toolbarAndNumber {
     cursor: pointer;
@@ -219,4 +224,16 @@
 .toolbarAndNumber:hover > .toolbarBox {
     border-color: transparent; /* remove the border's colour */
     box-shadow: 0 0 0 2px red; /* emulate the border */
+}
+.w3-light-grey, .w3-hover-light-grey:hover {
+    color: #000;
+    background-color: #f1f1f1;
+    display: inline-block;
+    width: 232px;
+    height: 20px;
+}
+.w3-green, .w3-hover-green:hover {
+    color: #fff;
+    background-color: red;
+    height: 20px;
 }
