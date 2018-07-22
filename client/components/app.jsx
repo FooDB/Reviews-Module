@@ -23,7 +23,9 @@ class App extends React.Component {
                 recommended: 0
             },
             is_filtered: false,
-            stars: []
+            stars: [],
+            currentPage: 1,
+            totalPages: 0
         }
     }
     componentDidMount() {
@@ -43,8 +45,9 @@ class App extends React.Component {
         axios.get(`/reviews/${3}`)
         .then(res => {
             this.setState({
-                reviews: res.data.slice(0,2),
-                allReviews: res.data
+                reviews: res.data.slice(0,20),
+                allReviews: res.data,
+                totalPages: Math.floor(res.data.length / 20)
             })
             console.log(res.data);
             this.setState({
@@ -119,7 +122,10 @@ class App extends React.Component {
     }
     handlePageChange(page) {
         console.log('pagechange called');
-        this.setState({reviews: this.state.allReviews.slice(page * 20, page * 20 + 20)})
+        this.setState({
+            reviews: this.state.allReviews.slice((page - 1) * 20, page * 20),
+            currentPage: page
+        })
     }
     render() {
         return (
@@ -135,11 +141,13 @@ class App extends React.Component {
                 keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
                 filterReviews={this.filterReviewsByKeyword.bind(this)}/> */}
-                <ReviewList 
-                reviews={this.state.reviews}/>   
                 <Pagination 
                 reviews={this.state.allReviews}
-                handlePageChange={this.handlePageChange.bind(this)}/>
+                handlePageChange={this.handlePageChange.bind(this)}
+                currentPage={this.state.currentPage}
+                totalPages={this.state.totalPages}/>
+                <ReviewList 
+                reviews={this.state.reviews}/>   
             </div>
         )
     }

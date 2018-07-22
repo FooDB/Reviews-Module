@@ -8,32 +8,34 @@ class Pagination extends React.Component {
         }
     }
     render() {
+        let nextPageArrow = (this.props.currentPage === this.props.totalPages ? this.props.currentPage : this.props.currentPage + 1);
+        let previousPageArrow = (this.props.currentPage === 1 ? this.props.currentPage : this.props.currentPage - 1);
         return (
-            <div id="pagination container">
+            <div id="paginationContainer">
                 <span>
-                    <span>left arrow</span>
+                    <span className="paginationArrow" onClick={() => this.props.handlePageChange(previousPageArrow)}>{'<'}</span>
                 </span>
 
                 <span>
                     <span>
-                        <span>1</span>
+                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.currentPage - 1)}>{this.props.currentPage}</span>
                     </span>
                     <span>
-                        <span onClick={() => this.props.handlePageChange(2)}>2</span>
+                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 1)}>{this.props.currentPage + 1}</span>
                     </span>
                     <span>
-                        <span>3</span>
+                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 2)}>{this.props.currentPage + 2}</span>
                     </span>
                     <span>
-                        <span>...</span>
+                        <span className="paginationBubble">...</span>
                     </span>
                     <span>
-                        <span>53</span>
+                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.totalPages)}>{this.props.totalPages}</span>
                     </span>
                 </span>
-                
+
                 <span>
-                    <span>right arrow</span>
+                    <span className="paginationArrow" onClick={() => this.props.handlePageChange(nextPageArrow)}>{'>'}</span>
                 </span>
             </div>
         )
