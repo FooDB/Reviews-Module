@@ -1,9 +1,14 @@
 #appMasterContainer {
     font-family: 'Open Sans', sans-serif;
+    width: 640px;
+    padding: 0 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
 }
 
 /*** Syling for ReviewsFeed ***/
-.img-Circle {
+.imgCircle {
     width: 45px;
     height: 45px;
     margin-right: 0.5rem;
@@ -13,23 +18,23 @@
     align-items: center;
     justify-content: center;
     display: inline;
-    background-color: red;
+    background-color: #da3743;
 }
 
 .helpHovered {
-    background-color: red;
+    background-color: #da3743;
     margin: 0 0 0 0;
 }
 #reviewContainer {
-    font-family: 'Open Sans', sans-serif;
-    padding-bottom: 18px;
-    margin: 10px;
-    border-bottom: 1px solid #000;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 1px #d8d9db;
+    color: #2d333f;
 }
 #reviewsContainer {
-    margin: 50px;
+    /* margin: 50px;
     width: 700px;
-    justify-content: center;
+    justify-content: center; */
 }
 #flagIcon {
     height: 1.5rem;
@@ -104,9 +109,10 @@
     margin-left: 7px;
 }
 #toolbarContainer {
-    margin: 50px;
+    /* margin: 50px;
     width: 700px;
-    justify-content: center; 
+    justify-content: center;  */
+    margin-bottom: 2rem;
 }
 .filterCheckBox {
     padding: 1.0rem;
@@ -116,7 +122,8 @@
     align-items: center;
 }
 .filterCheckBox:hover {
-    border: 1px red solid;
+    border-color: transparent; /* remove the border's colour */
+    box-shadow: 0 0 0 2px #da3743; /* emulate the border */
 }
 #filtersHeader {
     font-family: 'Open Sans', sans-serif;
@@ -126,22 +133,108 @@
 
 
 /*** Summary Styles ***/
+.summaryStarRating {
+    display: inline-block;
+    margin: 5px;  
+    text-align: center;
+}
 .summaryRating {
     display: inline-block;
     margin: 5px;
+    flex-direction: column;
+    list-style: none;
+    padding: 0 0.5rem;
+    position: relative;
     text-align: center;
+    border-left: solid 1px #d8d9db;
+}
+#summaryFirstRating {
+    border-left: none;
 }
 #summaryToolbarContainer {
     display: inline-block;
-
+    /* line-height: 2.4; */
+    margin-left: 1.5rem;
 }
 #leftSummaryContainer {
     display: inline-block;
-    margin: 50px;
+    margin: auto;
+    margin-bottom: 20px;
 }
 #reviewConditional {
-    width: 290px;
+    width: 363px;
 }
 .inlineBlock {
     display: inline-block;
+}
+.summaryHeader {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.33;
+    color: rgb(45, 51, 63);
+    border-bottom: 1px solid rgb(216, 217, 219);
+    padding-bottom: 1rem;
+    margin: 0 0 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+#reviewSummaryContainer {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: solid 1px #d8d9db;
+}
+.summaryIcon {
+    height: 1.125rem;
+    width: 1.125rem;
+}
+#percentageRecommended {
+    font-weight: bold;
+}
+#lovedForContainer {
+    margin-bottom: 3rem;
+}
+.summarySpacingContainer {
+    padding-top: 1rem;
+}
+.toolbarNumber {
+    margin-right: 0.5rem;
+    width: 1rem;
+    text-align: center;
+}
+.toolbarBox .toolbarBox:hover {
+    /* height: .25rem;
+    border: 1px solid #d8d9db;
+    /* padding-right: 232px; */
+    /* margin-left: 200px; */
+    /* width: 200px; */
+    /* box-sizing: border-box;
+    overflow: hidden;
+    margin-top: -1px;
+    margin-bottom: -2px; */ 
+    /* color: #000;
+    background-color: #f1f1f1;
+    display: inline-block; */
+}
+.toolbarAndNumber {
+    cursor: pointer;
+}
+.toolbarAndNumber:hover {
+    text-decoration: underline;
+}
+.toolbarAndNumber:hover > .w3-light-grey, .w3-hover-light-grey:hover {
+    border-color: transparent; 
+    box-shadow: 0 0 0 2px #da3743; 
+}
+.w3-light-grey, .w3-hover-light-grey:hover {
+    color: #000;
+    border: 1px solid #d8d9db;
+    display: inline-block;
+    width: 232px;
+    height: 12px;
+    margin-bottom: .5rem;
+}
+.w3-green, .w3-hover-green:hover {
+    color: #fff;
+    background-color: #da3743;
+    height: 12px;
 }

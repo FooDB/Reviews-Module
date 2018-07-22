@@ -21,20 +21,20 @@ describe('Server routes interact successfully', () => {
         }).expect(200)
         .end(done);
     })
-    it('should get the correct filtered keywords by id', (done) => {
-        request.get('/filterKeywords/3')
-        .expect(200)
-        .expect(function(res) {
-            expect(res.body).to.equal(true);
-        })
-        .end(done)
-    })
+    // it('should get the correct filtered keywords by id', (done) => {
+    //     request.get('/filterKeywords/3')
+    //     .expect(200)
+    //     .expect(function(res) {
+    //         expect(res.body).to.equal(true);
+    //     })
+    //     .end(done)
+    // })
 
 })
-describe('FilterBox', () => {
-    it('should have a test state of 1', () => {
-        const wrapper = shallow(<FilterBox />);
-        const testState = wrapper.state().test;
-        expect(testState).toBe(1);
-    })
-})
+// describe('FilterBox', () => {
+//     it('should have a test state of 1', () => {
+//         const wrapper = shallow(<FilterBox />);
+//         const testState = wrapper.state().test;
+//         expect(testState).toBe(1);
+//     })
+// })
