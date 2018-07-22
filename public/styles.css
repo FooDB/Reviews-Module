@@ -18,11 +18,11 @@
     align-items: center;
     justify-content: center;
     display: inline;
-    background-color: red;
+    background-color: #da3743;
 }
 
 .helpHovered {
-    background-color: red;
+    background-color: #da3743;
     margin: 0 0 0 0;
 }
 #reviewContainer {
@@ -123,7 +123,7 @@
 }
 .filterCheckBox:hover {
     border-color: transparent; /* remove the border's colour */
-    box-shadow: 0 0 0 2px red; /* emulate the border */
+    box-shadow: 0 0 0 2px #da3743; /* emulate the border */
 }
 #filtersHeader {
     font-family: 'Open Sans', sans-serif;
@@ -153,7 +153,7 @@
 }
 #summaryToolbarContainer {
     display: inline-block;
-    line-height: 2.4;
+    /* line-height: 2.4; */
     margin-left: 1.5rem;
 }
 #leftSummaryContainer {
@@ -211,9 +211,9 @@
     overflow: hidden;
     margin-top: -1px;
     margin-bottom: -2px; */ 
-    color: #000;
+    /* color: #000;
     background-color: #f1f1f1;
-    display: inline-block;
+    display: inline-block; */
 }
 .toolbarAndNumber {
     cursor: pointer;
@@ -221,19 +221,20 @@
 .toolbarAndNumber:hover {
     text-decoration: underline;
 }
-.toolbarAndNumber:hover > .toolbarBox {
-    border-color: transparent; /* remove the border's colour */
-    box-shadow: 0 0 0 2px red; /* emulate the border */
+.toolbarAndNumber:hover > .w3-light-grey, .w3-hover-light-grey:hover {
+    border-color: transparent; 
+    box-shadow: 0 0 0 2px #da3743; 
 }
 .w3-light-grey, .w3-hover-light-grey:hover {
     color: #000;
-    background-color: #f1f1f1;
+    border: 1px solid #d8d9db;
     display: inline-block;
     width: 232px;
-    height: 20px;
+    height: 12px;
+    margin-bottom: .5rem;
 }
 .w3-green, .w3-hover-green:hover {
     color: #fff;
-    background-color: red;
-    height: 20px;
+    background-color: #da3743;
+    height: 12px;
 }
