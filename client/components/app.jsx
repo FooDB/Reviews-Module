@@ -1,6 +1,5 @@
 import React from 'react';
 import ReviewList from './ReviewList.jsx';
-import '../../public/styles.css';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
 
