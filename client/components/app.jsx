@@ -24,14 +24,11 @@ class App extends React.Component {
             is_filtered: false,
             stars: []
         }
+    }
+    componentDidMount() {
         this.pullKeywordsById();
         this.pullMenuItemsById();
         this.pullDataById();
-    }
-    componentDidMount() {
-        // this.pullKeywordsById();
-        // this.pullMenuItemsById();
-        // this.pullDataById();
     }
     getAverage(reviews, criteria) {
         let sum = 0;
