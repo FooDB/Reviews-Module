@@ -1,41 +1,53 @@
 import React from 'react';
-const request = require('supertest')('http://127.0.0.1:3005');
 import { shallow, mount } from 'enzyme';
-// import App from '../client/components/App.jsx';
-import FilterBox from '../client/components/FilterBox.jsx'
+import Review from '../client/components/Review';
+import FilterBox from '../client/components/FilterBox'
 import LovedForBox from '../client/components/LovedForBox';
-describe('Server routes interact successfully', () => {
+const request = require('supertest')('http://127.0.0.1:3005');
 
-    it('expects a test of the testing suite to work', () => {
-        expect(true).toBe(true);
-    })
-    it('should fetch restaurant data by id', (done) => {
-        request.get('/reviews/3', (req, res) => {
-            expect(res.data.length).to.equal(170);
+describe('Server routes interact successfully', () => {
+    it('should fetch reviews data by restaurant id', (done) => {
+        request.get('/reviews/3')
+        .expect((res) => {
+            expect(res.body.length).toBe(276);
         })
         .expect(200)
         .end(done);
     })
-    it('should be able to update the helpful data point on a review', (done) => {
-        request.post('/helpfulEvent/1/id/602', (req, res) => {
-            expect(req.params.is_helpful).to.equal(1);
-            expect(req.params.id).to.equal(602);
-        }).expect(200)
+    it('should update the helpful data point on a review', (done) => {
+        request.post('/helpfulEvent/1/id/362')
+        .expect(200)
+        .end((err, res) => {
+            if (err) return done(err);
+            request.get('/reviews/3')
+            .expect((res) => {
+                expect(res.body[0].is_helpful).toBe(1);
+            })
+            .end(done);
+        });
+    })
+    it('should get the filtered keywords by id', (done) => {
+        request.get('/filterKeywords/3')
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.length).toBe(5);
+            expect(res.body[0].filterKeyword).toBe('aut.');
+        })
+        .end(done)
+    })
+    it('should get the LovedFor items by id', (done) => {
+        request.get('/LovedFor/3')
+        .expect(200)
+        .expect((res) => {
+            expect(res.body.length).toBe(5);
+            expect(res.body[1].menuItem).toBe('ut.')
+        })
         .end(done);
     })
-    // it('should get the correct filtered keywords by id', (done) => {
-    //     request.get('/filterKeywords/3')
-    //     .expect(200)
-    //     .expect(function(res) {
-    //         expect(res.body).to.equal(true);
-    //     })
-    //     .end(done)
-    // })
-
 })
 describe('FilterBox', () => {
     it('should start as an empty box icon and toggle to red on click', () => {
-        const wrapper = mount(<FilterBox filterReviews={console.log.bind(this)} keyWord={{filterKeyword: ''}}/>);
+        const wrapper = mount(<FilterBox filterReviews={() => ''} keyWord={{filterKeyword: ''}}/>);
         let testState = wrapper.state();
         expect(testState.icon).toBe('./images/emptyBox.png');
         expect(testState.clicked).toBe(false);
@@ -58,11 +70,18 @@ describe('lovedForBox', () => {
         expect(component.html()).toBe("<a><span class=\"filterCheckBox\"><span><img class=\"star\" src=\"./images/trophy.png\"> </span><span id=\"menuItem\">Steak </span></span></a>");
     })
 })
-// describe("<Logo />", () => {
-//     it("renders an image with src correctly", () => {
-//       const wrapper= shallow(<Logo src="yourlogo.png" />);
-//       expect(wrapper.html()).toEqual('<img src="yourlogo.png"/>'); // implement your ".toEqual(...)" to your Logo component result 
-//     });
-//   });
-//   const wrapper = mount(<Logo src="blah..."/>);
-// expect(wrapper.find({ prop: 'src' })).to.have.length(1);
+describe('Review', () => {
+    const wrapper = shallow(<Review 
+        review={{
+            is_helpful: 0, 
+            reviewText: 'test review',
+            dinedDate: '2018-04-12'
+        }}/>);
+    it('should change the helpful state on click', () => {
+        let startState = wrapper.state();
+        expect(startState.helpful).toBe(false);
+        wrapper.find('#placeholder').simulate('click');
+        startState = wrapper.state();
+        expect(startState.helpful).toBe(true);
+    })
+})
