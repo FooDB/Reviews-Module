@@ -23,14 +23,13 @@ class Review extends React.Component {
         if (this.props.review.is_helpful) this.setState({helpful: true});
         this.setState({stars: this.state.stars})
     }
-    helpfulClick(e) {
-        this.state.helpful = !this.state.helpful;
-        this.setState({helpful: this.state.helpful});
+    helpfulClick() {
+        this.setState({helpful: !this.state.helpful});
         this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
         this.props.review.is_helpful ? this.props.review.is_helpful = 0 : this.props.review.is_helpful = 1;
         axios.post(`/helpfulEvent/${this.props.review.is_helpful}/id/${this.props.review.id}`)
         .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
     }
     readMoreToggle(e) {
         e.preventDefault();

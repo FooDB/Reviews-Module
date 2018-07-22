@@ -5,7 +5,7 @@ class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            percentages: ['0%', '0%', '0%', '0%', '0%']
+            percentages: Array(5).fill('0%')
         }
     }
     componentDidMount() {
@@ -27,19 +27,12 @@ class ReviewSummary extends React.Component {
                 if (r === 5) fiveStarCount++;
             }
             const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
-            this.setState({percentages: counts.map(count => Math.round(count / this.state.reviews.length * 100) + '%')}, () => {
-
-                console.log(counts, this.state.percentages)
-            })
-            // for (let i = 5; i > 0; i--) {
-            //     let el = document.getElementById('ratingBar' + i);
-            //     el.style.width = percentages[i] + "%";
-            // }
+            this.setState({percentages: counts.map(count => Math.round(count / this.state.reviews.length * 100) + '%')})
         })
         .catch(err => console.log(err));
     }
     render() {
-        let noiseLevel, starSource;
+        let noiseLevel;
         if (this.props.ratings.noise > 1) {
             noiseLevel = 'Loud';
         } else if (this.props.ratings.noise < 1 && this.props.ratings.noise > 0) {
@@ -47,7 +40,7 @@ class ReviewSummary extends React.Component {
         } else {
             noiseLevel = 'Quiet';
         }
-        this.props.stars ? starSource = this.props.stars : starSource = ['','','','',''];
+        let starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
         return (
             <div id="reviewSummaryContainer">
                 <div>
