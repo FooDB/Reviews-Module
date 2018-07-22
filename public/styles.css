@@ -233,9 +233,6 @@
     background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='7' height='10' viewBox='0 0 …M2.172 3.593L.757 5.007 5 9.25l1.414-1.414z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E) no-repeat 50%");
     border-radius: 5000px;
     border: solid 1px #d8d9db;
-    margin-left: calc(0.5rem - 1px);
-    margin-right: calc(0.5rem - 1px);
-    border: solid 1px #d8d9db!important;
     cursor: default;
     display: inline-flex;
     justify-content: space-around;
@@ -247,13 +244,8 @@
     height: 2rem;
 }
 .paginationBubble {
-    border: solid 2px #da3743;
-    margin-left: calc(0.5rem - 2px);
-    margin-right: calc(0.5rem - 2px);
     border-radius: 5000px;
     border: solid 1px #d8d9db;
-    margin-left: calc(0.5rem - 1px);
-    margin-right: calc(0.5rem - 1px);
     display: inline-flex;
     justify-content: space-around;
     margin-left: 0.5rem;
@@ -263,3 +255,12 @@
     align-items: center;
     height: 2rem;
 }
+.paginationBubble:hover, .paginationArrow:hover {
+    /* border: solid 2px #da3743; */
+    box-shadow: 0 0 0 2px #da3743; 
+}
+/* .paginationArrow:hover {
+    border: solid 2px #da3743;
+    margin-left: calc(0.5rem - 2px);
+    margin-right: calc(0.5rem - 2px);
+} */
