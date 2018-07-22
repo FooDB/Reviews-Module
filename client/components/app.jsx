@@ -121,7 +121,7 @@ class App extends React.Component {
         this.setState({reviews: this.state.reviews})
     }
     handlePageChange(page) {
-        console.log('pagechange called');
+        console.log('pagechange called', page);
         this.setState({
             reviews: this.state.allReviews.slice((page - 1) * 20, page * 20),
             currentPage: page
