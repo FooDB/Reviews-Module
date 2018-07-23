@@ -3,6 +3,7 @@ import ReviewList from './ReviewList.jsx';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
 import Pagination from './Pagination.jsx';
+import ErrorBoundary from './Error.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -130,6 +131,7 @@ class App extends React.Component {
     render() {
         return (
             <div id="appMasterContainer">
+                <ErrorBoundary>
                 <ReviewSummary 
                 reviews={this.state.reviews}
                 allReviews={this.state.allReviews} 
@@ -137,17 +139,24 @@ class App extends React.Component {
                 stars={this.state.stars}
                 lovedFor={this.state.lovedFor}
                 filter={this.filterReviewsByRating.bind(this)}/>
+                </ErrorBoundary>
+                <ErrorBoundary>
                 <ReviewToolbar 
                 keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
                 filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                </ErrorBoundary>
+                <ErrorBoundary>
                 <ReviewList 
-                reviews={this.state.reviews}/>   
+                reviews={this.state.reviews}/>  
+                </ErrorBoundary>
+                <ErrorBoundary> 
                 <Pagination 
                 reviews={this.state.allReviews}
                 handlePageChange={this.handlePageChange.bind(this)}
                 currentPage={this.state.currentPage}
                 totalPages={this.state.totalPages}/>
+                </ErrorBoundary>
             </div>
         )
     }
