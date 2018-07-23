@@ -45,12 +45,12 @@ class App extends React.Component {
         console.log('pulled data called');
         axios.get(`/reviews/${3}`)
         .then(res => {
+            console.log(res.data);
             this.setState({
                 reviews: res.data.slice(0,20),
                 allReviews: res.data,
                 totalPages: Math.floor(res.data.length / 20)
             })
-            console.log(res.data);
             this.setState({
                 ratings : {
                     totalAverage: this.getAverage(res.data, 'overallRating'),
@@ -61,24 +61,25 @@ class App extends React.Component {
                     noise: this.getAverage(res.data, 'noise'),
                     recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
                 }
-            }, () => {
-                let totalAverageCopy = this.state.ratings.totalAverage
-                let starsToGo = false;
-                for (let i = 0; i < 5; i++) {
-                    if (totalAverageCopy - 1 < 0 && !starsToGo) {
-                        totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
-                        totalAverageCopy--;
-                        starsToGo = true
-                        continue;
-                    } else {
-                        totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
-                        totalAverageCopy--;
-                    }
-                }
-                this.setState({stars: this.state.stars})
-            })
+            }, () => this.setDynamicStarRating())
         })
         .catch(err => console.log(err));
+    }
+    setDynamicStarRating() {
+        let totalAverageCopy = this.state.ratings.totalAverage
+        let starsToGo = false;
+        for (let i = 0; i < 5; i++) {
+            if (totalAverageCopy - 1 < 0 && !starsToGo) {
+                totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
+                totalAverageCopy--;
+                starsToGo = true
+                continue;
+            } else {
+                totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+                totalAverageCopy--;
+            }
+        }
+        this.setState({stars: this.state.stars})
     }
     pullKeywordsById() {
         axios.get(`/filterKeywords/${3}`)
@@ -133,7 +134,6 @@ class App extends React.Component {
     render() {
         return (
             <div id="appMasterContainer">
-
                 <ErrorBoundary>
                     <ReviewSummary 
                         reviews={this.state.reviews}
