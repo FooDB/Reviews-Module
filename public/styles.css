@@ -255,12 +255,6 @@
     align-items: center;
     height: 2rem;
 }
-.paginationBubble:hover, .paginationArrow:hover {
-    /* border: solid 2px #da3743; */
+.paginationBubble:hover, .paginationArrow:hover, #selectedBubble {
     box-shadow: 0 0 0 2px #da3743; 
 }
-/* .paginationArrow:hover {
-    border: solid 2px #da3743;
-    margin-left: calc(0.5rem - 2px);
-    margin-right: calc(0.5rem - 2px);
-} */

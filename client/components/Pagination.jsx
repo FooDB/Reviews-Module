@@ -3,9 +3,6 @@ import React from 'react';
 class Pagination extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
     }
     render() {
         let nextPage = (this.props.currentPage === this.props.totalPages ? this.props.currentPage : this.props.currentPage + 1);
@@ -24,13 +21,18 @@ class Pagination extends React.Component {
         let secondElipsis = (this.props.currentPage + 3 <= this.props.totalPages
                             ? <span><span className="paginationBubble" id="secondElipsis">...</span></span>
                             : '')
+        let selectedBubble1, selectedBubble2, selectedBubble3, selectedBubble4, selectedBubble5;
+        selectedBubble1 = (this.props.currentPage === 1 ? 'selectedBubble' : 'first')
+        selectedBubble2 = (this.props.currentPage === middleLeftNumber ? 'selectedBubble' : 'middleLeft')
+        selectedBubble3 = (this.props.currentPage === middleBubbleNumber ? 'selectedBubble' : 'middle')
+        selectedBubble4 = (this.props.currentPage === middleRightBubbleNumber ? 'selectedBubble' : 'middleRight')
+        selectedBubble5 = (this.props.currentPage === this.props.totalPages ? 'selectedBubble' : 'last')
         let middleRightBubble = (3 < this.props.currentPage && this.props.currentPage <= this.props.totalPages
-                            ? <span><span className="paginationBubble" id="middleRightBubble">{middleRightBubbleNumber}</span></span>
+                            ? <span><span className="paginationBubble" id={selectedBubble4}  onClick={() => this.props.handlePageChange(middleRightBubbleNumber)}>{middleRightBubbleNumber}</span></span>
                             : '')
         let middleLeftBubble =  (this.props.currentPage < this.props.totalPages - 1
-            ? <span><span className="paginationBubble" id="middleLeftBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 1)}>{middleLeftNumber}</span></span>
+            ? <span><span className="paginationBubble" id={selectedBubble2}  onClick={() => this.props.handlePageChange(middleLeftNumber)}>{middleLeftNumber}</span></span>
             : '')
-        
         return (
             <div id="paginationContainer">
                 <span>
@@ -38,17 +40,17 @@ class Pagination extends React.Component {
                 </span>
                 <span>
                     <span>
-                        <span className="paginationBubble" id="firstBubble" onClick={() => this.props.handlePageChange(1)}>1</span>
+                        <span className="paginationBubble" id={selectedBubble1} onClick={() => this.props.handlePageChange(1)}>1</span>
                     </span>
                     {firstElipsis}
                     {middleLeftBubble}
                     <span>
-                        <span className="paginationBubble" id="middleBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 2)}>{middleBubbleNumber}</span>
+                        <span className="paginationBubble" id={selectedBubble3} onClick={() => this.props.handlePageChange(middleBubbleNumber)}>{middleBubbleNumber}</span>
                     </span>
                     {middleRightBubble}
                     {secondElipsis}
                     <span>
-                        <span className="paginationBubble" id="lastBubble" onClick={() => this.props.handlePageChange(this.props.totalPages)}>{this.props.totalPages}</span>
+                        <span className="paginationBubble" id={selectedBubble5} onClick={() => this.props.handlePageChange(this.props.totalPages)}>{this.props.totalPages}</span>
                     </span>
                 </span>
 
