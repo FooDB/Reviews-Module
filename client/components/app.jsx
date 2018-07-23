@@ -111,7 +111,7 @@ class App extends React.Component {
         this.setState({reviews: filtered});
     }
     sortReviewsBySelect() {
-        let sortMethod = document.getElementById('sortMethod').value;
+        const sortMethod = document.getElementById('sortMethod').value;
         if (sortMethod === 'Highest') {
             this.state.reviews.sort((a, b) => b.overallRating - a.overallRating)
         } else if (sortMethod === 'Lowest') {
@@ -122,11 +122,35 @@ class App extends React.Component {
         this.setState({reviews: this.state.reviews})
     }
     handlePageChange(page) {
-        console.log('pagechange called', page);
         this.setState({
             reviews: this.state.allReviews.slice((page - 1) * 20, page * 20),
             currentPage: page
         })
+    }
+    scrollToTopOfFeed() {
+        let scrollContainer = document.getElementById('paginationContainer');
+        let target = document.getElementById('toolbarContainer');
+        while (scrollContainer.scrollTop === 0) {
+            if (!scrollContainer) return;
+            scrollContainer = scrollContainer.parentNode;
+            scrollContainer.scrollTop += 1;
+        }
+    
+        let targetY = 0;
+        while (target !== scrollContainer) {
+            targetY += target.offsetTop;
+            target = target.offsetParent
+        }
+    
+        scroll = (c, a, b, i) => {
+            i++;
+            if (i > 30) return;
+            c.scrollTop = a + (b - a) / 30 * i;
+            setTimeout(() => {
+                scroll(c, a, b, i); 
+            }, 12);
+        }
+        scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
     }
     render() {
         return (
@@ -155,7 +179,8 @@ class App extends React.Component {
                 reviews={this.state.allReviews}
                 handlePageChange={this.handlePageChange.bind(this)}
                 currentPage={this.state.currentPage}
-                totalPages={this.state.totalPages}/>
+                totalPages={this.state.totalPages}
+                scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
                 </ErrorBoundary>
             </div>
         )

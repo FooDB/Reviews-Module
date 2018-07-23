@@ -3,14 +3,16 @@ import React from 'react';
 const Pagination = (props) => {
     const nextPage = (props.currentPage === props.totalPages ? props.currentPage : props.currentPage + 1);
     const previousPage = (props.currentPage === 1 ? props.currentPage : props.currentPage - 1);
+    
     const middleRightBubbleNumber = (props.currentPage + 3 <= props.totalPages ? props.currentPage + 1 : props.totalPages - 1)
+    const middleLeftNumber = (props.currentPage < 3 ? 2 : props.currentPage - 1)
+
     let middleBubbleNumber = (props.currentPage < 3 ? 3 : props.currentPage);
     if (props.currentPage > props.totalPages - 2 && props.currentPage !== props.totalPages) {
         middleBubbleNumber = props.currentPage - 1;
     } else if (props.currentPage === props.totalPages) {
         middleBubbleNumber = props.currentPage - 2;
     }
-    const middleLeftNumber = (props.currentPage < 3 ? 2 : props.currentPage - 1)
 
     let selectedBubble1, selectedBubble2, selectedBubble3, selectedBubble4, selectedBubble5;
     const highlightSelectedBubble = () => {
@@ -30,35 +32,35 @@ const Pagination = (props) => {
                         ? <span><span className="elipsisBubble" id="secondElipsis">&middot;&middot;&middot;</span></span>
                         : '')
     const middleRightBubble = (2 < props.currentPage && props.currentPage <= props.totalPages
-                        ? <span><span className="paginationBubble" id={selectedBubble4}  onClick={() => props.handlePageChange(middleRightBubbleNumber)}>{middleRightBubbleNumber}</span></span>
+                        ? <span><span className="paginationBubble" id={selectedBubble4}  onClick={() => {props.handlePageChange(middleRightBubbleNumber); props.scrollToTopOfFeed()}}>{middleRightBubbleNumber}</span></span>
                         : '')
     const middleLeftBubble =  (props.currentPage < props.totalPages - 1
-        ? <span><span className="paginationBubble" id={selectedBubble2}  onClick={() => props.handlePageChange(middleLeftNumber)}>{middleLeftNumber}</span></span>
+        ? <span><span className="paginationBubble" id={selectedBubble2}  onClick={() => {props.handlePageChange(middleLeftNumber); props.scrollToTopOfFeed()}}>{middleLeftNumber}</span></span>
         : '')
     
         return (
             <div id="paginationContainer">
                 <span>
-                    <span className="paginationArrow" onClick={() => props.handlePageChange(previousPage)}>{'<'}</span>
+                    <span className="paginationArrow" onClick={() => {props.handlePageChange(previousPage); props.scrollToTopOfFeed()}}>{'<'}</span>
                 </span>
                 <span>
                     <span>
-                        <span className="paginationBubble" id={selectedBubble1} onClick={() => props.handlePageChange(1)}>1</span>
+                        <span className="paginationBubble" id={selectedBubble1} onClick={() => {props.handlePageChange(1); props.scrollToTopOfFeed()}}>1</span>
                     </span>
                     {firstElipsis}
                     {middleLeftBubble}
                     <span>
-                        <span className="paginationBubble" id={selectedBubble3} onClick={() => props.handlePageChange(middleBubbleNumber)}>{middleBubbleNumber}</span>
+                        <span className="paginationBubble" id={selectedBubble3} onClick={() => {props.handlePageChange(middleBubbleNumber); props.scrollToTopOfFeed()}}>{middleBubbleNumber}</span>
                     </span>
                     {middleRightBubble}
                     {secondElipsis}
                     <span>
-                        <span className="paginationBubble" id={selectedBubble5} onClick={() => props.handlePageChange(props.totalPages)}>{props.totalPages}</span>
+                        <span className="paginationBubble" id={selectedBubble5} onClick={() => {props.handlePageChange(props.totalPages); props.scrollToTopOfFeed()}}>{props.totalPages}</span>
                     </span>
                 </span>
 
                 <span>
-                    <span className="paginationArrow" onClick={() => props.handlePageChange(nextPage)}>{'>'}</span>
+                    <span className="paginationArrow" onClick={() => {props.handlePageChange(nextPage); props.scrollToTopOfFeed()}}>{'>'}</span>
                 </span>
             </div>
         )
