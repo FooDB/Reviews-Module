@@ -2,6 +2,8 @@ import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
+import Pagination from './Pagination.jsx';
+import ErrorBoundary from './Error.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -22,7 +24,9 @@ class App extends React.Component {
                 recommended: 0
             },
             is_filtered: false,
-            stars: []
+            stars: [],
+            currentPage: 1,
+            totalPages: 0
         }
     }
     componentDidMount() {
@@ -41,11 +45,12 @@ class App extends React.Component {
         console.log('pulled data called');
         axios.get(`/reviews/${3}`)
         .then(res => {
-            this.setState({
-                reviews: res.data,
-                allReviews: res.data
-            })
             console.log(res.data);
+            this.setState({
+                reviews: res.data.slice(0,20),
+                allReviews: res.data,
+                totalPages: Math.floor(res.data.length / 20)
+            })
             this.setState({
                 ratings : {
                     totalAverage: this.getAverage(res.data, 'overallRating'),
@@ -56,24 +61,25 @@ class App extends React.Component {
                     noise: this.getAverage(res.data, 'noise'),
                     recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
                 }
-            }, () => {
-                let totalAverageCopy = this.state.ratings.totalAverage
-                let starsToGo = false;
-                for (let i = 0; i < 5; i++) {
-                    if (totalAverageCopy - 1 < 0 && !starsToGo) {
-                        totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
-                        totalAverageCopy--;
-                        starsToGo = true
-                        continue;
-                    } else {
-                        totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
-                        totalAverageCopy--;
-                    }
-                }
-                this.setState({stars: this.state.stars})
-            })
+            }, () => this.setDynamicStarRating())
         })
         .catch(err => console.log(err));
+    }
+    setDynamicStarRating() {
+        let totalAverageCopy = this.state.ratings.totalAverage
+        let starsToGo = false;
+        for (let i = 0; i < 5; i++) {
+            if (totalAverageCopy - 1 < 0 && !starsToGo) {
+                totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
+                totalAverageCopy--;
+                starsToGo = true
+                continue;
+            } else {
+                totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+                totalAverageCopy--;
+            }
+        }
+        this.setState({stars: this.state.stars})
     }
     pullKeywordsById() {
         axios.get(`/filterKeywords/${3}`)
@@ -106,7 +112,7 @@ class App extends React.Component {
         this.setState({reviews: filtered});
     }
     sortReviewsBySelect() {
-        let sortMethod = document.getElementById('sortMethod').value;
+        const sortMethod = document.getElementById('sortMethod').value;
         if (sortMethod === 'Highest') {
             this.state.reviews.sort((a, b) => b.overallRating - a.overallRating)
         } else if (sortMethod === 'Lowest') {
@@ -116,22 +122,49 @@ class App extends React.Component {
         }
         this.setState({reviews: this.state.reviews})
     }
+    handlePageChange(page) {
+        this.setState({
+            reviews: this.state.allReviews.slice((page - 1) * 20, page * 20),
+            currentPage: page
+        })
+    }
+    scrollToTopOfFeed() {
+        document.getElementById('toolbarContainer').scrollIntoView({behavior: 'smooth'});
+    }
     render() {
         return (
             <div id="appMasterContainer">
-                <ReviewSummary 
-                reviews={this.state.reviews}
-                allReviews={this.state.allReviews} 
-                ratings={this.state.ratings} 
-                stars={this.state.stars}
-                lovedFor={this.state.lovedFor}
-                filter={this.filterReviewsByRating.bind(this)}/>
-                <ReviewToolbar 
-                keyWords={this.state.keyWords} 
-                sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviewsByKeyword.bind(this)}/>
-                <ReviewList 
-                reviews={this.state.reviews}/>   
+                <ErrorBoundary>
+                    <ReviewSummary 
+                        reviews={this.state.reviews}
+                        allReviews={this.state.allReviews} 
+                        ratings={this.state.ratings} 
+                        stars={this.state.stars}
+                        lovedFor={this.state.lovedFor}
+                        filter={this.filterReviewsByRating.bind(this)}
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+                </ErrorBoundary>
+
+                <ErrorBoundary>
+                    <ReviewToolbar 
+                        keyWords={this.state.keyWords} 
+                        sortReviews={this.sortReviewsBySelect.bind(this)}
+                        filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                </ErrorBoundary>
+
+                <ErrorBoundary>
+                    <ReviewList 
+                        reviews={this.state.reviews}/>  
+                </ErrorBoundary>
+
+                <ErrorBoundary> 
+                    <Pagination 
+                        reviews={this.state.allReviews}
+                        handlePageChange={this.handlePageChange.bind(this)}
+                        currentPage={this.state.currentPage}
+                        totalPages={this.state.totalPages}
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+                </ErrorBoundary>
             </div>
         )
     }
