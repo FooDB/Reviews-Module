@@ -11,15 +11,18 @@ class Pagination extends React.Component {
         let nextPageArrow = (this.props.currentPage === this.props.totalPages ? this.props.currentPage : this.props.currentPage + 1);
         let previousPageArrow = (this.props.currentPage === 1 ? this.props.currentPage : this.props.currentPage - 1);
         let firstElipsis = (this.props.currentPage - 3 > 0 
-            ? <span><span className="paginationBubble">...</span></span>
-            : '')
-        let secondElipsis = (this.props.currentPage + 4 <= this.props.totalPages
-            ? <span><span className="paginationBubble">...</span></span>
-            : '')
-        let thirdBubbleNumber = (this.props.currentPage + 5 <= this.props.totalPages ? this.props.currentPage + 3 : this.props.totalPages - 1)
-        let thirdBubble = (3 < this.props.currentPage && this.props.currentPage < this.props.totalPages - 3
-            ? <span><span className="paginationBubble">{thirdBubbleNumber}</span></span>
-            : '')
+                            ? <span><span className="paginationBubble" id="firstElipsis">...</span></span>
+                            : '')
+        let secondElipsis = (this.props.currentPage + 5 <= this.props.totalPages
+                            ? <span><span className="paginationBubble" id="secondElipsis">...</span></span>
+                            : '')
+        let middleRightBubbleNumber = (this.props.currentPage + 5 <= this.props.totalPages ? this.props.currentPage + 3 : this.props.totalPages - 1)
+        let middleBubbleNumber = (this.props.currentPage + 4 <= this.props.totalPages ? this.props.currentPage + 2 : this.props.totalPages - 1)
+        let middleLeftNumber = (this.props.currentPage + 4 <= this.props.totalPages ? this.props.currentPage + 1 : this.props.totalPages - 2)
+        let middleRightBubble = (3 < this.props.currentPage && this.props.currentPage < this.props.totalPages - 3
+                            ? <span><span className="paginationBubble" id="middleRightBubble">{middleRightBubbleNumber}</span></span>
+                            : '')
+        
         return (
             <div id="paginationContainer">
                 <span>
@@ -27,19 +30,19 @@ class Pagination extends React.Component {
                 </span>
                 <span>
                     <span>
-                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(1)}>1</span>
+                        <span className="paginationBubble" id="firstBubble" onClick={() => this.props.handlePageChange(1)}>1</span>
                     </span>
                     {firstElipsis}
                     <span>
-                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 1)}>{this.props.currentPage + 1}</span>
+                        <span className="paginationBubble" id="middleLeftBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 1)}>{middleLeftNumber}</span>
                     </span>
                     <span>
-                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 2)}>{this.props.currentPage + 2}</span>
+                        <span className="paginationBubble" id="middleBubble" onClick={() => this.props.handlePageChange(this.props.currentPage + 2)}>{middleBubbleNumber}</span>
                     </span>
-                    {thirdBubble}
+                    {middleRightBubble}
                     {secondElipsis}
                     <span>
-                        <span className="paginationBubble" onClick={() => this.props.handlePageChange(this.props.totalPages)}>{this.props.totalPages}</span>
+                        <span className="paginationBubble" id="lastBubble" onClick={() => this.props.handlePageChange(this.props.totalPages)}>{this.props.totalPages}</span>
                     </span>
                 </span>
 
