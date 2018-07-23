@@ -258,3 +258,13 @@
 .paginationBubble:hover, .paginationArrow:hover, #selectedBubble {
     box-shadow: 0 0 0 2px #da3743; 
 }
+.elipsisBubble {
+    display: inline-flex;
+    justify-content: space-around;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    min-width: 2rem;
+    cursor: pointer;
+    align-items: center;
+    height: 2rem;
+}
