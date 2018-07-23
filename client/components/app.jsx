@@ -130,7 +130,7 @@ class App extends React.Component {
     render() {
         return (
             <div id="appMasterContainer">
-                {/* <ReviewSummary 
+                <ReviewSummary 
                 reviews={this.state.reviews}
                 allReviews={this.state.allReviews} 
                 ratings={this.state.ratings} 
@@ -140,14 +140,14 @@ class App extends React.Component {
                 <ReviewToolbar 
                 keyWords={this.state.keyWords} 
                 sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviewsByKeyword.bind(this)}/> */}
+                filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                <ReviewList 
+                reviews={this.state.reviews}/>   
                 <Pagination 
                 reviews={this.state.allReviews}
                 handlePageChange={this.handlePageChange.bind(this)}
                 currentPage={this.state.currentPage}
                 totalPages={this.state.totalPages}/>
-                <ReviewList 
-                reviews={this.state.reviews}/>   
             </div>
         )
     }
