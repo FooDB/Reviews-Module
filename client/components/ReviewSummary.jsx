@@ -37,7 +37,7 @@ class ReviewSummary extends React.Component {
         } else {
             noiseLevel = 'Quiet';
         }
-        let starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
+        const starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
         return (
             <div id="reviewSummaryContainer">
                 <div>
@@ -94,31 +94,31 @@ class ReviewSummary extends React.Component {
 
                         <div id="summaryToolbarContainer">
                             <div>
-                                <div className="toolbarAndNumber" onClick={() => this.props.filter(5)}>
+                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(5); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">5</span>
                                     <div className="w3-light-grey">
                                         <div className="w3-green" style={{width: this.state.percentages[4]}}></div>
                                     </div>
                                 </div>
-                                <div className="toolbarAndNumber" onClick={() => this.props.filter(4)}>
+                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(4); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">4</span>
                                     <div className="w3-light-grey">
                                         <div className="w3-green" style={{width: this.state.percentages[3]}}></div>
                                     </div>
                                 </div>
-                                <div className="toolbarAndNumber" onClick={() => this.props.filter(3)}>
+                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(3); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">3</span>
                                     <div className="w3-light-grey">
                                         <div className="w3-green" style={{width: this.state.percentages[2]}}></div>
                                     </div>
                                 </div>
-                                <div className="toolbarAndNumber" onClick={() => this.props.filter(2)}>
+                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(2); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">2</span>
                                     <div className="w3-light-grey">
                                         <div className="w3-green" style={{width: this.state.percentages[1]}}></div>
                                     </div>
                                 </div>
-                                <div  className="toolbarAndNumber" onClick={() => this.props.filter(1)}>
+                                <div  className="toolbarAndNumber" onClick={() => {this.props.filter(1); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">1</span>
                                     <div className="w3-light-grey">
                                         <div className="w3-green" style={{width: this.state.percentages[0]}}></div>

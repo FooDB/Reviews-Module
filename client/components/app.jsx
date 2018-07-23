@@ -155,32 +155,37 @@ class App extends React.Component {
     render() {
         return (
             <div id="appMasterContainer">
+
                 <ErrorBoundary>
-                <ReviewSummary 
-                reviews={this.state.reviews}
-                allReviews={this.state.allReviews} 
-                ratings={this.state.ratings} 
-                stars={this.state.stars}
-                lovedFor={this.state.lovedFor}
-                filter={this.filterReviewsByRating.bind(this)}/>
+                    <ReviewSummary 
+                        reviews={this.state.reviews}
+                        allReviews={this.state.allReviews} 
+                        ratings={this.state.ratings} 
+                        stars={this.state.stars}
+                        lovedFor={this.state.lovedFor}
+                        filter={this.filterReviewsByRating.bind(this)}
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
                 </ErrorBoundary>
+
                 <ErrorBoundary>
-                <ReviewToolbar 
-                keyWords={this.state.keyWords} 
-                sortReviews={this.sortReviewsBySelect.bind(this)}
-                filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                    <ReviewToolbar 
+                        keyWords={this.state.keyWords} 
+                        sortReviews={this.sortReviewsBySelect.bind(this)}
+                        filterReviews={this.filterReviewsByKeyword.bind(this)}/>
                 </ErrorBoundary>
+
                 <ErrorBoundary>
-                <ReviewList 
-                reviews={this.state.reviews}/>  
+                    <ReviewList 
+                        reviews={this.state.reviews}/>  
                 </ErrorBoundary>
+
                 <ErrorBoundary> 
-                <Pagination 
-                reviews={this.state.allReviews}
-                handlePageChange={this.handlePageChange.bind(this)}
-                currentPage={this.state.currentPage}
-                totalPages={this.state.totalPages}
-                scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+                    <Pagination 
+                        reviews={this.state.allReviews}
+                        handlePageChange={this.handlePageChange.bind(this)}
+                        currentPage={this.state.currentPage}
+                        totalPages={this.state.totalPages}
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
                 </ErrorBoundary>
             </div>
         )
