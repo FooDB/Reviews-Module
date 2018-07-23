@@ -81,6 +81,92 @@
 .flex {
     display: flex;
 }
+#reviewReport {
+    position: absolute;
+    background: #fff;
+    z-index: 1000;
+    border: 1px solid #e1e1e1;
+    border-radius: 2px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(51,51,51,.2);
+    /* bottom: .5rem; */
+    right: 2.9rem;
+    max-width: 25rem;
+}
+#reportHeadContainer {
+    justify-content: flex-end;
+    background-color: #ffffff;
+    line-height: 2rem;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    text-align: center;
+}
+#reportHeadText {
+    font-size: 1.125rem;
+    justify-content: center;
+    border-bottom: 1px solid #d8d9db;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+#reportBodyContainer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+#reportbodyText {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    display: flex;
+}
+#reviewReasonText {
+    width: 100%;
+    height: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    resize: none;
+    font-family: 'Open Sans', sans-serif;
+}
+#reportButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+#reportConfirm {
+    padding: .75rem 1rem;
+    text-decoration: none;
+    background-color: #da3743;
+    color: #ffffff;
+    border: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 18rem;
+    font-weight: 500;
+    border-radius: 2px;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+#reportCancel {
+        margin-right: 0;
+        padding: calc(.75rem - 1px) calc(1rem - 1px);
+        border: 1px solid #d8d9db;
+        text-decoration: none;
+        font-size: 1rem;
+        line-height: 1.5;
+        width: 18rem;
+        font-weight: 500;
+        border-radius: 2px;
+        color: #2d333f;
+        display: inline-block;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        cursor: pointer;
+}
 
 /*** Styles for Review Toolbar ***/
 #sortMethod {

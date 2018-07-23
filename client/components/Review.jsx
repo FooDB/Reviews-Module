@@ -11,7 +11,9 @@ class Review extends React.Component {
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300) + '...',
             stars: [],
-            date: this.props.review.dinedDate.split('-')
+            date: this.props.review.dinedDate.split('-'),
+            reportClicked: false,
+            reportPopUp: ''
         }
     }
     componentDidMount() {
@@ -38,13 +40,42 @@ class Review extends React.Component {
         ? this.setState({reviewText: this.props.review.reviewText}) 
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
-    reportPopUp() {
-
+    toggleReportModal(e) {
+        console.log('toggle report called');
+        this.state.reportClicked = !this.state.reportClicked;
+        this.setState({reportClicked: this.state.reportClicked});
+        this.reportPopUp(e);
+    }
+    reportPopUp(e) {
+        console.log('reportpopup called');
+        e.preventDefault()
+        if (this.state.reportClicked) {
+            this.setState({reportPopUp: 
+            <div id="reviewReport">
+                <div id="reportHeadContainer">
+                    <div id="reportHeadText"><strong>Report this review as inappropriate?</strong></div>
+                </div>
+                <div id="reportBodyContainer">
+                    <div id="reportBodyText"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div>
+                    <form>
+                        <input type="hidden" />
+                        <textarea id="reviewReasonText" placeholder="Tell us why you find the review inappropriate." required="required"></textarea>
+                        <div id="reportButtonsContainer">
+                            <button id="reportConfirm" type="submit" onClick={(e) => this.toggleReportModal(e)}>Report</button>
+                            <button id="reportCancel" onClick={(e) => this.toggleReportModal(e)}>Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>})
+        } else {
+            this.setState({reportPopUp: ''});
+        }
     }
     render() {
-        let helpHover = (this.state.hoveronHelp ? 'helpHovered' : 'placeholder');
+        const helpHover = (this.state.hoveronHelp ? 'helpHovered' : 'placeholder');
         let readMorePhrase = (this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more');
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
+
         return (
             <div id="reviewContainer">
                 <div>
@@ -81,21 +112,22 @@ class Review extends React.Component {
                         <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                     </div>
                     <div id="subReportHelpful">
-                        <span className="flex" onClick={() => this.reportPopUp()}>
+                        <span className="flex" onClick={(e) => this.toggleReportModal(e)}>
                             <div id="flagIcon"></div>
                             <span id="reportText">Report</span>
                         </span>
                         <span className="flex" id={helpHover} 
-                        onClick={(e) => this.helpfulClick(this.props.review.is_helpful)} 
-                        onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
-                        onMouseLeave={() => {
-                            this.setState({hoveronHelp: false});
-                            this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
-                        }}
-                        value={this.props.review.is_helpful}>
+                                onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
+                                onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                                onMouseLeave={() => {
+                                    this.setState({hoveronHelp: false});
+                                    this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+                                }}
+                                value={this.props.review.is_helpful}>
                             <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
                             <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                         </span>
+                            {this.state.reportPopUp}
                     </div>
                 </div>
             </div>
