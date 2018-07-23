@@ -128,29 +128,7 @@ class App extends React.Component {
         })
     }
     scrollToTopOfFeed() {
-        let scrollContainer = document.getElementById('paginationContainer');
-        let target = document.getElementById('toolbarContainer');
-        while (scrollContainer.scrollTop === 0) {
-            if (!scrollContainer) return;
-            scrollContainer = scrollContainer.parentNode;
-            scrollContainer.scrollTop += 1;
-        }
-    
-        let targetY = 0;
-        while (target !== scrollContainer) {
-            targetY += target.offsetTop;
-            target = target.offsetParent
-        }
-    
-        scroll = (c, a, b, i) => {
-            i++;
-            if (i > 30) return;
-            c.scrollTop = a + (b - a) / 30 * i;
-            setTimeout(() => {
-                scroll(c, a, b, i); 
-            }, 12);
-        }
-        scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
+        document.getElementById('toolbarContainer').scrollIntoView({behavior: 'smooth'});
     }
     render() {
         return (
