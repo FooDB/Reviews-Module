@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import Review from '../client/components/Review';
 import FilterBox from '../client/components/FilterBox'
 import LovedForBox from '../client/components/LovedForBox';
+import Pagination from '../client/components/Pagination';
 const request = require('supertest')('http://127.0.0.1:3005');
 
 describe('Server routes interact successfully', () => {
@@ -89,5 +90,18 @@ describe('ReviewToolbar', () => {
     
 })
 describe('Pagination', () => {
-    it('should')
+    const wrapper = shallow(<Pagination currentPage={5}totalPages={53} />);
+    const wrapper2 = shallow(<Pagination currentPage={52}totalPages={53} />);
+    it('should have the totalPages count be the text on the last bubble', () => {
+        expect(wrapper.find('#last').text()).toBe('53');
+    })
+    it('should display the second ellipsis bubble only if total pages is over 3 more than the current page', () => {
+        expect(wrapper.find('#secondEllipsis').html()).toBe("<span class=\"ellipsisBubble\" id=\"secondEllipsis\">···</span>")
+        expect(wrapper2.find('#secondEllipsis')).toBeFalsy
+    })
+    it('should display the first ellipsis bubble only if currentPage is 4 or greater', () => {
+        expect(wrapper.find('#firstEllipsis').html()).toBe("<span class=\"ellipsisBubble\" id=\"firstEllipsis\">···</span>")
+        expect(wrapper2.find('#firstEllipsis')).toBeFalsy
+    })
+
 })

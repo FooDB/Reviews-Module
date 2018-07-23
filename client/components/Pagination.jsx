@@ -3,7 +3,7 @@ import React from 'react';
 const Pagination = (props) => {
     const nextPage = (props.currentPage === props.totalPages ? props.currentPage : props.currentPage + 1);
     const previousPage = (props.currentPage === 1 ? props.currentPage : props.currentPage - 1);
-    
+
     const middleRightBubbleNumber = (props.currentPage + 3 <= props.totalPages ? props.currentPage + 1 : props.totalPages - 1)
     const middleLeftNumber = (props.currentPage < 3 ? 2 : props.currentPage - 1)
 
@@ -25,11 +25,11 @@ const Pagination = (props) => {
     highlightSelectedBubble()
 
     //Generate conditional bubbles
-    const firstElipsis = (props.currentPage - 3 > 0 
-                        ? <span><span className="elipsisBubble" id="firstElipsis">&middot;&middot;&middot;</span></span>
+    const firstEllipsis = (props.currentPage - 3 > 0 
+                        ? <span><span className="ellipsisBubble" id="firstEllipsis">&middot;&middot;&middot;</span></span>
                         : '')
-    const secondElipsis = (props.currentPage + 3 <= props.totalPages
-                        ? <span><span className="elipsisBubble" id="secondElipsis">&middot;&middot;&middot;</span></span>
+    const secondEllipsis = (props.currentPage + 3 <= props.totalPages
+                        ? <span><span className="ellipsisBubble" id="secondEllipsis">&middot;&middot;&middot;</span></span>
                         : '')
     const middleRightBubble = (2 < props.currentPage && props.currentPage <= props.totalPages
                         ? <span><span className="paginationBubble" id={selectedBubble4}  onClick={() => {props.handlePageChange(middleRightBubbleNumber); props.scrollToTopOfFeed()}}>{middleRightBubbleNumber}</span></span>
@@ -47,13 +47,13 @@ const Pagination = (props) => {
                     <span>
                         <span className="paginationBubble" id={selectedBubble1} onClick={() => {props.handlePageChange(1); props.scrollToTopOfFeed()}}>1</span>
                     </span>
-                    {firstElipsis}
+                    {firstEllipsis}
                     {middleLeftBubble}
                     <span>
                         <span className="paginationBubble" id={selectedBubble3} onClick={() => {props.handlePageChange(middleBubbleNumber); props.scrollToTopOfFeed()}}>{middleBubbleNumber}</span>
                     </span>
                     {middleRightBubble}
-                    {secondElipsis}
+                    {secondEllipsis}
                     <span>
                         <span className="paginationBubble" id={selectedBubble5} onClick={() => {props.handlePageChange(props.totalPages); props.scrollToTopOfFeed()}}>{props.totalPages}</span>
                     </span>
