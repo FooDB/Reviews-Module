@@ -90,18 +90,17 @@ describe('ReviewToolbar', () => {
     
 })
 describe('Pagination', () => {
-    const wrapper = shallow(<Pagination currentPage={5}totalPages={53} />);
+    const wrapper = shallow(<Pagination currentPage={1}totalPages={53} />);
     const wrapper2 = shallow(<Pagination currentPage={52}totalPages={53} />);
     it('should have the totalPages count be the text on the last bubble', () => {
         expect(wrapper.find('#last').text()).toBe('53');
+    })
+    it('should display the first ellipsis bubble only if currentPage is 4 or greater', () => {
+        expect(wrapper.find('#firstEllipsis')).toBeFalsy
+        expect(wrapper2.find('#firstEllipsis').html()).toBe("<span class=\"ellipsisBubble\" id=\"firstEllipsis\">···</span>")
     })
     it('should display the second ellipsis bubble only if total pages is over 3 more than the current page', () => {
         expect(wrapper.find('#secondEllipsis').html()).toBe("<span class=\"ellipsisBubble\" id=\"secondEllipsis\">···</span>")
         expect(wrapper2.find('#secondEllipsis')).toBeFalsy
     })
-    it('should display the first ellipsis bubble only if currentPage is 4 or greater', () => {
-        expect(wrapper.find('#firstEllipsis').html()).toBe("<span class=\"ellipsisBubble\" id=\"firstEllipsis\">···</span>")
-        expect(wrapper2.find('#firstEllipsis')).toBeFalsy
-    })
-
 })
