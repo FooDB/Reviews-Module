@@ -16,10 +16,10 @@ class Pagination extends React.Component {
         }
         let middleLeftNumber = (this.props.currentPage < 3 ? 2 : this.props.currentPage - 1)
         let firstElipsis = (this.props.currentPage - 3 > 0 
-                            ? <span><span className="paginationBubble" id="firstElipsis">...</span></span>
+                            ? <span><span className="paginationBubble" id="firstElipsis">&middot;&middot;&middot;</span></span>
                             : '')
         let secondElipsis = (this.props.currentPage + 3 <= this.props.totalPages
-                            ? <span><span className="paginationBubble" id="secondElipsis">...</span></span>
+                            ? <span><span className="paginationBubble" id="secondElipsis">&middot;&middot;&middot;</span></span>
                             : '')
         let selectedBubble1, selectedBubble2, selectedBubble3, selectedBubble4, selectedBubble5;
         selectedBubble1 = (this.props.currentPage === 1 ? 'selectedBubble' : 'first')
