@@ -137,7 +137,7 @@ class ReviewSummary extends React.Component {
                         </div>
                     </div>
 
-                    <div><a href="#">Best Restaurants in (restaurant area)</a></div>
+                    <div><a id="BestRestaurantsLink" href="#">Best Restaurants in (restaurant area)</a></div>
                 </div>
             </div>
         )

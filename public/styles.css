@@ -7,6 +7,8 @@
     margin-top: 3rem;
 }
 
+
+
 /*** Syling for ReviewsFeed ***/
 .imgCircle {
     width: 45px;
@@ -31,8 +33,13 @@
     border-bottom: solid 1px #d8d9db;
     color: #2d333f;
 }
-#reviewsContainer {
-
+#readMore {
+    text-decoration: none;
+    color: #da3743;
+    font-size: inherit;
+}
+#readMore:hover {
+    text-decoration: underline;
 }
 #flagIcon {
     height: 1.5rem;
@@ -81,7 +88,7 @@
 .flex {
     display: flex;
 }
-#reviewReport {
+/* #reviewReport {
     position: absolute;
     background: #fff;
     z-index: 1000;
@@ -90,10 +97,9 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     box-shadow: 0 2px 4px rgba(51,51,51,.2);
-    /* bottom: .5rem; */
     right: 2.9rem;
     max-width: 25rem;
-}
+} */
 #reportHeadContainer {
     justify-content: flex-end;
     background-color: #ffffff;
@@ -152,21 +158,44 @@
     cursor: pointer;
 }
 #reportCancel {
-        margin-right: 0;
-        padding: calc(.75rem - 1px) calc(1rem - 1px);
-        border: 1px solid #d8d9db;
-        text-decoration: none;
-        font-size: 1rem;
-        line-height: 1.5;
-        width: 18rem;
-        font-weight: 500;
-        border-radius: 2px;
-        color: #2d333f;
-        display: inline-block;
-        box-sizing: border-box;
-        background-color: #ffffff;
-        cursor: pointer;
+    margin-right: 0;
+    padding: calc(.75rem - 1px) calc(1rem - 1px);
+    border: 1px solid #d8d9db;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: 18rem;
+    font-weight: 500;
+    border-radius: 2px;
+    color: #2d333f;
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    cursor: pointer;
 }
+
+
+/*** modal styles for report PopUp ***/
+.modal {
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+}
+
+
 
 /*** Styles for Review Toolbar ***/
 #sortMethod {
@@ -304,6 +333,13 @@
     color: #fff;
     background-color: #da3743;
     height: 12px;
+}
+#bestRestaurantsLink {
+    color: #da3743;
+    text-decoration: none;
+}
+#bestRestaurantsLink:hover {
+    text-decoration: underline;
 }
 
 /*** Pagination Styling below ***/
