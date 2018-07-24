@@ -42,38 +42,47 @@ class Review extends React.Component {
     }
     toggleReportModal(e) {
         this.state.reportClicked = !this.state.reportClicked;
+        this.state.reportClicked ? document.addEventListener('mousedown', this.handlemouseDown.bind(this), false) : null;
         this.setState({reportClicked: this.state.reportClicked});
         this.reportPopUp(e);
     }
+    handlemouseDown(e) {
+        this.handleOutsideClick(e);
+    }
+    handleOutsideClick(e) {
+        console.log('handeoutside click called');
+        this.node = this.node || '';
+        if (this.node.contains(e.target)) return;
+        this.toggleReportModal(e)
+        document.removeEventListener('mousedown', this.handlemouseDown.bind(this), false)
+    }
     reportPopUp(e) {
-        // console.log(e.target, e.target.style);
         e.preventDefault()
-        // const p = e.target.getBoundingClientRect();
-        // console.log(p, p.top, p.left, p.offset)
         if (this.state.reportClicked) {
             this.setState({reportPopUp: 
-            <div>
-                <div id="myModal" className="modal">
-                    <div className="modal-content">
-                        <div id="reviewReport">
-                            <div id="reportHeadContainer">
-                                <div id="reportHeadText"><strong>Report this review as inappropriate?</strong></div>
-                            </div>
-                            <div id="reportBodyContainer">
-                                <div id="reportBodyText"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div>
-                                <form>
-                                    <input type="hidden" />
-                                    <textarea id="reviewReasonText" placeholder="Tell us why you find the review inappropriate." required="required"></textarea>
-                                    <div id="reportButtonsContainer">
-                                        <button id="reportConfirm" type="submit" onClick={(e) => this.toggleReportModal(e)}>Report</button>
-                                        <button id="reportCancel" onClick={(e) => this.toggleReportModal(e)}>Cancel</button>
-                                    </div>
-                                </form>
+                <div id="modalContainer">
+                    <div className="modalBackground" >
+                        <div className="modalContent"  ref={node => this.node = node}>
+                            <div id="reviewReport">
+                                <div id="reportHeadContainer">
+                                    <div id="reportHeadText"><strong>Report this review as inappropriate?</strong></div>
+                                </div>
+                                <div id="reportBodyContainer">
+                                    <div id="reportBodyText"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div>
+                                    <form>
+                                        <input type="hidden" />
+                                        <textarea id="reviewReasonText" placeholder="Tell us why you find the review inappropriate." required="required"></textarea>
+                                        <div id="reportButtonsContainer">
+                                            <button id="reportConfirm" type="submit" onClick={(e) => this.toggleReportModal(e)}>Report</button>
+                                            <button id="reportCancel" onClick={(e) => this.toggleReportModal(e)}>Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>})
+            })
         } else {
             this.setState({reportPopUp: ''});
         }
