@@ -62,6 +62,7 @@ describe('FilterBox', () => {
         expect(testState.icon).toBe('./images/emptyBox.png');
     })
 })
+
 describe('lovedForBox', () => {
     const component = mount(<LovedForBox lovedFor={{menuItem: 'Steak'}}/>);
     it('should display the menuitem as text', () => {
@@ -71,24 +72,27 @@ describe('lovedForBox', () => {
         expect(component.html()).toBe("<a><span class=\"filterCheckBox\"><span><img class=\"star\" src=\"./images/trophy.png\"> </span><span id=\"menuItem\">Steak </span></span></a>");
     })
 })
-describe('Review', () => {
-    const wrapper = shallow(<Review 
-        review={{
-            is_helpful: 0, 
-            reviewText: 'test review',
-            dinedDate: '2018-04-12'
-        }}/>);
-    it('should change the helpful state on click', () => {
-        let startState = wrapper.state();
-        expect(startState.helpful).toBe(false);
-        wrapper.find('#placeholder').simulate('click');
-        startState = wrapper.state();
-        expect(startState.helpful).toBe(true);
-    })
-})
+
+// describe('Review', () => {
+//     const wrapper = shallow(<Review 
+//         review={{
+//             is_helpful: 0, 
+//             reviewText: 'test review',
+//             dinedDate: '2018-04-12'
+//         }}/>);
+//     it('should change the helpful state on click', () => {
+//         let startState = wrapper.state();
+//         expect(startState.helpful).toBe(false);
+//         wrapper.find('#placeholder').simulate('click');
+//         startState = wrapper.state();
+//         expect(startState.helpful).toBe(true);
+//     })
+// })
+
 describe('ReviewToolbar', () => {
     
 })
+
 describe('Pagination', () => {
     const wrapper = shallow(<Pagination currentPage={1}totalPages={53} />);
     const wrapper2 = shallow(<Pagination currentPage={52}totalPages={53} />);
