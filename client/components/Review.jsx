@@ -47,7 +47,6 @@ class Review extends React.Component {
         e.preventDefault()
         this.state.reportClicked = !this.state.reportClicked;
         if (this.state.reportClicked && !this.state.listenerAdded) {
-            document.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
             this.state.listenerAdded = true
         } else {
             null;
@@ -55,26 +54,26 @@ class Review extends React.Component {
         this.setState({reportClicked: this.state.reportClicked});
         this.reportPopUp();
     }
-    handleMouseDown(e) {
-        this.handleOutsideClick(e);
-    }
+    // handleMouseDown(e) {
+    //     this.handleOutsideClick(e);
+    // }
     handleOutsideClick(e) {
         console.log('handeoutside click called');
-        debugger;
         this.node = this.node || '';
-        document.removeEventListener('mousedown', this.handleMouseDown.bind(this), false)
         if (this.node && this.node.contains(e.target)) return;
         this.setState({reportClicked: false}, () => this.reportPopUp())
     }
     reportPopUp() {
         if (this.state.reportClicked) {
-            this.setState({reportPopUp: <ReportPopUp setNode={this.setNode.bind(this)} />})
+            this.setState({reportPopUp: <ReportPopUp setNode={this.setNode.bind(this)} 
+                                                     outsideClick={this.handleOutsideClick.bind(this)}
+                                                     toggleReportModal={this.toggleReportModal.bind(this)}/>
+        })
         } else {
             this.setState({reportPopUp: ''});
         }
     }
     setNode(node) {
-        debugger;
         this.node = node
     }
     render() {
