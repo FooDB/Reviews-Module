@@ -70,30 +70,29 @@ class Review extends React.Component {
         return (
             <div id="reviewContainer">
                 {this.state.reportPopUp}
-                <div id="twoHalvesContainer">
+                <div className="twoHalvesContainer">
 
                     <div className="leftHalf">
                         <div id="circleContainer">
-                            <div id="circle">
-                                <div id="initials">CK</div>
+                            <div className="authorCircle">
+                                <div id="reviewInitials">CK</div>
                             </div>
                         </div>
                         <div>
                             <span>
-                                <span>UserName</span>
+                                <span><strong>{this.props.review.userName}</strong></span>
                             </span>
                         </div>
-                        <span>UserCity</span>
+                        <span id="userCity">{this.props.review.userArea}</span>
                         <div>
                             <span>Comment Icon</span>
-                            <span># of reviews</span>
+                            <span>{this.props.review.userReviewCount}</span>
                         </div>
                     </div>
 
                     <div className="rightHalf">
 
                         <div id="starsDateRating">
-
                             <div id="starsAndDate">
                                 <div id="stars">
                                     <span><img className="star" src={this.state.stars[0]} /></span>
@@ -104,33 +103,39 @@ class Review extends React.Component {
                                 </div>
                                 <span className="ratingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
                             </div>
-                            <div id="ratings">
-                                <span>Overall</span>
-                                <span>5</span>
-                                <span>Food</span>
-                                <span>5</span>
-                                <span>Service</span>
-                                <span>5</span>
-                                <span>Ambiance</span>
-                                <span>5</span>
+                            <div id="ratingsContainer">
+                                <span className="reviewRatingCategory">Overall </span>
+                                <span className="reviewRatingNumber">5 </span>
+                                <span className="reviewRatingCategory">&#8226; Food </span>
+                                <span className="reviewRatingNumber">5 </span>
+                                <span className="reviewRatingCategory">&#8226; Service </span>
+                                <span className="reviewRatingNumber">5 </span>
+                                <span className="reviewRatingCategory">&#8226; Ambiance </span>
+                                <span className="reviewRatingNumber">5</span>
                             </div>
-
                         </div>
+
                         <div>
                             <p id="reviewText">{this.state.reviewText}</p>
                         </div>
 
-                        <div id="readmoreLink and reportHelpful">
+                        <div id="reportHelpful">
                             <div>
                                 <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                             </div>
-
-                            <div id="reportHelpfulContainer">
-                                <div>
+                            <div id="subReportHelpful">
+                                <div className="flex" onClick={(e) => this.toggleReportModal(e)}>
                                     <div id="flagIcon"></div>
                                     <span id="reportText">Report</span>
                                 </div>
-                                <div>
+                                <div className="flex" id={helpHover} 
+                                     onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
+                                     onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                                     onMouseLeave={() => {
+                                        this.setState({hoveronHelp: false});
+                                        this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+                                     }}
+                                     value={this.props.review.is_helpful}>
                                     <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
                                     <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                                 </div>

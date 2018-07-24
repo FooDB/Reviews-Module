@@ -13,7 +13,7 @@
 .rightHalf, .leftHalf {
     display: inline-block
 }
-#twoHalvesContainer {
+.twoHalvesContainer {
     display: flex;
 }
 .imgCircle {
