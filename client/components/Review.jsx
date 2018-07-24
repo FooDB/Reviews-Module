@@ -13,7 +13,6 @@ class Review extends React.Component {
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 300) + '...',
             stars: [],
-            date: this.props.review.dinedDate.split('-'),
             reportClicked: false,
             reportPopUp: '',
         }
@@ -64,6 +63,7 @@ class Review extends React.Component {
     }
     render() {
         const helpHover = (this.state.hoveronHelp ? 'helpHovered' : 'placeholder');
+        const reviewDate = this.props.review.dinedDate.split('-')
         let readMorePhrase = (this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more');
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
 
@@ -89,7 +89,7 @@ class Review extends React.Component {
                                         <span><img className="star" src={this.state.stars[3]} /></span>
                                         <span><img className="star" src={this.state.stars[4]} /></span>
                                         <span className="ratingDate"> {this.props.review.overallRating}.0 </span>
-                                        <span className="ratingDate"> Dined on {new Date(this.state.date[0], this.state.date[1] - 1, this.state.date[2].substr(0,2)).toDateString()}</span>
+                                        <span className="ratingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
                                     </div>
                                 </div>
                             </div>
@@ -110,13 +110,13 @@ class Review extends React.Component {
                             <span id="reportText">Report</span>
                         </span>
                         <span className="flex" id={helpHover} 
-                                onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
-                                onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
-                                onMouseLeave={() => {
+                              onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
+                              onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                              onMouseLeave={() => {
                                     this.setState({hoveronHelp: false});
                                     this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
                                 }}
-                                value={this.props.review.is_helpful}>
+                              value={this.props.review.is_helpful}>
                             <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
                             <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                         </span>
