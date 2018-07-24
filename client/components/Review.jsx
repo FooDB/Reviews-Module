@@ -11,10 +11,11 @@ class Review extends React.Component {
             helpful: false,
             upvoteIcon: './images/whiteUpvote.png',
             readMoreClicked: false,
-            reviewText: this.props.review.reviewText.slice(0, 300) + '...',
+            reviewText: this.props.review.reviewText.slice(0, 200) + '...',
             stars: [],
             reportClicked: false,
             reportPopUp: '',
+            randomColor: '#ffffff'
         }
     }
     componentDidMount() {
@@ -25,6 +26,8 @@ class Review extends React.Component {
         }
         if (this.props.review.is_helpful) this.setState({helpful: true});
         this.setState({stars: this.state.stars})
+        const circleColors = ['#df4e96', '#bb6acd', '#6c8ae4', '#d86441']
+        this.setState({randomColor: circleColors[Math.floor(Math.random() * circleColors.length)]});
     }
     helpfulClick() {
         this.setState({helpful: !this.state.helpful});
@@ -39,10 +42,9 @@ class Review extends React.Component {
         this.setState({readMoreClicked: !this.state.readMoreClicked})
         this.state.reviewText.length < 305
         ? this.setState({reviewText: this.props.review.reviewText}) 
-        : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
+        : this.setState({reviewText: this.props.review.reviewText.slice(0, 200)});
     }
-    toggleReportModal(e) {
-        e.preventDefault()
+    toggleReportModal() {
         this.setState({reportClicked: !this.state.reportClicked}, () => this.reportPopUp());
     }
     handleOutsideClick(e) {
@@ -66,60 +68,84 @@ class Review extends React.Component {
         const reviewDate = this.props.review.dinedDate.split('-')
         let readMorePhrase = (this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more');
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
+        const reviewPluralCase = (this.props.review.userReviewCount === 1 ? 'review' : 'reviews')
+        const initials = this.props.review.userName.split(' ')[0][0] + this.props.review.userName.split(' ')[1][0]
 
         return (
             <div id="reviewContainer">
                 {this.state.reportPopUp}
-                <div>
-                    <div>
-                        <span>
-                            <div>
-                                <div className="authorArea">
-                                    <span><img className="imgCircle" src={this.props.review.userPhoto} /></span> 
+                <div className="twoHalvesContainer">
+
+                    <div className="leftHalf" id="reviewLeftHalf">
+                        <div id="reviewCircleContainer">
+                            <div className="authorCircle" style={{backgroundColor: this.state.randomColor}}>
+                                <div id="reviewInitials">{initials}</div>
+                            </div>
+                        </div>
+                        <div id="usernameContainer">
+                            <span>
+                                <span id="reviewUsername">{this.props.review.userName}</span>
+                            </span>
+                        </div>
+                        <span id="userCity">{this.props.review.userArea}</span>
+                        <div id="userReviewsContainer">
+                            <span className="commentIcon"></span>
+                            <span>&nbsp; {this.props.review.userReviewCount} {reviewPluralCase}</span>
+                        </div>
+                    </div>
+
+                    <div className="rightHalf" id="reviewRightHalf">
+
+                        <div id="reviewStarsDateRating">
+                            <div id="reviewStarsDate">
+                                <div id="reviewStarsContainer">
+                                    <img className="reviewStar" src={this.state.stars[0]} />
+                                    <img className="reviewStar" src={this.state.stars[1]} />
+                                    <img className="reviewStar" src={this.state.stars[2]} />
+                                    <img className="reviewStar" src={this.state.stars[3]} />
+                                    <img className="reviewStar" src={this.state.stars[4]} />
                                 </div>
-                                <div className="authorArea">
-                                    <div>
-                                        <span>{this.props.review.userName} &nbsp;</span>
-                                        <span> ({this.props.review.userArea})</span>
-                                    </div>
-                                    <div id="starsAndDate">
-                                        <span><img className="star" src={this.state.stars[0]} /></span>
-                                        <span><img className="star" src={this.state.stars[1]} /></span>
-                                        <span><img className="star" src={this.state.stars[2]} /></span>
-                                        <span><img className="star" src={this.state.stars[3]} /></span>
-                                        <span><img className="star" src={this.state.stars[4]} /></span>
-                                        <span className="ratingDate"> {this.props.review.overallRating}.0 </span>
-                                        <span className="ratingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
-                                    </div>
+                                <span className="reviewRatingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
+                            </div>
+                            <div id="reviewRatingsContainer">
+                                <span className="reviewRatingCategory">Overall </span>
+                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingCategory">&#8226; Food </span>
+                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingCategory">&#8226; Service </span>
+                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingCategory">&#8226; Ambiance </span>
+                                <span className="reviewRatingNumber">5</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p id="reviewText">{this.state.reviewText}</p>
+                        </div>
+
+                        <div id="reportHelpful">
+                            <div>
+                                <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
+                            </div>
+                            <div id="subReportHelpful">
+                                <div className="flexCenter" onClick={(e) => this.toggleReportModal(e)}>
+                                    <div id="flagIcon"></div>
+                                    <span className="reportText">Report</span>
+                                </div>
+                                <div className="flexCenter" 
+                                     id={helpHover} 
+                                     value={this.props.review.is_helpful}
+                                     onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
+                                     onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                                     onMouseLeave={() => {
+                                        this.setState({hoveronHelp: false});
+                                        this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+                                     }}>
+                                    <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
+                                    <span className="reportText">Helpful {this.state.helpful ? '(1)' : ''}</span>
                                 </div>
                             </div>
-                        </span>
-                    </div>
-                </div>
-
-                <div>
-                    <p id="reviewText">{this.state.reviewText}</p>
-                </div>
-                <div  id="reportHelpful">
-                    <div>
-                        <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
-                    </div>
-                    <div id="subReportHelpful">
-                        <span className="flex" onClick={(e) => this.toggleReportModal(e)}>
-                            <div id="flagIcon"></div>
-                            <span id="reportText">Report</span>
-                        </span>
-                        <span className="flex" id={helpHover} 
-                              onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
-                              onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
-                              onMouseLeave={() => {
-                                    this.setState({hoveronHelp: false});
-                                    this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
-                                }}
-                              value={this.props.review.is_helpful}>
-                            <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
-                            <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
