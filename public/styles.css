@@ -10,6 +10,12 @@
 
 
 /*** Syling for ReviewsFeed ***/
+.rightHalf, .leftHalf {
+    display: inline-block
+}
+#twoHalvesContainer {
+    display: flex;
+}
 .imgCircle {
     width: 45px;
     height: 45px;

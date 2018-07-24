@@ -68,10 +68,11 @@ class Review extends React.Component {
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
 
         return (
-            <div id="total review">
-                <div id="review with padding">
+            <div id="reviewContainer">
+                {this.state.reportPopUp}
+                <div id="twoHalvesContainer">
 
-                    <div id="leftHalfAuthorArea">
+                    <div className="leftHalf">
                         <div id="circleContainer">
                             <div id="circle">
                                 <div id="initials">CK</div>
@@ -89,7 +90,7 @@ class Review extends React.Component {
                         </div>
                     </div>
 
-                    <div id="rightHalf">
+                    <div className="rightHalf">
 
                         <div id="starsDateRating">
 
@@ -101,7 +102,7 @@ class Review extends React.Component {
                                     <span><img className="star" src={this.state.stars[3]} /></span>
                                     <span><img className="star" src={this.state.stars[4]} /></span>
                                 </div>
-                                <span>Dined: Date</span>
+                                <span className="ratingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
                             </div>
                             <div id="ratings">
                                 <span>Overall</span>
@@ -116,22 +117,22 @@ class Review extends React.Component {
 
                         </div>
                         <div>
-                            <p>Review Text</p>
+                            <p id="reviewText">{this.state.reviewText}</p>
                         </div>
 
                         <div id="readmoreLink and reportHelpful">
                             <div>
-                                <a>Read More</a>
+                                <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
                             </div>
 
                             <div id="reportHelpfulContainer">
                                 <div>
-                                    <div>flagIcon</div>
-                                    <div>Report</div>
+                                    <div id="flagIcon"></div>
+                                    <span id="reportText">Report</span>
                                 </div>
                                 <div>
-                                    <div>helpful Icon</div>
-                                    <div>Helpful</div>
+                                    <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
+                                    <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                                 </div>
                             </div>
                         </div>
