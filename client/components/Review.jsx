@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import ReportPopUp from './ReportPopUp.jsx';
+import { debug } from 'util';
 
 class Review extends React.Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class Review extends React.Component {
             stars: [],
             date: this.props.review.dinedDate.split('-'),
             reportClicked: false,
-            reportPopUp: ''
+            reportPopUp: '',
+            listenerAdded: false
         }
     }
     componentDidMount() {
@@ -43,7 +46,12 @@ class Review extends React.Component {
     toggleReportModal(e) {
         e.preventDefault()
         this.state.reportClicked = !this.state.reportClicked;
-        this.state.reportClicked ? document.addEventListener('mousedown', this.handleMouseDown.bind(this), false) : null;
+        if (this.state.reportClicked && !this.state.listenerAdded) {
+            document.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
+            this.state.listenerAdded = true
+        } else {
+            null;
+        }
         this.setState({reportClicked: this.state.reportClicked});
         this.reportPopUp();
     }
@@ -52,40 +60,22 @@ class Review extends React.Component {
     }
     handleOutsideClick(e) {
         console.log('handeoutside click called');
+        debugger;
         this.node = this.node || '';
+        document.removeEventListener('mousedown', this.handleMouseDown.bind(this), false)
         if (this.node && this.node.contains(e.target)) return;
         this.setState({reportClicked: false}, () => this.reportPopUp())
-        document.removeEventListener('mousedown', this.handleMouseDown.bind(this), false)
     }
     reportPopUp() {
         if (this.state.reportClicked) {
-            this.setState({reportPopUp: 
-                <div id="modalContainer">
-                    <div className="modalBackground" >
-                        <div className="modalContent"  ref={node => this.node = node}>
-                            <div id="reviewReport">
-                                <div id="reportHeadContainer">
-                                    <div id="reportHeadText"><strong>Report this review as inappropriate?</strong></div>
-                                </div>
-                                <div id="reportBodyContainer">
-                                    <div id="reportBodyText"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div>
-                                    <form>
-                                        <input type="hidden" />
-                                        <textarea id="reviewReasonText" placeholder="Tell us why you find the review inappropriate." required="required"></textarea>
-                                        <div id="reportButtonsContainer">
-                                            <button id="reportConfirm" type="submit" onClick={(e) => this.toggleReportModal(e)}>Report</button>
-                                            <button id="reportCancel" onClick={(e) => this.toggleReportModal(e)}>Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            })
+            this.setState({reportPopUp: <ReportPopUp setNode={this.setNode.bind(this)} />})
         } else {
             this.setState({reportPopUp: ''});
         }
+    }
+    setNode(node) {
+        debugger;
+        this.node = node
     }
     render() {
         const helpHover = (this.state.hoveronHelp ? 'helpHovered' : 'placeholder');
@@ -94,7 +84,7 @@ class Review extends React.Component {
 
         return (
             <div id="reviewContainer">
-            {this.state.reportPopUp}
+                {this.state.reportPopUp}
                 <div>
                     <div>
                         <span>
