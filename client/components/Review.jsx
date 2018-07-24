@@ -41,23 +41,23 @@ class Review extends React.Component {
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
     toggleReportModal(e) {
+        e.preventDefault()
         this.state.reportClicked = !this.state.reportClicked;
-        this.state.reportClicked ? document.addEventListener('mousedown', this.handlemouseDown.bind(this), false) : null;
+        this.state.reportClicked ? document.addEventListener('mousedown', this.handleMouseDown.bind(this), false) : null;
         this.setState({reportClicked: this.state.reportClicked});
-        this.reportPopUp(e);
+        this.reportPopUp();
     }
-    handlemouseDown(e) {
+    handleMouseDown(e) {
         this.handleOutsideClick(e);
     }
     handleOutsideClick(e) {
         console.log('handeoutside click called');
         this.node = this.node || '';
-        if (this.node.contains(e.target)) return;
-        this.toggleReportModal(e)
-        document.removeEventListener('mousedown', this.handlemouseDown.bind(this), false)
+        if (this.node && this.node.contains(e.target)) return;
+        this.setState({reportClicked: false}, () => this.reportPopUp())
+        document.removeEventListener('mousedown', this.handleMouseDown.bind(this), false)
     }
-    reportPopUp(e) {
-        e.preventDefault()
+    reportPopUp() {
         if (this.state.reportClicked) {
             this.setState({reportPopUp: 
                 <div id="modalContainer">
