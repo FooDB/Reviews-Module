@@ -41,8 +41,7 @@ class Review extends React.Component {
         ? this.setState({reviewText: this.props.review.reviewText}) 
         : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
     }
-    toggleReportModal(e) {
-        e.preventDefault()
+    toggleReportModal() {
         this.setState({reportClicked: !this.state.reportClicked}, () => this.reportPopUp());
     }
     handleOutsideClick(e) {
@@ -62,31 +61,34 @@ class Review extends React.Component {
         this.node = node
     }
     render() {
+        const circleColors = ['#df4e96', '#bb6acd', '#6c8ae4', '#d86441']
+        const randomColor = circleColors[Math.floor(Math.random() * circleColors.length)]
         const helpHover = (this.state.hoveronHelp ? 'helpHovered' : 'placeholder');
         const reviewDate = this.props.review.dinedDate.split('-')
         let readMorePhrase = (this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more');
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
+        const reviewPluralCase = (this.props.review.userReviewCount === 1 ? 'review' : 'reviews')
 
         return (
             <div id="reviewContainer">
                 {this.state.reportPopUp}
                 <div className="twoHalvesContainer">
 
-                    <div className="leftHalf">
-                        <div id="circleContainer">
-                            <div className="authorCircle">
-                                <div id="reviewInitials">CK</div>
+                    <div className="leftHalf" id="reviewLeftHalf">
+                        <div id="reviewCircleContainer">
+                            <div className="authorCircle" style={{backgroundColor: randomColor}}>
+                                <div id="reviewInitials">{this.props.review.userName.split(' ')[0][0]}{this.props.review.userName.split(' ')[1][0]}</div>
                             </div>
                         </div>
-                        <div>
+                        <div id="usernameContainer">
                             <span>
                                 <span><strong>{this.props.review.userName}</strong></span>
                             </span>
                         </div>
                         <span id="userCity">{this.props.review.userArea}</span>
-                        <div>
-                            <span>Comment Icon</span>
-                            <span>{this.props.review.userReviewCount}</span>
+                        <div id="userReviewsContainer">
+                            <span className="commentIcon"></span>
+                            <span>&nbsp; {this.props.review.userReviewCount} {reviewPluralCase}</span>
                         </div>
                     </div>
 
@@ -128,14 +130,15 @@ class Review extends React.Component {
                                     <div id="flagIcon"></div>
                                     <span id="reportText">Report</span>
                                 </div>
-                                <div className="flex" id={helpHover} 
+                                <div className="flex" 
+                                     id={helpHover} 
+                                     value={this.props.review.is_helpful}
                                      onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
                                      onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
                                      onMouseLeave={() => {
                                         this.setState({hoveronHelp: false});
                                         this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
-                                     }}
-                                     value={this.props.review.is_helpful}>
+                                     }}>
                                     <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
                                     <span className="flex">&nbsp; Helpful {this.state.helpful ? '(1)' : ''}</span>
                                 </div>

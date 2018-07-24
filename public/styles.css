@@ -13,9 +13,65 @@
 .rightHalf, .leftHalf {
     display: inline-block
 }
+#reviewLeftHalf {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    width: 6rem;
+    position: relative;
+    flex: 0 0 auto;
+}
+#reviewCircleContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
 .twoHalvesContainer {
     display: flex;
 }
+.authorCircle {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    background-size: contain;
+    background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='48' height='48' viewBox='0 0…c-5.623 0-10.182 4.559-10.182 10.182z' fill='%23FFF'/%3E%3C/g%3E%3C/svg%3E) no-repeat 50%");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#usernameContainer {
+    text-align: center;
+    word-break: break-word;
+}
+#userCity {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.43;
+    color: #6f737b;
+    margin-bottom: 0.5rem;
+}
+#userReviewsContainer {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0.5rem 0 0;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.43;
+    flex: none;
+    white-space: nowrap;
+    color: #6f737b;
+}
+.commentIcon {
+    position: relative;
+    height: 16px;
+    width: 16px;
+    flex: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3Euniversal / icon / details / small / ic_ticket copy%3C/title%3E%3Cpath d='M4.5 3.5A1.5 1.5 0 0 0 3 5v4.099a1.5 1.5 0 0 0 1.5 1.5h3.073L9.8 12.091a.5.5 0 0 0 .779-.409l.013-1.083h.908a1.5 1.5 0 0 0 1.5-1.5V5a1.5 1.5 0 0 0-1.5-1.5h-7z' stroke='%236F737B' fill='none'/%3E%3C/svg%3E")
+}
+
 .imgCircle {
     width: 45px;
     height: 45px;
@@ -78,23 +134,24 @@
 #reportText {
     margin-right: 20px;
 }
-#starsAndDate {
+/* #starsAndDate {
     display: flex;
     align-items: center;
-}
-.authorArea {
+} */
+/* .authorArea {
     display: inline-block;
     align-items: center;
     margin-bottom: 10px;  
     vertical-align: top;
-}
-.ratingDate {
+} */
+/* .ratingDate {
     margin-left: 5px;
-}
+} */
 .flex {
     display: flex;
 }
 
+/*** ReportPopUp styles ***/
 #reportHeadContainer {
     justify-content: flex-end;
     background-color: #ffffff;
