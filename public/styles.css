@@ -45,6 +45,12 @@
     text-align: center;
     word-break: break-word;
 }
+#reviewUsername {
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+    color: #2d333f;
+}
 #userCity {
     font-size: 0.875rem;
     font-weight: 500;
@@ -70,6 +76,11 @@
     width: 16px;
     flex: none;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3Euniversal / icon / details / small / ic_ticket copy%3C/title%3E%3Cpath d='M4.5 3.5A1.5 1.5 0 0 0 3 5v4.099a1.5 1.5 0 0 0 1.5 1.5h3.073L9.8 12.091a.5.5 0 0 0 .779-.409l.013-1.083h.908a1.5 1.5 0 0 0 1.5-1.5V5a1.5 1.5 0 0 0-1.5-1.5h-7z' stroke='%236F737B' fill='none'/%3E%3C/svg%3E")
+}
+#reviewInitials {
+    color: #ffffff;
+    font-weight: 500;
+    text-transform: capitalize;
 }
 
 .imgCircle {

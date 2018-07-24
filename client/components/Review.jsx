@@ -11,7 +11,7 @@ class Review extends React.Component {
             helpful: false,
             upvoteIcon: './images/whiteUpvote.png',
             readMoreClicked: false,
-            reviewText: this.props.review.reviewText.slice(0, 300) + '...',
+            reviewText: this.props.review.reviewText.slice(0, 250) + '...',
             stars: [],
             reportClicked: false,
             reportPopUp: '',
@@ -39,7 +39,7 @@ class Review extends React.Component {
         this.setState({readMoreClicked: !this.state.readMoreClicked})
         this.state.reviewText.length < 305
         ? this.setState({reviewText: this.props.review.reviewText}) 
-        : this.setState({reviewText: this.props.review.reviewText.slice(0, 300)});
+        : this.setState({reviewText: this.props.review.reviewText.slice(0, 250)});
     }
     toggleReportModal() {
         this.setState({reportClicked: !this.state.reportClicked}, () => this.reportPopUp());
@@ -68,6 +68,7 @@ class Review extends React.Component {
         let readMorePhrase = (this.state.readMoreClicked ? readMorePhrase = '- Read less' : readMorePhrase = '+ Read more');
         if (!this.state.readMoreClicked && this.props.review.reviewText.length < 300) readMorePhrase = '';
         const reviewPluralCase = (this.props.review.userReviewCount === 1 ? 'review' : 'reviews')
+        const initials = this.props.review.userName.split(' ')[0][0] + this.props.review.userName.split(' ')[1][0]
 
         return (
             <div id="reviewContainer">
@@ -77,12 +78,12 @@ class Review extends React.Component {
                     <div className="leftHalf" id="reviewLeftHalf">
                         <div id="reviewCircleContainer">
                             <div className="authorCircle" style={{backgroundColor: randomColor}}>
-                                <div id="reviewInitials">{this.props.review.userName.split(' ')[0][0]}{this.props.review.userName.split(' ')[1][0]}</div>
+                                <div id="reviewInitials">{initials}</div>
                             </div>
                         </div>
                         <div id="usernameContainer">
                             <span>
-                                <span><strong>{this.props.review.userName}</strong></span>
+                                <span id="reviewUsername">{this.props.review.userName}</span>
                             </span>
                         </div>
                         <span id="userCity">{this.props.review.userArea}</span>
