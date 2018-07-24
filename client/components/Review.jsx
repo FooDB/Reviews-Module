@@ -16,7 +16,6 @@ class Review extends React.Component {
             date: this.props.review.dinedDate.split('-'),
             reportClicked: false,
             reportPopUp: '',
-            listenerAdded: false
         }
     }
     componentDidMount() {
@@ -45,33 +44,20 @@ class Review extends React.Component {
     }
     toggleReportModal(e) {
         e.preventDefault()
-        this.state.reportClicked = !this.state.reportClicked;
-        if (this.state.reportClicked && !this.state.listenerAdded) {
-            this.state.listenerAdded = true
-        } else {
-            null;
-        }
-        this.setState({reportClicked: this.state.reportClicked});
-        this.reportPopUp();
+        this.setState({reportClicked: !this.state.reportClicked}, () => this.reportPopUp());
     }
-    // handleMouseDown(e) {
-    //     this.handleOutsideClick(e);
-    // }
     handleOutsideClick(e) {
-        console.log('handeoutside click called');
-        this.node = this.node || '';
         if (this.node && this.node.contains(e.target)) return;
         this.setState({reportClicked: false}, () => this.reportPopUp())
     }
     reportPopUp() {
-        if (this.state.reportClicked) {
-            this.setState({reportPopUp: <ReportPopUp setNode={this.setNode.bind(this)} 
-                                                     outsideClick={this.handleOutsideClick.bind(this)}
-                                                     toggleReportModal={this.toggleReportModal.bind(this)}/>
+        this.setState({reportPopUp: (this.state.reportClicked 
+            ? <ReportPopUp 
+                setNode={this.setNode.bind(this)} 
+                outsideClick={this.handleOutsideClick.bind(this)}
+                toggleReportModal={this.toggleReportModal.bind(this)}/>
+            : '')
         })
-        } else {
-            this.setState({reportPopUp: ''});
-        }
     }
     setNode(node) {
         this.node = node
@@ -110,6 +96,7 @@ class Review extends React.Component {
                         </span>
                     </div>
                 </div>
+
                 <div>
                     <p id="reviewText">{this.state.reviewText}</p>
                 </div>

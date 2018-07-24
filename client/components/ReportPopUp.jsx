@@ -10,7 +10,6 @@ class ReportPopUp extends React.Component {
         document.removeEventListener('mousedown', this.handleMouseDown, false)
     }
     handleMouseDown(e) {
-        console.log('handlemousedown called from popup')
         this.props.outsideClick(e);
     }
 
