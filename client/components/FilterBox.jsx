@@ -17,7 +17,7 @@ class FilterBox extends React.Component {
     render() {
         return (
         <span className="filterCheckBox" onClick={() => {this.switchIcon(); this.props.filterReviews(this.props.keyWord.filterKeyword)}}>
-            <span><img className="star" src={this.state.icon} /> </span>
+            <span><img className="filterBoxIcon" src={this.state.icon} /> </span>
             <span> {this.props.keyWord.filterKeyword}</span>
         </span>
         )

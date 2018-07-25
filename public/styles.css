@@ -213,19 +213,6 @@
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 }
-/* #starsAndDate {
-    display: flex;
-    align-items: center;
-} */
-/* .authorArea {
-    display: inline-block;
-    align-items: center;
-    margin-bottom: 10px;  
-    vertical-align: top;
-} */
-/* .ratingDate {
-    margin-left: 5px;
-} */
 .flex {
     display: flex;
 }
@@ -355,11 +342,11 @@
     margin-bottom: 2rem;
 }
 .filterCheckBox {
-    padding: 1.0rem;
-    border: 1px solid;
-    margin: 10px;
+    padding: .5rem .5rem;
+    border: 1px solid #d8d9db;
     cursor: pointer;
     align-items: center;
+    margin: .5rem;
 }
 .filterCheckBox:hover {
     border-color: transparent;
@@ -369,7 +356,16 @@
     font-family: 'Open Sans', sans-serif;
     margin: 0 0 20px 5px;
     display: flex;
+    font-weight: 500;
 }
+.filterBoxIcon {
+    position: relative;
+    top: 3;
+    margin-right: .25rem;
+    width: 18px;
+    height: 18px;
+}
+
 
 
 /*** Summary Styles ***/
