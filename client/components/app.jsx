@@ -121,8 +121,9 @@ class App extends React.Component {
         let filtered = this.state.allReviews.filter((review) => review.overallRating === target);
         this.setState({reviews: filtered});
     }
-    sortReviewsBySelect() {
-        const sortMethod = document.getElementById('sortMethod').value;
+    sortReviewsBySelect(sortMethod) {
+        console.log('sortreviews called', sortMethod)
+        // const sortMethod = document.getElementById('dropdownHeader').textContent;
         if (sortMethod === 'Highest') {
             this.state.reviews.sort((a, b) => b.overallRating - a.overallRating)
         } else if (sortMethod === 'Lowest') {

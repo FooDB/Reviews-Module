@@ -10,19 +10,21 @@ class ReviewToolbar extends React.Component {
             current: 'Newest',
         }
     }
-    handleSelection() {
-        console.log('handleselection called')
-        this.setState({display: 'block'})
+    handleSelection(e) {
+        console.log('handleselection called', e.target.textContent)
+        this.setState({ddSelected: !this.state.ddSelected, current: e.target.textContent})
+        !this.state.ddSelected ? this.setState({display: 'block'}) : this.setState({display: 'none'})
+        // this.props.sortReviews(e.target.value);
     }
     render() {
         return (
             <div id="toolbarContainer">
                 <div id="toolbarSortText">Sort By</div>
-                <div onClick={() => this.handleSelection()}>{this.state.current}</div>
+                <div id="dropdownHeader" onClick={(e) => this.handleSelection(e)}>{this.state.current}</div>
                 <div>
-                    <div style={{display: this.state.display}}>Newest</div>
-                    <div style={{display: this.state.display}}>Highest Rating</div>
-                    <div style={{display: this.state.display}}>Lowest Rating</div>
+                    <div className="dropdownItem" value="Newest" onClick={(e) => {this.props.sortReviews(e.target.textContent.split(' ')[0]); this.handleSelection(e)}} style={{display: this.state.display}}>Newest</div>
+                    <div className="dropdownItem" value="Highest"onClick={(e) => {this.props.sortReviews(e.target.textContent.split(' ')[0]); this.handleSelection(e)}} style={{display: this.state.display}}>Highest Rating</div>
+                    <div className="dropdownItem" value="Lowest" onClick={(e) => {this.props.sortReviews(e.target.textContent.split(' ')[0]); this.handleSelection(e)}} style={{display: this.state.display}}>Lowest Rating</div>
                 </div>
     
     
