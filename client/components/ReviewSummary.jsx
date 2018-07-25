@@ -40,7 +40,7 @@ class ReviewSummary extends React.Component {
         const starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
         return (
             <div id="reviewSummaryContainer">
-                <div>
+                {/* <div> */}
                     <div className="summaryHeader">What {this.props.allReviews.length} People Are Saying</div>
                     <div>
 
@@ -96,32 +96,32 @@ class ReviewSummary extends React.Component {
                             <div>
                                 <div className="toolbarAndNumber" onClick={() => {this.props.filter(5); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">5</span>
-                                    <div className="w3-light-grey">
-                                        <div className="w3-green" style={{width: this.state.percentages[4]}}></div>
+                                    <div className="toolbar-light-background">
+                                        <div className="toolbar-red" style={{width: this.state.percentages[4]}}></div>
                                     </div>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => {this.props.filter(4); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">4</span>
-                                    <div className="w3-light-grey">
-                                        <div className="w3-green" style={{width: this.state.percentages[3]}}></div>
+                                    <div className="toolbar-light-background">
+                                        <div className="toolbar-red" style={{width: this.state.percentages[3]}}></div>
                                     </div>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => {this.props.filter(3); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">3</span>
-                                    <div className="w3-light-grey">
-                                        <div className="w3-green" style={{width: this.state.percentages[2]}}></div>
+                                    <div className="toolbar-light-background">
+                                        <div className="toolbar-red" style={{width: this.state.percentages[2]}}></div>
                                     </div>
                                 </div>
                                 <div className="toolbarAndNumber" onClick={() => {this.props.filter(2); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">2</span>
-                                    <div className="w3-light-grey">
-                                        <div className="w3-green" style={{width: this.state.percentages[1]}}></div>
+                                    <div className="toolbar-light-background">
+                                        <div className="toolbar-red" style={{width: this.state.percentages[1]}}></div>
                                     </div>
                                 </div>
                                 <div  className="toolbarAndNumber" onClick={() => {this.props.filter(1); this.props.scrollToTopOfFeed()}}>
                                     <span className="toolbarNumber">1</span>
-                                    <div className="w3-light-grey">
-                                        <div className="w3-green" style={{width: this.state.percentages[0]}}></div>
+                                    <div className="toolbar-light-background">
+                                        <div className="toolbar-red" style={{width: this.state.percentages[0]}}></div>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@ class ReviewSummary extends React.Component {
                 
                     <div id="lovedForContainer">
                         <div>
-                            <div  id="lovedForContainer"><strong>Loved For </strong><a href="#"><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
+                            <div  id="lovedForText">Loved For <a href="#"><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
                             <div >
                                 {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} key={item.id}/>)}
                             </div>
@@ -139,7 +139,7 @@ class ReviewSummary extends React.Component {
 
                     <div><a id="BestRestaurantsLink" href="#">Best Restaurants in (restaurant area)</a></div>
                 </div>
-            </div>
+            // </div>
         )
     }
 }
