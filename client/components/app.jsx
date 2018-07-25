@@ -72,12 +72,12 @@ class App extends React.Component {
         let starsToGo = false;
         for (let i = 0; i < 5; i++) {
             if (totalAverageCopy - 1 < 0 && !starsToGo) {
-                totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
+                totalAverageCopy > .5 ? this.state.stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/highStar.png') : this.state.stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/lowStar.png');
                 totalAverageCopy--;
                 starsToGo = true
                 continue;
             } else {
-                totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+                totalAverageCopy > 0 ? this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png") : this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png");
                 totalAverageCopy--;
             }
         }
@@ -140,7 +140,7 @@ class App extends React.Component {
         })
     }
     scrollToTopOfFeed() {
-        document.getElementById('toolbarContainer').scrollIntoView({behavior: 'smooth'});
+        document.getElementById('reviewContainer').scrollIntoView({behavior: 'smooth'});
     }
     render() {
         return (
@@ -161,7 +161,8 @@ class App extends React.Component {
                     <ReviewToolbar 
                         keyWords={this.state.keyWords} 
                         sortReviews={this.sortReviewsBySelect.bind(this)}
-                        filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                        filterReviews={this.filterReviewsByKeyword.bind(this)}
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
                 </ErrorBoundary>
 
                 <ErrorBoundary>

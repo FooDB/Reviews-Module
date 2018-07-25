@@ -4,9 +4,9 @@ class FilterBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            icon: './images/emptyBox.png',
-            redIcon: './images/redBox.png',
-            whiteIcon: './images/emptyBox.png',
+            icon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/emptyBox.png',
+            redIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redBox.png',
+            whiteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/emptyBox.png',
             clicked: false,
             style: 'none'
         }

@@ -81,13 +81,13 @@ class ReviewSummary extends React.Component {
                             </div>
                             <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
-                                    <span><img className="summaryIcon" id="summaryBarIcon" src="./images/risingBars.png" /></span>
+                                    <span><img className="summaryIcon" id="summaryBarIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/risingBars.png" /></span>
                                     <span id="summaryNoiseText"><strong>Noise &#8226;</strong><span id="summaryNoiseLevel"> {noiseLevel}</span></span>
                                 </div>
                             </div>
                             <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
-                                    <span><img className="summaryIcon" id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
+                                    <span><img className="summaryIcon" id="thumbsUpIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/thumbsUp.png" /></span>
                                     <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
                                 </div>
                             </div>
@@ -131,7 +131,7 @@ class ReviewSummary extends React.Component {
                 
                     <div id="lovedForContainer">
                         <div>
-                            <div  id="lovedForText">Loved For <a href="#"><img className="summaryIcon" src="./images/infoIcon.png" /></a></div>
+                            <div  id="lovedForText">Loved For <a href="#"><img className="summaryIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/infoIcon.png" /></a></div>
                             <div >
                                 {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} key={item.id}/>)}
                             </div>
