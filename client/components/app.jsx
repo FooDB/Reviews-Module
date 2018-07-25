@@ -26,13 +26,15 @@ class App extends React.Component {
             is_filtered: false,
             stars: [],
             currentPage: 1,
-            totalPages: 0
+            totalPages: 0,
+            restaurantInfo: []
         }
     }
     componentDidMount() {
         this.pullKeywordsById();
         this.pullMenuItemsById();
         this.pullDataById();
+        this.pullRestaurantInfoById();
     }
     getAverage(reviews, criteria) {
         let sum = 0;
@@ -80,6 +82,14 @@ class App extends React.Component {
             }
         }
         this.setState({stars: this.state.stars})
+    }
+    pullRestaurantInfoById() {
+        axios.get(`/restaurantInfo/${3}`)
+        .then(res => {
+            this.setState({restaurantInfo: res.data});
+            console.log(res.data, 'restaurantInfo');
+        })
+        .catch(err => console.error(err));
     }
     pullKeywordsById() {
         axios.get(`/filterKeywords/${3}`)

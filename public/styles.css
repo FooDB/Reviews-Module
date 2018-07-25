@@ -398,7 +398,7 @@
     display: inline-block;
     margin-left: .5rem;
     position: relative;
-    bottom: 68;
+    bottom: 62;
 }
 #leftSummaryContainer {
     display: inline-block;
@@ -450,7 +450,6 @@
     position: relative;
     top: 1;
 }
-
 #percentageRecommended {
     font-weight: bold;
 }
@@ -460,7 +459,7 @@
 #lovedForText {
     font-size: 1rem;
     line-height: 1.5;
-    font-weight: 500;
+    font-weight: bold;
     display: flex;
     margin-bottom: 2rem;
 }

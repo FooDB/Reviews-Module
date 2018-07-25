@@ -109,13 +109,13 @@ class Review extends React.Component {
                             </div>
                             <div id="reviewRatingsContainer">
                                 <span className="reviewRatingCategory">Overall </span>
-                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingNumber">{this.props.review.overallRating} &nbsp;</span>
                                 <span className="reviewRatingCategory">&#8226; Food </span>
-                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingNumber">{this.props.review.foodRating} &nbsp;</span>
                                 <span className="reviewRatingCategory">&#8226; Service </span>
-                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingNumber">{this.props.review.serviceRating} &nbsp;</span>
                                 <span className="reviewRatingCategory">&#8226; Ambiance </span>
-                                <span className="reviewRatingNumber">5</span>
+                                <span className="reviewRatingNumber">{this.props.review.ambianceRating}</span>
                             </div>
                         </div>
 

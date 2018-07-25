@@ -40,7 +40,6 @@ class ReviewSummary extends React.Component {
         const starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
         return (
             <div id="reviewSummaryContainer">
-                {/* <div> */}
                     <div className="summaryHeader">What {this.props.allReviews.length} People Are Saying</div>
                     <div>
 
@@ -137,9 +136,8 @@ class ReviewSummary extends React.Component {
                         </div>
                     </div>
 
-                    <div><a id="BestRestaurantsLink" href="#">Best Restaurants in (restaurant area)</a></div>
+                    <div><a id="BestRestaurantsLink" href="#">Best Restaurants in Financial District</a></div>
                 </div>
-            // </div>
         )
     }
 }
