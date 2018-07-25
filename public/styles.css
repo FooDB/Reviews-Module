@@ -386,7 +386,10 @@
     align-items: center;
     margin: .5rem;
 }
-.filterCheckBox:hover {
+span:focus {
+    outline: none;
+}
+.filterCheckBox:hover, .filterCheckBox:focus {
     border-color: transparent;
     box-shadow: 0 0 0 2px #da3743;
 }

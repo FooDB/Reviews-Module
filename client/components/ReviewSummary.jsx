@@ -5,7 +5,8 @@ class ReviewSummary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            percentages: Array(5).fill('0%')
+            percentages: Array(5).fill('0%'),
+            ratingSelected: false,
         }
     }
     componentDidMount() {
