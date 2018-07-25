@@ -152,7 +152,8 @@ class App extends React.Component {
                         stars={this.state.stars}
                         lovedFor={this.state.lovedFor}
                         filter={this.filterReviewsByRating.bind(this)}
-                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
+                        restaurantInfo={this.state.restaurantInfo}/>
                 </ErrorBoundary>
 
                 <ErrorBoundary>
