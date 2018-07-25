@@ -26,13 +26,15 @@ class App extends React.Component {
             is_filtered: false,
             stars: [],
             currentPage: 1,
-            totalPages: 0
+            totalPages: 0,
+            restaurantInfo: []
         }
     }
     componentDidMount() {
         this.pullKeywordsById();
         this.pullMenuItemsById();
         this.pullDataById();
+        this.pullRestaurantInfoById();
     }
     getAverage(reviews, criteria) {
         let sum = 0;
@@ -70,16 +72,24 @@ class App extends React.Component {
         let starsToGo = false;
         for (let i = 0; i < 5; i++) {
             if (totalAverageCopy - 1 < 0 && !starsToGo) {
-                totalAverageCopy > .5 ? this.state.stars.push('./images/highStar.png') : this.state.stars.push('./images/lowStar');
+                totalAverageCopy > .5 ? this.state.stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/highStar.png') : this.state.stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/lowStar.png');
                 totalAverageCopy--;
                 starsToGo = true
                 continue;
             } else {
-                totalAverageCopy > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+                totalAverageCopy > 0 ? this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png") : this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png");
                 totalAverageCopy--;
             }
         }
         this.setState({stars: this.state.stars})
+    }
+    pullRestaurantInfoById() {
+        axios.get(`/restaurantInfo/${3}`)
+        .then(res => {
+            this.setState({restaurantInfo: res.data});
+            console.log(res.data, 'restaurantInfo');
+        })
+        .catch(err => console.error(err));
     }
     pullKeywordsById() {
         axios.get(`/filterKeywords/${3}`)
@@ -111,8 +121,9 @@ class App extends React.Component {
         let filtered = this.state.allReviews.filter((review) => review.overallRating === target);
         this.setState({reviews: filtered});
     }
-    sortReviewsBySelect() {
-        const sortMethod = document.getElementById('sortMethod').value;
+    sortReviewsBySelect(sortMethod) {
+        console.log('sortreviews called', sortMethod)
+        // const sortMethod = document.getElementById('dropdownHeader').textContent;
         if (sortMethod === 'Highest') {
             this.state.reviews.sort((a, b) => b.overallRating - a.overallRating)
         } else if (sortMethod === 'Lowest') {
@@ -129,7 +140,7 @@ class App extends React.Component {
         })
     }
     scrollToTopOfFeed() {
-        document.getElementById('toolbarContainer').scrollIntoView({behavior: 'smooth'});
+        document.getElementById('reviewContainer').scrollIntoView({behavior: 'smooth'});
     }
     render() {
         return (
@@ -142,14 +153,16 @@ class App extends React.Component {
                         stars={this.state.stars}
                         lovedFor={this.state.lovedFor}
                         filter={this.filterReviewsByRating.bind(this)}
-                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
+                        restaurantInfo={this.state.restaurantInfo}/>
                 </ErrorBoundary>
 
                 <ErrorBoundary>
                     <ReviewToolbar 
                         keyWords={this.state.keyWords} 
                         sortReviews={this.sortReviewsBySelect.bind(this)}
-                        filterReviews={this.filterReviewsByKeyword.bind(this)}/>
+                        filterReviews={this.filterReviewsByKeyword.bind(this)}
+                        scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
                 </ErrorBoundary>
 
                 <ErrorBoundary>

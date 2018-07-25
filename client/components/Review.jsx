@@ -9,7 +9,7 @@ class Review extends React.Component {
         this.state = {
             hoveronHelp: false,
             helpful: false,
-            upvoteIcon: './images/whiteUpvote.png',
+            upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png',
             readMoreClicked: false,
             reviewText: this.props.review.reviewText.slice(0, 200) + '...',
             stars: [],
@@ -21,7 +21,7 @@ class Review extends React.Component {
     componentDidMount() {
         let initialRating = this.props.review.overallRating;
         for (let i = 0; i < 5; i++) {
-            initialRating > 0 ? this.state.stars.push("./images/redStar.png") : this.state.stars.push("./images/greyStar.png");
+            initialRating > 0 ? this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png") : this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png");
             initialRating--;
         }
         if (this.props.review.is_helpful) this.setState({helpful: true});
@@ -31,7 +31,7 @@ class Review extends React.Component {
     }
     helpfulClick() {
         this.setState({helpful: !this.state.helpful});
-        this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+        this.state.helpful ? this.setState({upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redUpvote.png'}) : this.setState({upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png'})
         this.props.review.is_helpful ? this.props.review.is_helpful = 0 : this.props.review.is_helpful = 1;
         axios.post(`/helpfulEvent/${this.props.review.is_helpful}/id/${this.props.review.id}`)
         .then(res => console.log(res))
@@ -109,13 +109,13 @@ class Review extends React.Component {
                             </div>
                             <div id="reviewRatingsContainer">
                                 <span className="reviewRatingCategory">Overall </span>
-                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingNumber">{this.props.review.overallRating} &nbsp;</span>
                                 <span className="reviewRatingCategory">&#8226; Food </span>
-                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingNumber">{this.props.review.foodRating} &nbsp;</span>
                                 <span className="reviewRatingCategory">&#8226; Service </span>
-                                <span className="reviewRatingNumber">5 &nbsp;</span>
+                                <span className="reviewRatingNumber">{this.props.review.serviceRating} &nbsp;</span>
                                 <span className="reviewRatingCategory">&#8226; Ambiance </span>
-                                <span className="reviewRatingNumber">5</span>
+                                <span className="reviewRatingNumber">{this.props.review.ambianceRating}</span>
                             </div>
                         </div>
 
@@ -136,10 +136,10 @@ class Review extends React.Component {
                                      id={helpHover} 
                                      value={this.props.review.is_helpful}
                                      onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
-                                     onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: './images/redUpvote.png'})} 
+                                     onMouseOver={() => this.setState({hoveronHelp: true, upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redUpvote.png'})} 
                                      onMouseLeave={() => {
                                         this.setState({hoveronHelp: false});
-                                        this.state.helpful ? this.setState({upvoteIcon: './images/redUpvote.png'}) : this.setState({upvoteIcon: './images/whiteUpvote.png'})
+                                        this.state.helpful ? this.setState({upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redUpvote.png'}) : this.setState({upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png'})
                                      }}>
                                     <div className="flex" ><img id="upvoteIcon" src={this.state.upvoteIcon} /></div>
                                     <span className="reportText">Helpful {this.state.helpful ? '(1)' : ''}</span>

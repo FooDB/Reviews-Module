@@ -31,6 +31,13 @@ app.get('/LovedFor/:id', (req, res) => {
         res.send(data);
     })
 })
+app.get('/restaurantInfo/:id', (req, res) => {
+    console.log('pull restaurant info called', req.params);
+    db.pullFromDB(`SELECT * FROM restaurant WHERE id = ${req.params.id};`, (err, data) => {
+        if (err) console.log(err);
+        res.send(data);
+    })
+})
 app.post('/helpfulEvent/:is_helpful/id/:id', (req, res) => {
     console.log('helpful post received', req.params);
     db.postToDB(`UPDATE Reviews SET is_helpful = ${req.params.is_helpful} WHERE id = ${req.params.id};`, (err, result) => {

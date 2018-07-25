@@ -8,7 +8,6 @@
 }
 
 
-
 /*** Syling for ReviewsFeed ***/
 .rightHalf, .leftHalf {
     display: inline-block
@@ -94,6 +93,7 @@
     align-items: center;
     justify-content: center;
 }
+
 #usernameContainer {
     text-align: center;
     word-break: break-word;
@@ -213,19 +213,6 @@
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 }
-/* #starsAndDate {
-    display: flex;
-    align-items: center;
-} */
-/* .authorArea {
-    display: inline-block;
-    align-items: center;
-    margin-bottom: 10px;  
-    vertical-align: top;
-} */
-/* .ratingDate {
-    margin-left: 5px;
-} */
 .flex {
     display: flex;
 }
@@ -338,6 +325,51 @@
     height: 30px;
     width: 300px;
 }
+#dropdownHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0.25rem;
+    font-size: 0.875rem;
+    border-radius: 2px;
+    border: 1px solid #d8d9db;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 275px;
+    margin: .25rem .5rem 0rem .30rem;
+
+}
+.dropdownItem {
+    width: 275px;
+    font-size: 0.875rem;
+    border-radius: 2px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: .65rem;
+}
+.dropdownContainer {
+    border: 1px solid #d8d9db;
+    width: 273px;
+    margin-left: .3rem;
+    display: block;
+    position: absolute;
+    z-index: 300;
+    background-color: white;
+}
+#dropdownHeader:hover {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #da3743;
+}
+.dropdownItem:hover {
+    background-color: #e9eaec; 
+}
+.dropdownText {
+    position: relative;
+    bottom: 3;
+}
+#Capa_1 {
+    margin-right: .3rem;
+}
 #toolbarSortText {
     font-size: 1rem;
     line-height: 1.5;
@@ -355,32 +387,51 @@
     margin-bottom: 2rem;
 }
 .filterCheckBox {
-    padding: 1.0rem;
-    border: 1px solid;
-    margin: 10px;
+    padding: .5rem .5rem;
+    border: 1px solid #d8d9db;
     cursor: pointer;
     align-items: center;
+    margin: .5rem;
 }
-.filterCheckBox:hover {
+span:focus {
+    outline: none;
+}
+.filterCheckBox:hover, .filterCheckBox:focus {
     border-color: transparent;
     box-shadow: 0 0 0 2px #da3743;
 }
 #filtersHeader {
     font-family: 'Open Sans', sans-serif;
-    margin: 0 0 20px 5px;
+    margin: .5rem 0 20px 5px;
     display: flex;
+    font-weight: 500;
 }
+.filterBoxIcon {
+    position: relative;
+    top: 3;
+    margin-right: .25rem;
+    width: 18px;
+    height: 18px;
+}
+
 
 
 /*** Summary Styles ***/
 .summaryStarRating {
     display: inline-block;
-    margin: 5px;  
+    margin: 5px 5px 5px 0; 
     text-align: center;
+}
+#summaryStarText {
+    position: relative;
+    bottom: 3;
+}
+.summaryStarIcon {
+    width: 20px;
+    height: 20px;
 }
 .summaryRating {
     display: inline-block;
-    margin: 5px;
     flex-direction: column;
     list-style: none;
     padding: 0 0.5rem;
@@ -393,8 +444,9 @@
 }
 #summaryToolbarContainer {
     display: inline-block;
-    /* line-height: 2.4; */
-    margin-left: 1.5rem;
+    margin-left: .5rem;
+    position: relative;
+    bottom: 62;
 }
 #leftSummaryContainer {
     display: inline-block;
@@ -403,6 +455,9 @@
 }
 #reviewConditional {
     width: 363px;
+    padding-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: normal;
 }
 .inlineBlock {
     display: inline-block;
@@ -418,20 +473,59 @@
     display: flex;
     justify-content: space-between;
 }
+.summarySubHeader {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    display: flex;
+}
 #reviewSummaryContainer {
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     border-bottom: solid 1px #d8d9db;
 }
 .summaryIcon {
-    height: 1.125rem;
-    width: 1.125rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
+}
+#summaryBarIcon, #thumbsUpIcon {
+    position: relative;
+    top: 5;
+}
+#summaryNoiseLevel {
+    position: relative;
+    top: 1;
 }
 #percentageRecommended {
     font-weight: bold;
 }
 #lovedForContainer {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+}
+#lovedForText {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: bold;
+    display: flex;
+    margin-bottom: 2rem;
+}
+.lovedForBox {
+    padding: 1rem .5rem;
+    border: 1px solid #d8d9db;
+    cursor: pointer;
+    align-items: center;
+    margin: .5rem 1rem .5rem 0;
+
+}
+.lovedForBox:hover {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #da3743;
+}
+.lovedForIcon {
+    width: 24px;
+    height: 24px;
 }
 .summarySpacingContainer {
     padding-top: 1rem;
@@ -447,22 +541,24 @@
 .toolbarAndNumber:hover {
     text-decoration: underline;
 }
-.toolbarAndNumber:hover > .w3-light-grey, .w3-hover-light-grey:hover {
+.toolbarAndNumber:hover > .toolbar-light-background, .toolbar-hover-light-background:hover {
     border-color: transparent; 
     box-shadow: 0 0 0 2px #da3743; 
 }
-.w3-light-grey, .w3-hover-light-grey:hover {
+.toolbar-light-background, .toolbar-hover-light-background:hover {
     color: #000;
     border: 1px solid #d8d9db;
     display: inline-block;
     width: 232px;
-    height: 12px;
-    margin-bottom: .5rem;
+    height: 13px;
+    margin-bottom: .75rem;
+    position: relative;
+    top: 14;
 }
-.w3-green, .w3-hover-green:hover {
+.toolbar-red, .toolbar-hover-red:hover {
     color: #fff;
     background-color: #da3743;
-    height: 12px;
+    height: 13px;
 }
 #bestRestaurantsLink {
     color: #da3743;
@@ -471,6 +567,8 @@
 #bestRestaurantsLink:hover {
     text-decoration: underline;
 }
+
+
 
 /*** Pagination Styling below ***/
 #paginationContainer {
