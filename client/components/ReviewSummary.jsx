@@ -45,17 +45,17 @@ class ReviewSummary extends React.Component {
                     <div>
 
                         <div id="leftSummaryContainer">
-                            <div><strong>Overall ratings and reviews</strong></div>
+                            <div className="summarySubHeader"><strong>Overall ratings and reviews</strong></div>
                             <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
                             <div>
                                 <div className="summaryStarRating">
-                                    <span><img className="star" src={starSource[0]}/></span>
-                                    <span><img className="star" src={starSource[1]}/></span>
-                                    <span><img className="star" src={starSource[2]}/></span>
-                                    <span><img className="star" src={starSource[3]}/></span>
-                                    <span><img className="star" src={starSource[4]}/></span>
+                                    <span><img className="summaryStarIcon" src={starSource[0]}/></span>
+                                    <span><img className="summaryStarIcon" src={starSource[1]}/></span>
+                                    <span><img className="summaryStarIcon" src={starSource[2]}/></span>
+                                    <span><img className="summaryStarIcon" src={starSource[3]}/></span>
+                                    <span><img className="summaryStarIcon" src={starSource[4]}/></span>
                                 </div>
-                                <div className="summaryStarRating">
+                                <div className="summaryStarRating" id="summaryStarText">
                                     <span> &nbsp; {this.props.ratings.totalAverage}</span>
                                     <span> Based on Recent Ratings</span>
                                 </div>
@@ -80,13 +80,13 @@ class ReviewSummary extends React.Component {
                             </div>
                             <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
-                                    <span><img className="summaryIcon" src="./images/risingBars.png" /></span>
-                                    <span><strong>Noise &#8226;</strong><span> {noiseLevel}</span></span>
+                                    <span><img className="summaryIcon" id="summaryBarIcon" src="./images/risingBars.png" /></span>
+                                    <span id="summaryNoiseText"><strong>Noise &#8226;</strong><span id="summaryNoiseLevel"> {noiseLevel}</span></span>
                                 </div>
                             </div>
                             <div className="summarySpacingContainer">
                                 <div className="inlineBlock">
-                                    <span><img className="summaryIcon" src="./images/thumbsUp.png" /></span>
+                                    <span><img className="summaryIcon" id="thumbsUpIcon" src="./images/thumbsUp.png" /></span>
                                     <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
                                 </div>
                             </div>

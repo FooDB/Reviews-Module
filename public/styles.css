@@ -371,12 +371,19 @@
 /*** Summary Styles ***/
 .summaryStarRating {
     display: inline-block;
-    margin: 5px;  
+    margin: 5px 5px 5px 0; 
     text-align: center;
+}
+#summaryStarText {
+    position: relative;
+    bottom: 3;
+}
+.summaryStarIcon {
+    width: 20px;
+    height: 20px;
 }
 .summaryRating {
     display: inline-block;
-    margin: 5px;
     flex-direction: column;
     list-style: none;
     padding: 0 0.5rem;
@@ -400,6 +407,9 @@
 }
 #reviewConditional {
     width: 363px;
+    padding-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: normal;
 }
 .inlineBlock {
     display: inline-block;
@@ -415,6 +425,12 @@
     display: flex;
     justify-content: space-between;
 }
+.summarySubHeader {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
+    display: flex;
+}
 #reviewSummaryContainer {
     padding-bottom: 2rem;
     margin-bottom: 2rem;
@@ -424,7 +440,17 @@
     height: 1.5rem;
     width: 1.5rem;
     margin-left: .25rem;
+    margin-right: .25rem;
 }
+#summaryBarIcon, #thumbsUpIcon {
+    position: relative;
+    top: 5;
+}
+#summaryNoiseLevel {
+    position: relative;
+    top: 1;
+}
+
 #percentageRecommended {
     font-weight: bold;
 }
@@ -443,7 +469,7 @@
     border: 1px solid #d8d9db;
     cursor: pointer;
     align-items: center;
-    margin: .5rem;
+    margin: .5rem 1rem .5rem 0;
 
 }
 .lovedForBox:hover {
