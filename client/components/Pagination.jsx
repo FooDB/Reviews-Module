@@ -24,7 +24,7 @@ const Pagination = ({ currentPage, totalPages, scrollToTopOfFeed, handlePageChan
   };
   highlightSelectedBubble();
 
-  const firstEllipsis = (currentPage - 3 > 0 
+  const firstEllipsis = (currentPage - 3 > 0
     ? <span className="ellipsisBubble" id="firstEllipsis">&middot;&middot;&middot;</span>
     : '');
   const secondEllipsis = (currentPage + 3 <= totalPages
