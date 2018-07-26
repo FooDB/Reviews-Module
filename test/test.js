@@ -4,6 +4,7 @@ import Review from '../client/components/Review';
 import FilterBox from '../client/components/FilterBox';
 import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
+import { wrap } from 'module';
 const request = require('supertest')('http://127.0.0.1:3005');
 
 describe('Server routes interact successfully', () => {
@@ -77,7 +78,7 @@ describe('Review', () => {
   const wrapper = shallow(<Review
     review={{
       is_helpful: 0,
-      reviewText: 'test review',
+      reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
       dinedDate: '2018-04-12',
       userName: 'Christopher Wildenradt',
     }}
@@ -89,9 +90,16 @@ describe('Review', () => {
     startState = wrapper.state();
     expect(startState.helpful).toBe(true);
   });
-  it('should diaplsy the user\s initials', () => {
+  it('should display the user\s initials', () => {
     expect(wrapper.find('#reviewInitials').text()).toBe('CW');
   });
+  it('should display more text on a click of read more', () => {
+    let startState = wrapper.state();
+    expect(startState.reviewText.length).toBeLessThan(204);
+    wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
+    startState = wrapper.state();
+    expect(startState.reviewText.length).toBeGreaterThan(204);
+  })
 });
 
 describe('ReviewToolbar', () => {
