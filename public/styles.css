@@ -9,7 +9,7 @@
 
 
 /*** Syling for ReviewsFeed ***/
-.rightHalf, .leftHalf {
+/* .rightHalf, .leftHalf {
     display: inline-block
 }
 #reviewLeftHalf {
@@ -215,7 +215,7 @@
 }
 .flex {
     display: flex;
-}
+} */
 
 /*** ReportPopUp styles ***/
 /* #reportHeadContainer {
@@ -315,7 +315,7 @@
 
 
 /*** Styles for Review Toolbar ***/
-#sortMethod {
+/* #sortMethod {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -385,7 +385,7 @@
 }
 #toolbarContainer {
     margin-bottom: 2rem;
-}
+} */
 /* .filterCheckBox {
     padding: .5rem .5rem;
     border: 1px solid #d8d9db;
@@ -400,12 +400,6 @@ span:focus {
     border-color: transparent;
     box-shadow: 0 0 0 2px #da3743;
 } */
-#filtersHeader {
-    font-family: 'Open Sans', sans-serif;
-    margin: .5rem 0 20px 5px;
-    display: flex;
-    font-weight: 500;
-}
 /* .filterBoxIcon {
     position: relative;
     top: 3;
@@ -417,7 +411,7 @@ span:focus {
 
 
 /*** Summary Styles ***/
-.summaryStarRating {
+/* .summaryStarRating {
     display: inline-block;
     margin: 5px 5px 5px 0; 
     text-align: center;
@@ -512,7 +506,6 @@ span:focus {
     margin-bottom: 2rem;
 }
 
-
 .summarySpacingContainer {
     padding-top: 1rem;
 }
@@ -552,7 +545,7 @@ span:focus {
 }
 #bestRestaurantsLink:hover {
     text-decoration: underline;
-}
+} */
 
 
 

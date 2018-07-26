@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LovedForBox from "./LovedForBox.jsx";
+import LovedForBox from './LovedForBox.jsx';
+import styles from './ReviewSummary.css';
 
 class ReviewSummary extends React.Component {
   constructor(props) {

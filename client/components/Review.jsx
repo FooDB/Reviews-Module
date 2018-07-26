@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import ReportPopUp from './ReportPopUp.jsx';
+import styles from './Review.css';
 
 class Review extends React.Component {
   constructor(props) {

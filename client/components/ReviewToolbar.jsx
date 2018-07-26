@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterBox from './FilterBox.jsx';
+import styles from './ReviewToolbar.css';
 
 class ReviewToolbar extends React.Component {
   constructor(props) {
