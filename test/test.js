@@ -109,19 +109,23 @@ describe('Review', () => {
     expect(wrapper.find('#reviewCountText').text()).toBe("  1 review")
   })
   it('should display the number of red stars equivalent to the overall Rating', () => {
-    const wrapper = mount(<Review
+    const wrapperMount = mount(<Review
       review={{
         is_helpful: 0,
         reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
         dinedDate: '2018-04-12',
         userName: 'Christopher Wildenradt',
         userReviewCount: 1,
-        overallRating: 3
+        overallRating: 3,
+        dinedDate: "2018-07-20T07:00:00.000Z"
       }}
     />);
-    let state = wrapper.state();
+    let state = wrapperMount.state();
     expect(state.stars[2]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png')
     expect(state.stars[3]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png')
+  })
+  it('should change the date data into a more readable format', () => {
+    expect(wrapper.find('.reviewRatingDate').text()).toBe(" Dined on Thu Apr 12 2018")
   })
 });
 
