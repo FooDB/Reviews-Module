@@ -170,3 +170,12 @@ class Review extends React.Component {
   }
 }
 export default Review;
+
+Review.propTypes = {
+    lovedFor: PropTypes.array.isRequired,
+    filter: PropTypes.func.isRequired,
+    scrollToTopOfFeed: PropTypes.func.isRequired,
+    allReviews: PropTypes.array.isRequired,
+    restaurantInfo: PropTypes.array.isRequired,
+    stars: PropTypes.array.isRequired,
+};

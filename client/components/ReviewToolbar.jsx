@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FilterBox from './FilterBox.jsx';
 
 class ReviewToolbar extends React.Component {
@@ -86,3 +87,10 @@ class ReviewToolbar extends React.Component {
   }
 }
 export default ReviewToolbar;
+
+ReviewToolbar.propTypes = {
+  keyWords: PropTypes.array.isRequired,
+  sortReviews: PropTypes.func.isRequired,
+  filterReviews: PropTypes.func.isRequired,
+  scrollToTopOfFeed: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LovedForBox from "./LovedForBox.jsx";
 
 class ReviewSummary extends React.Component {
@@ -145,3 +146,12 @@ class ReviewSummary extends React.Component {
 }
 
 export default ReviewSummary;
+
+ReviewSummary.propTypes = {
+  lovedFor: PropTypes.array.isRequired,
+  filter: PropTypes.func.isRequired,
+  scrollToTopOfFeed: PropTypes.func.isRequired,
+  allReviews: PropTypes.array.isRequired,
+  restaurantInfo: PropTypes.array.isRequired,
+  stars: PropTypes.array.isRequired,
+};
