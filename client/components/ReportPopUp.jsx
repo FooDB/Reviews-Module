@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ReportPopUp extends React.Component {
   constructor(props) {
@@ -19,10 +20,11 @@ class ReportPopUp extends React.Component {
   }
 
   render() {
+    const { setNode, toggleReportModal } = this.props;
     return (
       <div id="modalContainer">
         <div className="modalBackground">
-          <div className="modalContent" ref={node => this.props.setNode(node)}>
+          <div className="modalContent" ref={node => setNode(node)}>
             <div id="reviewReport">
               <div id="reportHeadContainer">
                 <div id="reportHeadText"><strong>Report this review as inappropriate?</strong></div>
@@ -33,8 +35,8 @@ class ReportPopUp extends React.Component {
                   <input type="hidden" />
                   <textarea id="reviewReasonText" placeholder="Tell us why you find the review inappropriate." required="required" />
                   <div id="reportButtonsContainer">
-                    <button id="reportConfirm" type="submit" onClick={e => this.props.toggleReportModal(e)}>Report</button>
-                    <button id="reportCancel" type="button" onClick={e => this.props.toggleReportModal(e)}>Cancel</button>
+                    <button id="reportConfirm" type="submit" onClick={e => toggleReportModal(e)}>Report</button>
+                    <button id="reportCancel" type="button" onClick={e => toggleReportModal(e)}>Cancel</button>
                   </div>
                 </form>
               </div>
@@ -46,3 +48,9 @@ class ReportPopUp extends React.Component {
   }
 }
 export default ReportPopUp;
+
+ReportPopUp.propTypes = {
+  setNode: PropTypes.func.isRequired,
+  toggleReportModal: PropTypes.func.isRequired,
+  outsideClick: PropTypes.func.isRequired,
+};

@@ -4,6 +4,7 @@ import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
 import Pagination from './Pagination.jsx';
 import ErrorBoundary from './Error.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +12,6 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       allReviews: [],
-      filteredReviews: [],
       keyWords: [],
       lovedFor: [],
       ratings: {
@@ -21,13 +21,13 @@ class App extends React.Component {
         ambianceAverage: 0,
         valueAverage: 0,
         noise: 0,
-        recommended: 0
+        recommended: 0,
       },
       is_filtered: false,
       stars: [],
       currentPage: 1,
       totalPages: 0,
-      restaurantInfo: []
+      restaurantInfo: [],
     };
   }
 
@@ -47,19 +47,20 @@ class App extends React.Component {
   }
 
   setDynamicStarRating() {
-    let totalAverageCopy = this.state.ratings.totalAverage;
+    const { ratings, stars } = this.state;
+    let totalAverageCopy = ratings.totalAverage;
     let starsToGo = false;
     for (let i = 0; i < 5; i++) {
       if (totalAverageCopy - 1 < 0 && !starsToGo) {
-        totalAverageCopy > .5 ? this.state.stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/highStar.png') : this.state.stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/lowStar.png');
+        totalAverageCopy > .5 ? stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/highStar.png') : stars.push('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/lowStar.png');
         totalAverageCopy--;
         starsToGo = true;
       } else {
-        totalAverageCopy > 0 ? this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png") : this.state.stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png");
+        totalAverageCopy > 0 ? stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png") : stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png");
         totalAverageCopy--;
       }
     }
-    this.setState({ stars: this.state.stars });
+    this.setState({ stars });
   }
 
   pullDataById() {
@@ -79,7 +80,7 @@ class App extends React.Component {
             ambianceAverage: this.getAverage(res.data, 'ambianceRating'),
             valueAverage: this.getAverage(res.data, 'valueRating'),
             noise: this.getAverage(res.data, 'noise'),
-            recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100)
+            recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100),
           },
         }, () => this.setDynamicStarRating());
       })
@@ -114,36 +115,40 @@ class App extends React.Component {
   }
 
   filterReviewsByKeyword(target) {
-    if (!this.state.is_filtered) {
-      let filtered = this.state.reviews.filter(review => review.reviewText.includes(target));
+    const { is_filtered, reviews, allReviews } = this.state;
+    if (!is_filtered) {
+      const filtered = reviews.filter(review => review.reviewText.includes(target));
       this.setState({ reviews: filtered });
     } else {
-      this.setState({ reviews: this.state.allReviews });
+      this.setState({ reviews: allReviews });
     }
-    this.setState({ is_filtered: !this.state.is_filtered });
+    this.setState({ is_filtered: !is_filtered });
     console.log('filter reviews called', target);
   }
 
   filterReviewsByRating(target) {
-    const filtered = this.state.allReviews.filter(review => review.overallRating === target);
+    const { allReviews } = this.state;
+    const filtered = allReviews.filter(review => review.overallRating === target);
     this.setState({ reviews: filtered });
   }
 
   sortReviewsBySelect(sortMethod) {
+    const { reviews } = this.state;
     if (sortMethod === 'Highest') {
-      this.state.reviews.sort((a, b) => b.overallRating - a.overallRating);
+      reviews.sort((a, b) => b.overallRating - a.overallRating);
     } else if (sortMethod === 'Lowest') {
-      this.state.reviews.sort((a, b) => a.overallRating - b.overallRating);
+      reviews.sort((a, b) => a.overallRating - b.overallRating);
     } else {
-      this.state.reviews.sort((a, b) => b.dinedDate - a.dinedDate);
+      reviews.sort((a, b) => b.dinedDate - a.dinedDate);
     }
-    this.setState({ reviews: this.state.reviews });
+    this.setState({ reviews });
   }
 
   handlePageChange(page) {
+    const { allReviews } = this.state;
     this.setState({
-      reviews: this.state.allReviews.slice((page - 1) * 20, page * 20),
-      currentPage: page
+      reviews: allReviews.slice((page - 1) * 20, page * 20),
+      currentPage: page,
     });
   }
 
@@ -152,24 +157,25 @@ class App extends React.Component {
   }
 
   render() {
+    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages } = this.state;
     return (
       <div id="appMasterContainer">
         <ErrorBoundary>
           <ReviewSummary
-            reviews={this.state.reviews}
-            allReviews={this.state.allReviews}
-            ratings={this.state.ratings}
-            stars={this.state.stars}
-            lovedFor={this.state.lovedFor}
+            reviews={reviews}
+            allReviews={allReviews}
+            ratings={ratings}
+            stars={stars}
+            lovedFor={lovedFor}
             filter={this.filterReviewsByRating.bind(this)}
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
-            restaurantInfo={this.state.restaurantInfo}
+            restaurantInfo={restaurantInfo}
           />
         </ErrorBoundary>
 
         <ErrorBoundary>
           <ReviewToolbar
-            keyWords={this.state.keyWords}
+            keyWords={keyWords}
             sortReviews={this.sortReviewsBySelect.bind(this)}
             filterReviews={this.filterReviewsByKeyword.bind(this)}
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
@@ -178,16 +184,16 @@ class App extends React.Component {
 
         <ErrorBoundary>
           <ReviewList
-            reviews={this.state.reviews}
+            reviews={reviews}
           />
         </ErrorBoundary>
 
         <ErrorBoundary>
           <Pagination
-            reviews={this.state.allReviews}
+            reviews={allReviews}
             handlePageChange={this.handlePageChange.bind(this)}
-            currentPage={this.state.currentPage}
-            totalPages={this.state.totalPages}
+            currentPage={currentPage}
+            totalPages={totalPages}
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
           />
         </ErrorBoundary>
