@@ -31,7 +31,7 @@ class ReviewToolbar extends React.Component {
 
   render() {
     const { current, arrow, display } = this.state;
-    const { sortReviews, keyWords } = this.props;
+    const { sortReviews, keyWords, filterReviews } = this.props;
     return (
       <div id="toolbarContainer">
         <div id="toolbarSortText">Sort By</div>
@@ -84,7 +84,7 @@ class ReviewToolbar extends React.Component {
 
         <div id="filtersHeader">Filters</div>
         <div>
-          {keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id} filterReviews={this.props.filterReviews}/>)}
+          {keyWords.map(keyWord => <FilterBox keyWord={keyWord} key={keyWord.id} filterReviews={filterReviews}/>)}
         </div>
       </div>
     );

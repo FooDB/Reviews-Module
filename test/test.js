@@ -82,28 +82,28 @@ describe('Review', () => {
     review={{
       is_helpful: 0,
       reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
-      dinedDate: '2018-04-12',
+      dinedDate: "2018-07-20T07:00:00.000Z",
       userName: 'Christopher Wildenradt',
       userReviewCount: 1,
       overallRating: 3,
     }}
   />);
   it('should change the helpful state on click', () => {
-    let startState = wrapper.state();
-    expect(startState.helpful).toBe(false);
+    let state = wrapper.state();
+    expect(state.helpful).toBe(false);
     wrapper.find('#placeholder').simulate('click');
-    startState = wrapper.state();
-    expect(startState.helpful).toBe(true);
+    state = wrapper.state();
+    expect(state.helpful).toBe(true);
   });
   it('should display the user\s initials', () => {
     expect(wrapper.find('#reviewInitials').text()).toBe('CW');
   });
   it('should display more text on a click of read more', () => {
-    let startState = wrapper.state();
-    expect(startState.reviewText.length).toBeLessThan(204);
+    let state = wrapper.state();
+    expect(state.reviewText.length).toBeLessThan(204);
     wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
-    startState = wrapper.state();
-    expect(startState.reviewText.length).toBeGreaterThan(204);
+    state = wrapper.state();
+    expect(state.reviewText.length).toBeGreaterThan(204);
   })
   it('should display review if the user has only one review', () => {
     expect(wrapper.find('#reviewCountText').text()).toBe("  1 review")
@@ -113,7 +113,6 @@ describe('Review', () => {
       review={{
         is_helpful: 0,
         reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
-        dinedDate: '2018-04-12',
         userName: 'Christopher Wildenradt',
         userReviewCount: 1,
         overallRating: 3,
@@ -125,7 +124,20 @@ describe('Review', () => {
     expect(state.stars[3]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png')
   })
   it('should change the date data into a more readable format', () => {
-    expect(wrapper.find('.reviewRatingDate').text()).toBe(" Dined on Thu Apr 12 2018")
+    expect(wrapper.find('.reviewRatingDate').text()).toBe(" Dined on Fri Jul 20 2018")
+  })
+  it('should offer to read more less depending on the length of the review', () => {
+    const wrapper = mount(<Review
+      review={{
+        is_helpful: 0,
+        dinedDate: "2018-07-20T07:00:00.000Z",
+        userName: 'Christopher Wildenradt',
+        reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
+      }}
+    />);
+    expect(wrapper.find('#readMore').text()).toBe('+ Read more');
+    wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
+    expect(wrapper.find('#readMore').text()).toBe('- Read less');
   })
 });
 

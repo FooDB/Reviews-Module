@@ -93,7 +93,7 @@ class Review extends React.Component {
     const helpHover = (hoveronHelp ? 'helpHovered' : 'placeholder');
     const reviewDate = review.dinedDate.split('-');
     let readMorePhrase = (readMoreClicked ? '- Read less' : '+ Read more');
-    if (!readMoreClicked && review.reviewText.length < 300) readMorePhrase = '';
+    if (!readMoreClicked && review.reviewText.length < 200) readMorePhrase = '';
     const reviewPluralCase = (review.userReviewCount === 1 ? 'review' : 'reviews');
     const initials = review.userName.split(' ')[0][0] + review.userName.split(' ')[1][0];
 
