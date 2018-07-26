@@ -155,8 +155,10 @@ const wrapper = shallow(<ReviewToolbar keyWords={['first', 'second']}/>)
 describe('Pagination', () => {
   const wrapper = shallow(<Pagination currentPage={1}totalPages={53} />);
   const wrapper2 = shallow(<Pagination currentPage={52}totalPages={53} />);
-  it('should have the totalPages count be the text on the last bubble', () => {
+
+  it('should have the totalPages count be the text on the last bubble and current page on the first bubble', () => {
     expect(wrapper.find('#last').text()).toBe('53');
+    expect(wrapper.find('#selectedBubble').text()).toBe('1');
   });
   it('should display the first ellipsis bubble only if currentPage is 4 or greater', () => {
     expect(wrapper.find('#firstEllipsis')).toBeFalsy;
@@ -166,4 +168,12 @@ describe('Pagination', () => {
     expect(wrapper.find('#secondEllipsis').html()).toBe("<span class=\"ellipsisBubble\" id=\"secondEllipsis\">···</span>");
     expect(wrapper2.find('#secondEllipsis')).toBeFalsy;
   });
+  it('should display the correct numbers in order when current page is 3 more than 1 and 3 less than total pages', () => {
+    const wrapper3 = shallow(<Pagination currentPage={6}totalPages={53} />);
+    expect(wrapper3.find('#last').text()).toBe('53');
+    expect(wrapper3.find('#first').text()).toBe('1');
+    expect(wrapper3.find('#middleLeft').text()).toBe('5');
+    expect(wrapper3.find('#selectedBubble').text()).toBe('6');
+    expect(wrapper3.find('#middleRight').text()).toBe('7');
+  })
 });
