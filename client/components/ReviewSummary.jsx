@@ -2,146 +2,146 @@ import React from 'react';
 import LovedForBox from "./LovedForBox.jsx";
 
 class ReviewSummary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            percentages: Array(5).fill('0%'),
-            ratingSelected: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      percentages: Array(5).fill('0%'),
+    };
+  }
+
+  componentDidMount() {
+    axios.get(`/reviews/${3}`)
+      .then((res) => {
+        this.state.allReviews = res.data
+        let fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount;
+        fiveStarCount=fourStarCount=threeStarCount=twoStarCount=oneStarCount=0;
+        for (let i = 0; i < this.state.allReviews.length; i++) {
+          let r = this.state.allReviews[i].overallRating;
+          if (r === 1) oneStarCount++;
+          if (r === 2) twoStarCount++;
+          if (r === 3) threeStarCount++;
+          if (r === 4) fourStarCount++;
+          if (r === 5) fiveStarCount++;
         }
+        const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
+        this.setState({ percentages: counts.map(count => Math.round(count / this.state.allReviews.length * 100) + '%') })
+      })
+      .catch(err => console.log(err));
+  }
+
+  render() {
+    let noiseLevel;
+    if (this.props.ratings.noise > 1) {
+      noiseLevel = 'Loud';
+    } else if (this.props.ratings.noise < 1 && this.props.ratings.noise > 0) {
+      noiseLevel = 'Moderate';
+    } else {
+      noiseLevel = 'Quiet';
     }
-    componentDidMount() {
-        console.log(this.props.allReviews)
-        axios.get(`/reviews/${3}`)
-        .then(res => {
-            this.state.allReviews = res.data
-            let fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount;
-            fiveStarCount=fourStarCount=threeStarCount=twoStarCount=oneStarCount=0;
-            for (let i = 0; i < this.state.allReviews.length; i++) {
-                let r = this.state.allReviews[i].overallRating;
-                if (r === 1) oneStarCount++;
-                if (r === 2) twoStarCount++;
-                if (r === 3) threeStarCount++;
-                if (r === 4) fourStarCount++;
-                if (r === 5) fiveStarCount++;
-            }
-            const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
-            this.setState({percentages: counts.map(count => Math.round(count / this.state.allReviews.length * 100) + '%')})
-        })
-        .catch(err => console.log(err));
-    }
-    render() {
-        let noiseLevel;
-        if (this.props.ratings.noise > 1) {
-            noiseLevel = 'Loud';
-        } else if (this.props.ratings.noise < 1 && this.props.ratings.noise > 0) {
-            noiseLevel = 'Moderate';
-        } else {
-            noiseLevel = 'Quiet';
-        }
-        const starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
-        const restaurantArea = (this.props.restaurantInfo[0] ? this.props.restaurantInfo[0].restaurantArea : '');
-        return (
-            <div id="reviewSummaryContainer">
-                    <div className="summaryHeader">What {this.props.allReviews.length} People Are Saying</div>
-                    <div>
+    const starSource = (this.props.stars ? this.props.stars : Array(5).fill(''));
+    const restaurantArea = (this.props.restaurantInfo[0] ? this.props.restaurantInfo[0].restaurantArea : '');
+    return (
+      <div id="reviewSummaryContainer">
+        <div className="summaryHeader">What {this.props.allReviews.length} People Are Saying</div>
+        <div>
 
-                        <div id="leftSummaryContainer">
-                            <div className="summarySubHeader"><strong>Overall ratings and reviews</strong></div>
-                            <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
-                            <div>
-                                <div className="summaryStarRating">
-                                    <span><img className="summaryStarIcon" src={starSource[0]}/></span>
-                                    <span><img className="summaryStarIcon" src={starSource[1]}/></span>
-                                    <span><img className="summaryStarIcon" src={starSource[2]}/></span>
-                                    <span><img className="summaryStarIcon" src={starSource[3]}/></span>
-                                    <span><img className="summaryStarIcon" src={starSource[4]}/></span>
-                                </div>
-                                <div className="summaryStarRating" id="summaryStarText">
-                                    <span> &nbsp; {this.props.ratings.totalAverage}</span>
-                                    <span> Based on Recent Ratings</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="summaryRating" id="summaryFirstRating">
-                                    <div><strong>{this.props.ratings.foodAverage}</strong></div>
-                                    <div>Food</div>
-                                </div>
-                                <div className="summaryRating">
-                                    <div><strong>{this.props.ratings.serviceAverage}</strong></div>
-                                    <div>Service</div>
-                                </div>
-                                <div className="summaryRating">
-                                    <div><strong>{this.props.ratings.ambianceAverage}</strong></div>
-                                    <div>Ambiance</div>
-                                </div>
-                                <div className="summaryRating">
-                                    <div><strong>{this.props.ratings.valueAverage}</strong></div>
-                                    <div>Value</div>
-                                </div>
-                            </div>
-                            <div className="summarySpacingContainer">
-                                <div className="inlineBlock">
-                                    <span><img className="summaryIcon" id="summaryBarIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/risingBars.png" /></span>
-                                    <span id="summaryNoiseText"><strong>Noise &#8226;</strong><span id="summaryNoiseLevel"> {noiseLevel}</span></span>
-                                </div>
-                            </div>
-                            <div className="summarySpacingContainer">
-                                <div className="inlineBlock">
-                                    <span><img className="summaryIcon" id="thumbsUpIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/thumbsUp.png" /></span>
-                                    <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
-                                </div>
-                            </div>
-                        </div>
+          <div id="leftSummaryContainer">
+            <div className="summarySubHeader"><strong>Overall ratings and reviews</strong></div>
+            <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
+            <div>
+              <div className="summaryStarRating">
+                <span><img className="summaryStarIcon" src={starSource[0]} alt="Star Icon" /></span>
+                <span><img className="summaryStarIcon" src={starSource[1]} alt="Star Icon" /></span>
+                <span><img className="summaryStarIcon" src={starSource[2]} alt="Star Icon" /></span>
+                <span><img className="summaryStarIcon" src={starSource[3]} alt="Star Icon" /></span>
+                <span><img className="summaryStarIcon" src={starSource[4]} alt="Star Icon" /></span>
+              </div>
+              <div className="summaryStarRating" id="summaryStarText">
+                <span> &nbsp; {this.props.ratings.totalAverage}</span>
+                <span> Based on Recent Ratings</span>
+              </div>
+            </div>
+            <div>
+              <div className="summaryRating" id="summaryFirstRating">
+                <div><strong>{this.props.ratings.foodAverage}</strong></div>
+                <div>Food</div>
+              </div>
+              <div className="summaryRating">
+                <div><strong>{this.props.ratings.serviceAverage}</strong></div>
+                <div>Service</div>
+              </div>
+              <div className="summaryRating">
+                <div><strong>{this.props.ratings.ambianceAverage}</strong></div>
+                <div>Ambiance</div>
+              </div>
+              <div className="summaryRating">
+                <div><strong>{this.props.ratings.valueAverage}</strong></div>
+                <div>Value</div>
+              </div>
+            </div>
+            <div className="summarySpacingContainer">
+              <div className="inlineBlock">
+                <span><img className="summaryIcon" id="summaryBarIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/risingBars.png" alt="bar icon" /></span>
+                <span id="summaryNoiseText"><strong>Noise &#8226;</strong><span id="summaryNoiseLevel"> {noiseLevel}</span></span>
+              </div>
+            </div>
+            <div className="summarySpacingContainer">
+              <div className="inlineBlock">
+                <span><img className="summaryIcon" id="thumbsUpIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/thumbsUp.png" alt="thumbsUp icon" /></span>
+                <span><strong>{this.props.ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
+              </div>
+            </div>
+          </div>
 
-                        <div id="summaryToolbarContainer">
-                            <div>
-                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(5); this.props.scrollToTopOfFeed()}}>
-                                    <span className="toolbarNumber">5</span>
-                                    <div className="toolbar-light-background">
-                                        <div className="toolbar-red" style={{width: this.state.percentages[4]}}></div>
-                                    </div>
-                                </div>
-                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(4); this.props.scrollToTopOfFeed()}}>
-                                    <span className="toolbarNumber">4</span>
-                                    <div className="toolbar-light-background">
-                                        <div className="toolbar-red" style={{width: this.state.percentages[3]}}></div>
-                                    </div>
-                                </div>
-                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(3); this.props.scrollToTopOfFeed()}}>
-                                    <span className="toolbarNumber">3</span>
-                                    <div className="toolbar-light-background">
-                                        <div className="toolbar-red" style={{width: this.state.percentages[2]}}></div>
-                                    </div>
-                                </div>
-                                <div className="toolbarAndNumber" onClick={() => {this.props.filter(2); this.props.scrollToTopOfFeed()}}>
-                                    <span className="toolbarNumber">2</span>
-                                    <div className="toolbar-light-background">
-                                        <div className="toolbar-red" style={{width: this.state.percentages[1]}}></div>
-                                    </div>
-                                </div>
-                                <div  className="toolbarAndNumber" onClick={() => {this.props.filter(1); this.props.scrollToTopOfFeed()}}>
-                                    <span className="toolbarNumber">1</span>
-                                    <div className="toolbar-light-background">
-                                        <div className="toolbar-red" style={{width: this.state.percentages[0]}}></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div id="lovedForContainer">
-                        <div>
-                            <div  id="lovedForText">Loved For <a href="#"><img className="summaryIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/infoIcon.png" /></a></div>
-                            <div >
-                                {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} key={item.id}/>)}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div><a id="BestRestaurantsLink" href="#">Best Restaurants in {restaurantArea}</a></div>
+          <div id="summaryToolbarContainer">
+            <div>
+              <div className="toolbarAndNumber" onClick={() => {this.props.filter(5); this.props.scrollToTopOfFeed()}}>
+                <span className="toolbarNumber">5</span>
+                <div className="toolbar-light-background">
+                  <div className="toolbar-red" style={{ width: this.state.percentages[4] }} />
                 </div>
-        )
-    }
+              </div>
+              <div className="toolbarAndNumber" onClick={() => {this.props.filter(4); this.props.scrollToTopOfFeed()}}>
+                <span className="toolbarNumber">4</span>
+                <div className="toolbar-light-background">
+                  <div className="toolbar-red" style={{ width: this.state.percentages[3] }} />
+                </div>
+              </div>
+              <div className="toolbarAndNumber" onClick={() => {this.props.filter(3); this.props.scrollToTopOfFeed()}}>
+                <span className="toolbarNumber">3</span>
+                <div className="toolbar-light-background">
+                  <div className="toolbar-red" style={{ width: this.state.percentages[2] }} />
+                </div>
+              </div>
+              <div className="toolbarAndNumber" onClick={() => {this.props.filter(2); this.props.scrollToTopOfFeed()}}>
+                <span className="toolbarNumber">2</span>
+                <div className="toolbar-light-background">
+                  <div className="toolbar-red" style={{ width: this.state.percentages[1] }} />
+                </div>
+              </div>
+              <div  className="toolbarAndNumber" onClick={() => {this.props.filter(1); this.props.scrollToTopOfFeed()}}>
+                <span className="toolbarNumber">1</span>
+                <div className="toolbar-light-background">
+                  <div className="toolbar-red" style={{ width: this.state.percentages[0] }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="lovedForContainer">
+          <div>
+            <div  id="lovedForText">Loved For <a href="#"><img className="summaryIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/infoIcon.png" /></a></div>
+            <div >
+              {this.props.lovedFor.map(item => <LovedForBox lovedFor={item} key={item.id}/>)}
+            </div>
+          </div>
+        </div>
+
+        <div><a id="BestRestaurantsLink" href="#">Best Restaurants in {restaurantArea}</a></div>
+      </div>
+    );
+  }
 }
 
 export default ReviewSummary;
