@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Pagination.css';
 
 const Pagination = ({ currentPage, totalPages, scrollToTopOfFeed, handlePageChange }) => {
   const nextPage = (currentPage === totalPages ? currentPage : currentPage + 1);

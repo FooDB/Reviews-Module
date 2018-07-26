@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './ReportPopUp.css';
 
 class ReportPopUp extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class ReportPopUp extends React.Component {
   }
 
   handleMouseDown(e) {
-    this.props.outsideClick(e);
+    const { outsideClick } = this.props;
+    outsideClick(e);
   }
 
   render() {

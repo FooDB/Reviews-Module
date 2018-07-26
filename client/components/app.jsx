@@ -5,6 +5,7 @@ import ReviewToolbar from './ReviewToolbar.jsx';
 import Pagination from './Pagination.jsx';
 import ErrorBoundary from './Error.jsx';
 import axios from 'axios';
+import styles from './App.css';
 
 class App extends React.Component {
   constructor(props) {

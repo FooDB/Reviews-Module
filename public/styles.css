@@ -1,11 +1,11 @@
-#appMasterContainer {
+/* #appMasterContainer {
     font-family: 'Open Sans', sans-serif;
     width: 640px;
     padding: 0 1rem;
     margin-left: auto;
     margin-right: auto;
     margin-top: 3rem;
-}
+} */
 
 
 /*** Syling for ReviewsFeed ***/
@@ -218,7 +218,7 @@
 }
 
 /*** ReportPopUp styles ***/
-#reportHeadContainer {
+/* #reportHeadContainer {
     justify-content: flex-end;
     background-color: #ffffff;
     line-height: 2rem;
@@ -289,11 +289,11 @@
     box-sizing: border-box;
     background-color: #ffffff;
     cursor: pointer;
-}
+} */
 
 
 /*** modal styles for report PopUp ***/
-.modalBackground {
+/* .modalBackground {
     position: fixed; 
     z-index: 1; 
     left: 0;
@@ -310,7 +310,7 @@
     padding: 20px;
     border: 1px solid #888;
     width: 50%; 
-}
+} */
 
 
 
@@ -571,7 +571,7 @@ span:focus {
 
 
 /*** Pagination Styling below ***/
-#paginationContainer {
+/* #paginationContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -617,4 +617,4 @@ span:focus {
     cursor: pointer;
     align-items: center;
     height: 2rem;
-}
+} */
