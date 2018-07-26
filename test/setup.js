@@ -4,5 +4,5 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
 test('true = true', () => {
-    expect(true).toBe(true);
-})
+  expect(true).toBe(true);
+});

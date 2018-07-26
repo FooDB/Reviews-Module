@@ -147,7 +147,7 @@ class Review extends React.Component {
                   <div id="flagIcon" />
                   <span className="reportText">Report</span>
                 </div>
-                <div className="flexCenter" 
+                <div className="flexCenter"
                   id={helpHover} 
                   value={this.props.review.is_helpful}
                   onClick={() => this.helpfulClick(this.props.review.is_helpful)} 
