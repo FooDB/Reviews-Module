@@ -23,12 +23,14 @@ class FilterBox extends React.Component {
   }
 
   render() {
+    const { icon } = this.state;
+    const { keyWord: { filterKeyword }, filterReviews } = this.props;
     return (
-      <span className="filterCheckBox" tabIndex="0" onClick={() => {this.switchIcon(); this.props.filterReviews(this.props.keyWord.filterKeyword);}}>
+      <span className="filterCheckBox" tabIndex="0" onClick={() => {this.switchIcon(); filterReviews(filterKeyword);}}>
         <span>
-          <img className="filterBoxIcon" src={this.state.icon} alt="Box Icon" />
+          <img className="filterBoxIcon" src={icon} alt="Box Icon" />
         </span>
-        <span> {this.props.keyWord.filterKeyword}</span>
+        <span> {filterKeyword}</span>
       </span>
     );
   }
@@ -38,6 +40,6 @@ export default FilterBox;
 FilterBox.propTypes = {
   keyWord: PropTypes.shape({
     filterKeyword: PropTypes.string.isRequired,
-  }),
+  }).isRequired,
   filterReviews: PropTypes.func.isRequired,
 };

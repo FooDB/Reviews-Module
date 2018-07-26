@@ -163,7 +163,8 @@ class App extends React.Component {
             lovedFor={this.state.lovedFor}
             filter={this.filterReviewsByRating.bind(this)}
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
-            restaurantInfo={this.state.restaurantInfo}/>
+            restaurantInfo={this.state.restaurantInfo}
+          />
         </ErrorBoundary>
 
         <ErrorBoundary>
@@ -171,12 +172,14 @@ class App extends React.Component {
             keyWords={this.state.keyWords}
             sortReviews={this.sortReviewsBySelect.bind(this)}
             filterReviews={this.filterReviewsByKeyword.bind(this)}
-            scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+            scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
+          />
         </ErrorBoundary>
 
         <ErrorBoundary>
           <ReviewList
-            reviews={this.state.reviews}/>
+            reviews={this.state.reviews}
+          />
         </ErrorBoundary>
 
         <ErrorBoundary>
@@ -185,7 +188,8 @@ class App extends React.Component {
             handlePageChange={this.handlePageChange.bind(this)}
             currentPage={this.state.currentPage}
             totalPages={this.state.totalPages}
-            scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}/>
+            scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
+          />
         </ErrorBoundary>
       </div>
     );
