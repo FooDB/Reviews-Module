@@ -1,0 +1,16 @@
+.lovedForBox {
+    padding: 1rem .5rem;
+    border: 1px solid #d8d9db;
+    cursor: pointer;
+    align-items: center;
+    margin: .5rem 1rem .5rem 0;
+
+}
+.lovedForBox:hover {
+    border-color: transparent;
+    box-shadow: 0 0 0 2px #da3743;
+}
+.lovedForIcon {
+    width: 24px;
+    height: 24px;
+}
