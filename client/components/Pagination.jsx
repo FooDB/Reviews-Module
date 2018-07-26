@@ -31,10 +31,10 @@ const Pagination = ({ currentPage, totalPages, scrollToTopOfFeed, handlePageChan
     ? <span className="ellipsisBubble" id="secondEllipsis">&middot;&middot;&middot;</span>
     : '');
   const middleRightBubble = (2 < currentPage && currentPage <= totalPages
-    ? <span className="paginationBubble" id={selectedBubble4}  onClick={() => {handlePageChange(middleRightNumber); scrollToTopOfFeed();}}>{middleRightNumber}</span>
+    ? <span className="paginationBubble" id={selectedBubble4} onClick={() => {handlePageChange(middleRightNumber); scrollToTopOfFeed();}}>{middleRightNumber}</span>
     : '');
   const middleLeftBubble = (currentPage < totalPages - 1
-    ? <span className="paginationBubble" id={selectedBubble2}  onClick={() => {handlePageChange(middleLeftNumber); scrollToTopOfFeed();}}>{middleLeftNumber}</span>
+    ? <span className="paginationBubble" id={selectedBubble2} onClick={() => {handlePageChange(middleLeftNumber); scrollToTopOfFeed();}}>{middleLeftNumber}</span>
     : '');
 
   return (
