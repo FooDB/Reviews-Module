@@ -4,7 +4,10 @@ import Review from '../client/components/Review';
 import FilterBox from '../client/components/FilterBox';
 import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
+import ReportPopUp from '../client/components/ReportPopUp';
+import ReviewSummary from '../client/components/ReportPopUp';
 import { wrap } from 'module';
+import ReviewToolbar from '../client/components/ReviewToolbar';
 const request = require('supertest')('http://127.0.0.1:3005');
 
 describe('Server routes interact successfully', () => {
@@ -81,6 +84,7 @@ describe('Review', () => {
       reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
       dinedDate: '2018-04-12',
       userName: 'Christopher Wildenradt',
+      userReviewCount: 1,
     }}
   />);
   it('should change the helpful state on click', () => {
@@ -100,10 +104,20 @@ describe('Review', () => {
     startState = wrapper.state();
     expect(startState.reviewText.length).toBeGreaterThan(204);
   })
+  it('should display review if the user has only one review', () => {
+    expect(wrapper.find('#reviewCountText').text()).toBe("  1 review")
+  })
 });
 
 describe('ReviewToolbar', () => {
-
+const wrapper = shallow(<ReviewToolbar keyWords={['first', 'second']}/>)
+  it('should return display the up arrow, then down arrow after click of dropdown', () => {
+    let state = wrapper.state();
+    expect(state.arrow).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/downArrow.png')
+    wrapper.find('#dropdownHeader').simulate('click', {target: {textContent: 'this'}});
+    state = wrapper.state();
+    expect(state.arrow).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/upArrow.png')
+  })
 });
 
 describe('Pagination', () => {
