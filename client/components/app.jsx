@@ -24,11 +24,12 @@ class App extends React.Component {
         noise: 0,
         recommended: 0,
       },
-      is_filtered: false,
       stars: [],
       currentPage: 1,
-      totalPages: 0,
+      totalPages: 1,
       restaurantInfo: [],
+      filterWordsSelected: [],
+      currentRestReviews: [],
     };
   }
 
@@ -71,9 +72,8 @@ class App extends React.Component {
         this.setState({
           reviews: res.data.slice(0, 20),
           allReviews: res.data,
-          totalPages: Math.floor(res.data.length / 20),
-        });
-        this.setState({
+          totalPages: Math.round(res.data.length / 20),
+          currentRestReviews: res.data,
           ratings: {
             totalAverage: this.getAverage(res.data, 'overallRating'),
             foodAverage: this.getAverage(res.data, 'foodRating'),
@@ -116,39 +116,62 @@ class App extends React.Component {
   }
 
   filterReviewsByKeyword(target) {
-    const { is_filtered, reviews, allReviews } = this.state;
-    if (!is_filtered) {
-      const filtered = reviews.filter(review => review.reviewText.includes(target));
-      this.setState({ reviews: filtered });
+    let { allReviews, filterWordsSelected, currentRestReviews } = this.state;
+    const targetIndex = filterWordsSelected.indexOf(target)
+    if (targetIndex !== -1) {
+      filterWordsSelected.splice(targetIndex, 1)
+      currentRestReviews = allReviews;
     } else {
-      this.setState({ reviews: allReviews });
+      filterWordsSelected.push(target);
     }
-    this.setState({ is_filtered: !is_filtered });
-    console.log('filter reviews called', target);
+
+    if (!filterWordsSelected.length) {
+      this.setState({ 
+        reviews: allReviews.slice(0, 20),
+        currentRestReviews: allReviews,
+        totalPages: Math.round(currentRestReviews.length / 20), currentPage: 1 
+      });
+    } else {
+      let filtered = [];
+      for (let i = 0; i < filterWordsSelected.length; i++) {
+        filtered = currentRestReviews.filter(review => review.reviewText.includes(filterWordsSelected[i]));
+        currentRestReviews = filtered;
+      }
+      this.setState({ reviews: filtered.slice(0, 20), currentRestReviews: filtered });
+      this.setState({ totalPages: Math.round(filtered.length / 20), currentPage: 1 });
+    }
   }
 
   filterReviewsByRating(target) {
     const { allReviews } = this.state;
     const filtered = allReviews.filter(review => review.overallRating === target);
-    this.setState({ reviews: filtered });
+    this.setState({ 
+      reviews: filtered.slice(0, 20), 
+      currentRestReviews: filtered, 
+      totalPages: Math.round(filtered.length / 20),
+      currentPage: 1,
+    });
   }
 
   sortReviewsBySelect(sortMethod) {
-    const { reviews } = this.state;
+    let { currentRestReviews, allReviews } = this.state;
     if (sortMethod === 'Highest') {
-      reviews.sort((a, b) => b.overallRating - a.overallRating);
+      currentRestReviews = allReviews.sort((a, b) => b.overallRating - a.overallRating);
     } else if (sortMethod === 'Lowest') {
-      reviews.sort((a, b) => a.overallRating - b.overallRating);
+      currentRestReviews = allReviews.sort((a, b) => a.overallRating - b.overallRating);
     } else {
-      reviews.sort((a, b) => b.dinedDate - a.dinedDate);
+      currentRestReviews = allReviews.sort((a, b) => b.dinedDate - a.dinedDate);
     }
-    this.setState({ reviews });
+    this.setState({ 
+      reviews: currentRestReviews.slice(0, 20),
+      currentRestReviews: currentRestReviews,
+    });
   }
 
   handlePageChange(page) {
-    const { allReviews } = this.state;
+    const { currentRestReviews } = this.state;
     this.setState({
-      reviews: allReviews.slice((page - 1) * 20, page * 20),
+      reviews: currentRestReviews.slice((page - 1) * 20, page * 20),
       currentPage: page,
     });
   }
