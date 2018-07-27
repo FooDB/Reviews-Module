@@ -30,7 +30,7 @@ class ReviewSummary extends React.Component {
         this.setState({ percentages: counts.map(count => Math.round(count / allReviews.length * 100) + '%') })
       })
       .catch(err => console.log(err));
-
+      
   }
 
   render() {
