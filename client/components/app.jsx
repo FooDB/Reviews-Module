@@ -29,6 +29,7 @@ class App extends React.Component {
       currentPage: 1,
       totalPages: 0,
       restaurantInfo: [],
+      filterWordsSelected: [],
     };
   }
 
@@ -116,12 +117,15 @@ class App extends React.Component {
   }
 
   filterReviewsByKeyword(target) {
-    const { is_filtered, reviews, allReviews } = this.state;
+    const { is_filtered, reviews, allReviews, filterWordsSelected } = this.state;
+    filterWordsSelected.push(target);
     if (!is_filtered) {
       const filtered = reviews.filter(review => review.reviewText.includes(target));
       this.setState({ reviews: filtered });
+      this.setState({ totalPages: Math.round(filtered.length / 20), currentPage: 1 });
     } else {
-      this.setState({ reviews: allReviews });
+      this.setState({ reviews: allReviews.slice(0, 20) });
+      this.setState({ totalPages: Math.round(allReviews.length / 20), currentPage: 1 })
     }
     this.setState({ is_filtered: !is_filtered });
     console.log('filter reviews called', target);

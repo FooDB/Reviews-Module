@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Pagination.css';
 
 const Pagination = ({ currentPage, totalPages, scrollToTopOfFeed, handlePageChange }) => {
+  if (totalPages === 0) totalPages = 1;
   const nextPage = (currentPage === totalPages ? currentPage : currentPage + 1);
   const previousPage = (currentPage === 1 ? currentPage : currentPage - 1);
 
