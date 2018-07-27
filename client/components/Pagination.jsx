@@ -15,12 +15,10 @@ const Pagination = ({ currentPage, totalPages, scrollToTopOfFeed, handlePageChan
     middleNumber = currentPage - 2;
   }
 
-  if (totalPages < 5) {
-    if (totalPages <= 3 && currentPage === 2) middleNumber = 2;
-    if (totalPages <= 3 && currentPage === 3) middleNumber = 2;
-    if (totalPages <= 3 && currentPage === 3) middleRightNumber = 3;
+  if (totalPages <= 3) {
+    if (currentPage === 2 || currentPage === 3) middleNumber = 2;
+    if (currentPage === 3) middleRightNumber = 3;
   }
-
 
   let selectedBubble1, selectedBubble2, selectedBubble3, selectedBubble4, selectedBubble5;
   const highlightSelectedBubble = () => {
@@ -32,28 +30,25 @@ const Pagination = ({ currentPage, totalPages, scrollToTopOfFeed, handlePageChan
   };
   highlightSelectedBubble();
 
+  const firstBubble = <span className="paginationBubble" id={selectedBubble1} onClick={() => {handlePageChange(1); scrollToTopOfFeed();}}>1</span>
   const firstEllipsis = (currentPage - 3 > 0 && totalPages > 4
     ? <span className="ellipsisBubble" id="firstEllipsis">&middot;&middot;&middot;</span>
     : '');
   const secondEllipsis = (currentPage + 3 <= totalPages && totalPages > 4
     ? <span className="ellipsisBubble" id="secondEllipsis">&middot;&middot;&middot;</span>
     : '');
-  let firstBubble = <span className="paginationBubble" id={selectedBubble1} onClick={() => {handlePageChange(1); scrollToTopOfFeed();}}>1</span>
-  let middleRightBubble = (2 < currentPage && currentPage <= totalPages
-    ? <span className="paginationBubble" id={selectedBubble4} onClick={() => {handlePageChange(middleRightNumber); scrollToTopOfFeed();}}>{middleRightNumber}</span>
-    : '');
-  let middleBubble = <span className="paginationBubble" id={selectedBubble3} onClick={() => {handlePageChange(middleNumber); scrollToTopOfFeed();}}>{middleNumber}</span>
-  let middleLeftBubble = (currentPage < totalPages - 1
+  const middleLeftBubble = (currentPage < totalPages - 1
     ? <span className="paginationBubble" id={selectedBubble2} onClick={() => {handlePageChange(middleLeftNumber); scrollToTopOfFeed();}}>{middleLeftNumber}</span>
     : '');
+  const middleRightBubble = (2 < currentPage && currentPage <= totalPages
+    ? <span className="paginationBubble" id={selectedBubble4} onClick={() => {handlePageChange(middleRightNumber); scrollToTopOfFeed();}}>{middleRightNumber}</span>
+    : '');
+      
+  let middleBubble = <span className="paginationBubble" id={selectedBubble3} onClick={() => {handlePageChange(middleNumber); scrollToTopOfFeed();}}>{middleNumber}</span>
   let lastBubble = <span className="paginationBubble" id={selectedBubble5} onClick={() => {handlePageChange(totalPages); scrollToTopOfFeed();}}>{totalPages}</span>
 
-  //Edge Cases for low review counts
-  if (totalPages < 5) {
-    if (totalPages === 3 && currentPage !== 2) lastBubble = '';
-    if (totalPages < 3 && (currentPage === 1 || currentPage === 2)) middleBubble = '';
-    if (totalPages === 1 && currentPage === 1) lastBubble = '';
-  }
+  if ((totalPages === 3 && currentPage !== 2) || (totalPages === 1 && currentPage === 1)) lastBubble = '';
+  if (totalPages < 3 && (currentPage === 1 || currentPage === 2)) middleBubble = '';
 
   return (
     <div id="paginationContainer">

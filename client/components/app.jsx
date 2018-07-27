@@ -69,9 +69,9 @@ class App extends React.Component {
       .then((res) => {
         console.log(res.data);
         this.setState({
-          reviews: res.data.slice(0, 12),
+          reviews: res.data.slice(0, 20),
           allReviews: res.data,
-          totalPages: Math.round(res.data.length / 12),
+          totalPages: Math.round(res.data.length / 20),
         });
         this.setState({
           ratings: {
@@ -148,7 +148,7 @@ class App extends React.Component {
   handlePageChange(page) {
     const { allReviews } = this.state;
     this.setState({
-      reviews: allReviews.slice((page - 1) * 12, page * 12),
+      reviews: allReviews.slice((page - 1) * 20, page * 20),
       currentPage: page,
     });
   }
