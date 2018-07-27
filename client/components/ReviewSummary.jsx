@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LovedForBox from './LovedForBox.jsx';
+import axios from 'axios';
 import styles from './ReviewSummary.css';
 
 class ReviewSummary extends React.Component {
@@ -92,7 +93,7 @@ class ReviewSummary extends React.Component {
             <div className="summarySpacingContainer">
               <div className="inlineBlock">
                 <span><img className="summaryIcon" id="thumbsUpIcon" src="https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/thumbsUp.png" alt="thumbsUp icon" /></span>
-                <span><strong>{ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
+                <span id="recommendedText"><strong>{ratings.recommended}% of people</strong> <span>would recommend it to a friend</span></span>
               </div>
             </div>
           </div>

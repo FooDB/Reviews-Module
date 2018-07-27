@@ -93,7 +93,7 @@ class Review extends React.Component {
     const helpHover = (hoveronHelp ? 'helpHovered' : 'placeholder');
     const reviewDate = review.dinedDate.split('-');
     let readMorePhrase = (readMoreClicked ? '- Read less' : '+ Read more');
-    if (!readMoreClicked && review.reviewText.length < 300) readMorePhrase = '';
+    if (!readMoreClicked && review.reviewText.length < 200) readMorePhrase = '';
     const reviewPluralCase = (review.userReviewCount === 1 ? 'review' : 'reviews');
     const initials = review.userName.split(' ')[0][0] + review.userName.split(' ')[1][0];
 
@@ -116,7 +116,7 @@ class Review extends React.Component {
             <span id="userCity">{review.userArea}</span>
             <div id="userReviewsContainer">
               <span className="commentIcon" />
-              <span>&nbsp; {review.userReviewCount} {reviewPluralCase}</span>
+              <span id="reviewCountText">&nbsp; {review.userReviewCount} {reviewPluralCase}</span>
             </div>
           </div>
 
@@ -154,7 +154,7 @@ class Review extends React.Component {
                 <a id="readMore" href="#" onClick={(e) => this.readMoreToggle(e)}>{readMorePhrase}</a>
               </div>
               <div id="subReportHelpful">
-                <div className="flexCenter" onClick={(e) => this.toggleReportModal(e)}>
+                <div className="flexCenter" id="reportContainer" onClick={(e) => this.toggleReportModal(e)}>
                   <div id="flagIcon" />
                   <span className="reportText">Report</span>
                 </div>
