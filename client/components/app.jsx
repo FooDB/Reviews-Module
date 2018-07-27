@@ -65,13 +65,13 @@ class App extends React.Component {
   }
 
   pullDataById() {
-    axios.get(`/reviews/${3}`)
+    axios.get(`/reviews/${6}`)
       .then((res) => {
         console.log(res.data);
         this.setState({
-          reviews: res.data.slice(0, 20),
+          reviews: res.data.slice(0, 12),
           allReviews: res.data,
-          totalPages: Math.floor(res.data.length / 20),
+          totalPages: Math.round(res.data.length / 12),
         });
         this.setState({
           ratings: {
@@ -89,7 +89,7 @@ class App extends React.Component {
   }
 
   pullRestaurantInfoById() {
-    axios.get(`/restaurantInfo/${3}`)
+    axios.get(`/restaurantInfo/${6}`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
         console.log(res.data, 'restaurantInfo');
@@ -98,7 +98,7 @@ class App extends React.Component {
   }
 
   pullKeywordsById() {
-    axios.get(`/filterKeywords/${3}`)
+    axios.get(`/filterKeywords/${6}`)
       .then((res) => {
         this.setState({ keyWords: res.data });
         console.log(res.data);
@@ -107,7 +107,7 @@ class App extends React.Component {
   }
 
   pullMenuItemsById() {
-    axios.get(`/LovedFor/${3}`)
+    axios.get(`/LovedFor/${6}`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
         console.log(res.data, 'lovedfordata');
@@ -148,7 +148,7 @@ class App extends React.Component {
   handlePageChange(page) {
     const { allReviews } = this.state;
     this.setState({
-      reviews: allReviews.slice((page - 1) * 20, page * 20),
+      reviews: allReviews.slice((page - 1) * 12, page * 12),
       currentPage: page,
     });
   }
