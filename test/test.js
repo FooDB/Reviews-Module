@@ -5,7 +5,7 @@ import FilterBox from '../client/components/FilterBox';
 import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
 import ReportPopUp from '../client/components/ReportPopUp';
-import ReviewSummary from '../client/components/ReportPopUp';
+import ReviewSummary from '../client/components/ReviewSummary';
 import { wrap } from 'module';
 import ReviewToolbar from '../client/components/ReviewToolbar';
 const request = require('supertest')('http://127.0.0.1:3005');
@@ -151,6 +151,33 @@ const wrapper = shallow(<ReviewToolbar keyWords={['first', 'second']}/>)
     expect(state.arrow).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/upArrow.png')
   })
 });
+
+describe('ReviewSummary', () => {
+  const wrapper = shallow(<ReviewSummary
+    reviews={[]}
+    allReviews={[{id: 1}, {id: 2}]}
+    ratings={{
+      noise: 2,
+      recommended: 87,
+      totalAverage: 2.9,
+    }}
+    stars={[]}
+    lovedFor={[]}
+    restaurantInfo={[]}
+  />);
+  it('should display the length of reviews in the title', () => {
+    expect(wrapper.find('.summaryHeader').text()).toBe("What 2 People Are Saying")
+  })
+  it('should display the noise rating as the appropriate word', () => {
+    expect(wrapper.find('#summaryNoiseLevel').text()).toBe(" Loud")
+  })
+  it('should display the ratings recommended prop with the proper text', () => {
+    expect(wrapper.find('#recommendedText').text()).toBe("87% of people would recommend it to a friend")
+  })
+  it('should display the total ratings with the proper text', () => {
+    expect(wrapper.find('#summaryStarText').text()).toBe("   2.9 Based on Recent Ratings")
+  })
+})
 
 describe('Pagination', () => {
   const wrapper = shallow(<Pagination currentPage={1}totalPages={53} />);
