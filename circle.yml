@@ -40,7 +40,7 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
 
-      - run: npm install
+      - run: npm ci
       - save_cache:
           paths:
             - ./node_modules

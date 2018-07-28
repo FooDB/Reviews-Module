@@ -6,10 +6,12 @@ WORKDIR /src/app
 
 COPY . /src/app
 
-RUN yarn install
+RUN yarn install --ignore-engines
 
 EXPOSE 8050
 
-CMD [ "npm", "build" ]
+CMD [ "npm", "run", "build" ]
+
+CMD [ "npm", "run", "seed" ]
 
 CMD [ "npm", "start" ]

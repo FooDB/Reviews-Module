@@ -1,7 +1,10 @@
 version: '3'
 
 services:
-  survey:
-    build:
+  server:
+    build: '/'
     ports: 
       - '8050:8050'
+
+  database:
+    image: mysql:5.7.22
