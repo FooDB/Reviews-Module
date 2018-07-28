@@ -1,17 +1,13 @@
 FROM node:7.6-alpine
 
-RUN mkdir -p /src/app
+RUN mkdir -p /client/src
 
-WORKDIR /src/app
+WORKDIR /client/src
 
-COPY . /src/app
+COPY . .
 
 RUN yarn install --ignore-engines
 
-EXPOSE 8050
-
-CMD [ "npm", "run", "build" ]
-
-CMD [ "npm", "run", "seed" ]
+EXPOSE 3005
 
 CMD [ "npm", "start" ]
