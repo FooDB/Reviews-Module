@@ -29,7 +29,7 @@ app.get('/LovedFor/:id', (req, res) => {
   });
 });
 app.get('/restaurantInfo/:id', (req, res) => {
-  db.pullFromDB(`SELECT * FROM restaurant WHERE id = ${req.params.id};`, (err, data) => {
+  db.pullFromDB(`SELECT * FROM Restaurant WHERE id = ${req.params.id};`, (err, data) => {
     if (err) console.log(err);
     res.send(data);
   });
