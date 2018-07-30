@@ -20,16 +20,21 @@ const insertRestaurantData = () => {
             if (err) console.log(err);
             console.log(result);
         })
-        for (let j = 0; j < 5; j++) {
+        let filterKeyWordCount = Math.random() * 5;
+        for (let j = 0; j < filterKeyWordCount; j++) {
             let filterKeyWord = faker.lorem.paragraph().split(' ')[2];
             db.con.query(`INSERT INTO Filters (filterKeyword, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
                 if (err) console.log(err);
                 console.log(result);
             })
-            db.con.query(`INSERT INTO LovedFor (menuItem, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
-                if (err) console.log(err);
-                console.log(result);
-            })
+        }
+        let LovedForCount = Math.random() * 3;
+        for (let j = 0; j < LovedForCount; j++) {
+            let filterKeyWord = faker.lorem.paragraph().split(' ')[2];
+                db.con.query(`INSERT INTO LovedFor (menuItem, rest_id) VALUES ('${filterKeyWord}', ${i});`, (err, result) => {
+                    if (err) console.log(err);
+                    console.log(result);
+                })
         }
         let reviewCount = Math.random() * 300;
         for (let j = 0; j < reviewCount; j++) {
