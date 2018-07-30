@@ -51,6 +51,10 @@ jobs:
           command: npm run reset-db-ci
 
       - run:
+          name: Seed database
+          command: npm run seed
+          
+      - run:
           command: npm start
           background: true
 
