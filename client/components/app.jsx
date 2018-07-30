@@ -187,6 +187,11 @@ class App extends React.Component {
 
   render() {
     const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages, id } = this.state;
+
+    if (!reviews.length) {
+      return <h3>No data</h3>
+    }
+
     return (
       <div id="appMasterContainer">
         <ErrorBoundary>
