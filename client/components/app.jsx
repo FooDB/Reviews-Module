@@ -7,6 +7,8 @@ import ErrorBoundary from './Error.jsx';
 import axios from 'axios';
 import styles from './App.css';
 
+const getIDFromURL = () => window.location.pathname.split('/')[2]
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,14 +32,17 @@ class App extends React.Component {
       restaurantInfo: [],
       filterWordsSelected: [],
       currentRestReviews: [],
+      id: 1,
     };
   }
 
   componentDidMount() {
-    this.pullKeywordsById();
-    this.pullMenuItemsById();
-    this.pullDataById();
-    this.pullRestaurantInfoById();
+    const id = getIDFromURL();
+    this.pullKeywordsById(id);
+    this.pullMenuItemsById(id);
+    this.pullDataById(id);
+    this.pullRestaurantInfoById(id);
+    this.setState({ id })
   }
 
   getAverage(reviews, criteria) {
@@ -65,10 +70,9 @@ class App extends React.Component {
     this.setState({ stars });
   }
 
-  pullDataById() {
-    axios.get(`/reviews/${3}`)
+  pullDataById(id) {
+    axios.get(`/restaurant/${id}/reviews`)
       .then((res) => {
-        console.log(res.data);
         this.setState({
           reviews: res.data.slice(0, 20),
           allReviews: res.data,
@@ -88,29 +92,26 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  pullRestaurantInfoById() {
-    axios.get(`/restaurantInfo/${3}`)
+  pullRestaurantInfoById(id) {
+    axios.get(`/restaurant/${id}/info`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
-        console.log(res.data, 'restaurantInfo');
       })
       .catch(err => console.error(err));
   }
 
-  pullKeywordsById() {
-    axios.get(`/filterKeywords/${3}`)
+  pullKeywordsById(id) {
+    axios.get(`/restaurant/${id}/filterKeywords`)
       .then((res) => {
         this.setState({ keyWords: res.data });
-        console.log(res.data);
       })
       .catch(err => console.log(err));
   }
 
-  pullMenuItemsById() {
-    axios.get(`/LovedFor/${3}`)
+  pullMenuItemsById(id) {
+    axios.get(`/restaurant/${id}/LovedFor`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
-        console.log(res.data, 'lovedfordata');
       })
       .catch(err => console.log(err));
   }
@@ -181,7 +182,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages } = this.state;
+    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages, id } = this.state;
+
+    if (!reviews.length) {
+      return <h3>No data</h3>
+    }
+
     return (
       <div id="appMasterContainer">
         <ErrorBoundary>
@@ -194,6 +200,7 @@ class App extends React.Component {
             filter={this.filterReviewsByRating.bind(this)}
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
             restaurantInfo={restaurantInfo}
+            id={id}
           />
         </ErrorBoundary>
 
