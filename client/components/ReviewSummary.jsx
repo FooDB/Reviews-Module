@@ -14,7 +14,7 @@ class ReviewSummary extends React.Component {
 
   componentDidMount() {
     let { allReviews } = this.state;
-    axios.get(`/reviews/${3}`)
+    axios.get(`/restaurant/${this.props.id}/reviews`)
       .then((res) => {
         allReviews = res.data
         let fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0;

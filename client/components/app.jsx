@@ -32,6 +32,7 @@ class App extends React.Component {
       restaurantInfo: [],
       filterWordsSelected: [],
       currentRestReviews: [],
+      id: 1,
     };
   }
 
@@ -41,7 +42,7 @@ class App extends React.Component {
     this.pullMenuItemsById(id);
     this.pullDataById(id);
     this.pullRestaurantInfoById(id);
-    console.log(id)
+    this.setState({ id })
   }
 
   getAverage(reviews, criteria) {
@@ -70,7 +71,7 @@ class App extends React.Component {
   }
 
   pullDataById(id) {
-    axios.get(`/reviews/${id}`)
+    axios.get(`/restaurant/${id}/reviews`)
       .then((res) => {
         console.log(res.data);
         this.setState({
@@ -93,7 +94,7 @@ class App extends React.Component {
   }
 
   pullRestaurantInfoById(id) {
-    axios.get(`/restaurantInfo/${id}`)
+    axios.get(`/restaurant/${id}/info`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
         console.log(res.data, 'restaurantInfo');
@@ -102,7 +103,7 @@ class App extends React.Component {
   }
 
   pullKeywordsById(id) {
-    axios.get(`/filterKeywords/${id}`)
+    axios.get(`/restaurant/${id}/filterKeywords`)
       .then((res) => {
         this.setState({ keyWords: res.data });
         console.log(res.data);
@@ -111,7 +112,7 @@ class App extends React.Component {
   }
 
   pullMenuItemsById(id) {
-    axios.get(`/LovedFor/${id}`)
+    axios.get(`/restaurant/${id}/LovedFor`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
         console.log(res.data, 'lovedfordata');
@@ -185,7 +186,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages } = this.state;
+    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages, id } = this.state;
     return (
       <div id="appMasterContainer">
         <ErrorBoundary>
@@ -198,6 +199,7 @@ class App extends React.Component {
             filter={this.filterReviewsByRating.bind(this)}
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
             restaurantInfo={restaurantInfo}
+            id={id}
           />
         </ErrorBoundary>
 
