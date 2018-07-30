@@ -1,3 +1,3 @@
-import App from './components/App.jsx';
+import App from './components/app.jsx';
 
 ReactDOM.render(<App />, document.getElementById('app'));

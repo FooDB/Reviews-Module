@@ -6,7 +6,8 @@ const app = express();
 
 const port = process.env.PORT || 3005;
 
-app.use(express.static('./public'));
+app.use('/', express.static('./public'));
+app.use('/restaurant/:id', express.static('./public'))
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 

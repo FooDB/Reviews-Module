@@ -7,6 +7,8 @@ import ErrorBoundary from './Error.jsx';
 import axios from 'axios';
 import styles from './App.css';
 
+const getIDFromURL = () => window.location.pathname.split('/')[2]
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -34,10 +36,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.pullKeywordsById();
-    this.pullMenuItemsById();
-    this.pullDataById();
-    this.pullRestaurantInfoById();
+    const id = getIDFromURL();
+    this.pullKeywordsById(id);
+    this.pullMenuItemsById(id);
+    this.pullDataById(id);
+    this.pullRestaurantInfoById(id);
+    console.log(id)
   }
 
   getAverage(reviews, criteria) {
@@ -65,8 +69,8 @@ class App extends React.Component {
     this.setState({ stars });
   }
 
-  pullDataById() {
-    axios.get(`/reviews/${3}`)
+  pullDataById(id) {
+    axios.get(`/reviews/${id}`)
       .then((res) => {
         console.log(res.data);
         this.setState({
@@ -88,8 +92,8 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  pullRestaurantInfoById() {
-    axios.get(`/restaurantInfo/${3}`)
+  pullRestaurantInfoById(id) {
+    axios.get(`/restaurantInfo/${id}`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
         console.log(res.data, 'restaurantInfo');
@@ -97,8 +101,8 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  pullKeywordsById() {
-    axios.get(`/filterKeywords/${3}`)
+  pullKeywordsById(id) {
+    axios.get(`/filterKeywords/${id}`)
       .then((res) => {
         this.setState({ keyWords: res.data });
         console.log(res.data);
@@ -106,8 +110,8 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  pullMenuItemsById() {
-    axios.get(`/LovedFor/${3}`)
+  pullMenuItemsById(id) {
+    axios.get(`/LovedFor/${id}`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
         console.log(res.data, 'lovedfordata');
