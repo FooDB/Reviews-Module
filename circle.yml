@@ -12,12 +12,11 @@ jobs:
           MYSQL_HOST: 127.0.0.1
           MYSQL_DB: reviews
           MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_PASSWORD:
+          MYSQL_PASSWORD: mysqlsucks
       - image: circleci/mysql:5.7
         environment:
           MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD: mysqlsucks
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
