@@ -50,7 +50,7 @@ class Review extends React.Component {
       : this.setState({ upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png' });
     review.is_helpful ? review.is_helpful = 0 : review.is_helpful = 1;
     axios.post(`/restaurant/${review.is_helpful}/id/${review.id}/helpfulEvent`)
-      .then(res => console.log(res))
+      .then()
       .catch(err => console.error(err));
   }
 

@@ -73,7 +73,6 @@ class App extends React.Component {
   pullDataById(id) {
     axios.get(`/restaurant/${id}/reviews`)
       .then((res) => {
-        console.log(res.data);
         this.setState({
           reviews: res.data.slice(0, 20),
           allReviews: res.data,
@@ -97,7 +96,6 @@ class App extends React.Component {
     axios.get(`/restaurant/${id}/info`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
-        console.log(res.data, 'restaurantInfo');
       })
       .catch(err => console.error(err));
   }
@@ -106,7 +104,6 @@ class App extends React.Component {
     axios.get(`/restaurant/${id}/filterKeywords`)
       .then((res) => {
         this.setState({ keyWords: res.data });
-        console.log(res.data);
       })
       .catch(err => console.log(err));
   }
@@ -115,7 +112,6 @@ class App extends React.Component {
     axios.get(`/restaurant/${id}/LovedFor`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
-        console.log(res.data, 'lovedfordata');
       })
       .catch(err => console.log(err));
   }
