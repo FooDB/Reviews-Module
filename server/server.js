@@ -4,36 +4,60 @@ const db = require('../database/db.js');
 
 const app = express();
 
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || 3025;
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET');
+  next();
+});
 
 app.use('/', express.static('./public'));
 app.use('/restaurant/:id', express.static('./public'))
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
+
 app.get('/restaurant/:id/reviews', (req, res) => {
-  db.pullFromDB(`SELECT * FROM Reviews WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
-    if (err) res.status(400).send('error');
-    res.send(data);
-  });
+  if (typeof req.params.id === 'number' && req.params.id < 100 && req.params.id > 0) {
+    db.pullFromDB(`SELECT * FROM Reviews WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
+      if (err) res.status(400).send('error');
+      res.send(data);
+    });
+  } else {
+    res.send('Undefined ID');
+  }
 });
 app.get('/restaurant/:id/filterKeywords', (req, res) => {
-  db.pullFromDB(`SELECT * FROM Filters WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
-    if (err) res.status(400).send('error');
-    res.send(data);
-  });
+  if (typeof req.params.id === 'number' && req.params.id < 100 && req.params.id > 0) {
+    db.pullFromDB(`SELECT * FROM Filters WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
+      if (err) res.status(400).send('error');
+      res.send(data);
+    });
+  } else {
+    res.send('Undefined ID');
+  }
 });
 app.get('/restaurant/:id/LovedFor', (req, res) => {
-  db.pullFromDB(`SELECT * FROM LovedFor WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
-    if (err) res.status(400).send('error');
-    res.send(data);
-  });
+  if (typeof req.params.id === 'number' && req.params.id < 100 && req.params.id > 0) {
+    db.pullFromDB(`SELECT * FROM LovedFor WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
+      if (err) res.status(400).send('error');
+      res.send(data);
+    });
+  } else {
+    res.send('Undefined ID');
+  }
 });
 app.get('/restaurant/:id/info', (req, res) => {
-  db.pullFromDB(`SELECT * FROM Restaurant WHERE id = ${req.params.id};`, (err, data) => {
-    if (err) res.status(400).send('error');
-    res.send(data);
-  });
+  if (typeof req.params.id === 'number' && req.params.id < 100 && req.params.id > 0) {
+    db.pullFromDB(`SELECT * FROM Restaurant WHERE id = ${req.params.id};`, (err, data) => {
+      if (err) res.status(400).send('error');
+      res.send(data);
+    });
+  } else {
+    res.send('Undefined ID');
+  }
 });
 app.post('/restaurant/:is_helpful/id/:id/helpfulEvent', (req, res) => {
   console.log('helpful post received', req.params);

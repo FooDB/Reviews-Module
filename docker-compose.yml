@@ -4,14 +4,13 @@ services:
   reviews:
     build:
       context: .
+    image: chrisw321/improvedserver
     depends_on:
       - database
     ports:
-      - '3005:3005'
+      - '3025:3025'
 
   database:
-    image: mysql:5.7.22
-    restart: always
-    environment:
-      MYSQL_DATABASE: reviews
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    build: ./database
+    ports:
+      - '3306:3306'

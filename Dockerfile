@@ -4,10 +4,10 @@ RUN mkdir -p /client/src
 
 WORKDIR /client/src
 
-COPY . .
+COPY . /client/src
 
-RUN yarn install --ignore-engines
+RUN yarn install --production --ignore-engines
 
-EXPOSE 3005
+EXPOSE 3025
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "start"]

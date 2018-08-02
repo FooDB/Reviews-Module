@@ -60,4 +60,4 @@ const insertRestaurantData = () => {
     }
 
 }
-insertRestaurantData();
+setTimeout(insertRestaurantData, 10000);

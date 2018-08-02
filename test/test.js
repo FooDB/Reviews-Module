@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Review from '../client/components/Review';
+// import Review from '../client/components/Review';
 import FilterBox from '../client/components/FilterBox';
 import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
-import ReportPopUp from '../client/components/ReportPopUp';
-import ReviewSummary from '../client/components/ReviewSummary';
+// import ReportPopUp from '../client/components/ReportPopUp';
+// import ReviewSummary from '../client/components/ReviewSummary';
 import { wrap } from 'module';
 import ReviewToolbar from '../client/components/ReviewToolbar';
 const request = require('supertest')('http://127.0.0.1:3005');
@@ -138,6 +138,7 @@ describe('Review', () => {
     expect(wrapper.find('#readMore').text()).toBe('+ Read more');
     wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
     expect(wrapper.find('#readMore').text()).toBe('- Read less');
+    Review.
   })
 });
 
