@@ -71,7 +71,7 @@ class App extends React.Component {
   }
 
   pullDataById(id) {
-    axios.get(`/restaurant/${id}/reviews`)
+    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/reviews`)
       .then((res) => {
         this.setState({
           reviews: res.data.slice(0, 20),
@@ -93,7 +93,7 @@ class App extends React.Component {
   }
 
   pullRestaurantInfoById(id) {
-    axios.get(`/restaurant/${id}/info`)
+    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/info`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
       })
@@ -101,7 +101,7 @@ class App extends React.Component {
   }
 
   pullKeywordsById(id) {
-    axios.get(`/restaurant/${id}/filterKeywords`)
+    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/filterKeywords`)
       .then((res) => {
         this.setState({ keyWords: res.data });
       })
@@ -109,7 +109,7 @@ class App extends React.Component {
   }
 
   pullMenuItemsById(id) {
-    axios.get(`/restaurant/${id}/LovedFor`)
+    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/LovedFor`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
       })

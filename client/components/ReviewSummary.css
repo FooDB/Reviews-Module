@@ -5,7 +5,7 @@
 }
 #summaryStarText {
     position: relative;
-    bottom: 3;
+    bottom: 3px;
 }
 .summaryStarIcon {
     width: 20px;
@@ -27,7 +27,7 @@
     display: inline-block;
     margin-left: .5rem;
     position: relative;
-    bottom: 62;
+    bottom: 62px;
 }
 #leftSummaryContainer {
     display: inline-block;
@@ -73,11 +73,11 @@
 }
 #summaryBarIcon, #thumbsUpIcon {
     position: relative;
-    top: 5;
+    top: 5px;
 }
 #summaryNoiseLevel {
     position: relative;
-    top: 1;
+    top: 1px;
 }
 #percentageRecommended {
     font-weight: bold;
@@ -118,7 +118,7 @@
     height: 13px;
     margin-bottom: .75rem;
     position: relative;
-    top: 14;
+    top: 14px;
 }
 .toolbar-red, .toolbar-hover-red:hover {
     color: #fff;
