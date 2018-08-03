@@ -1,23 +1,20 @@
 module.exports = function(grunt) {
-
+    grunt.loadNpmTasks('grunt-aws');
     // Project configuration.
     grunt.initConfig({
-      pkg: grunt.file.readJSON('package.json'),
-      uglify: {
+      aws: grunt.file.readJSON('credentials.json'),
+      s3: {
         options: {
-          banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+          accessKeyId: '<%= aws.accessKeyId %>',
+          secretAccessKey: '<%= aws.secretAccessKey %>',
+          bucket: 'fec-reviews-cloud-host',
+          region: 'us-west-1',
         },
         build: {
-          src: './public/bundle.js',
-          dest: 'build/gruntBuild.min.js'
+          cwd: 'public/',
+          src: 'bundle.js',
         }
       }
     });
-  
-    // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-  
-    // Default task(s).
-    grunt.registerTask('default', ['uglify']);
   
   };
