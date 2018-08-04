@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 import LovedForBox from './LovedForBox.jsx';
 import styles from './ReviewSummary.css';
 
-class ReviewSummary extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages } = this.props;
+const ReviewSummary = ({ ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages }) => {
+    // const { ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages } = this.props;
     let noiseLevel;
     if (ratings.noise > 1) {
       noiseLevel = 'Loud';
@@ -102,7 +97,7 @@ class ReviewSummary extends React.Component {
       </div>
     );
   }
-}
+
 
 export default ReviewSummary;
 
