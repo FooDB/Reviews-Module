@@ -105,4 +105,5 @@ ReviewSummary.propTypes = {
   restaurantInfo: PropTypes.array.isRequired,
   stars: PropTypes.array.isRequired,
   ratings: PropTypes.object.isRequired,
+  percentages: PropTypes.array.isRequired
 };
