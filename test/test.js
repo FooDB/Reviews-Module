@@ -6,8 +6,13 @@ import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
 import ReportPopUp from '../client/components/ReportPopUp';
 import ReviewSummary from '../client/components/ReviewSummary';
+// import App from '../client/components/App';
 import { wrap } from 'module';
 import ReviewToolbar from '../client/components/ReviewToolbar';
+import RatingBar from '../client/components/RatingBar';
+import UnCheckedIcon from '../client/components/UnCheckedIcon';
+import ErrorBoundary from '../client/components/Error';
+import ReviewList from '../client/components/ReviewList';
 const request = require('supertest')('http://127.0.0.1:3005');
 
 describe('Server routes interact successfully', () => {
@@ -138,7 +143,6 @@ describe('Review', () => {
     expect(wrapper.find('#readMore').text()).toBe('+ Read more');
     wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
     expect(wrapper.find('#readMore').text()).toBe('- Read less');
-    Review.
   })
 });
 
@@ -165,6 +169,7 @@ describe('ReviewSummary', () => {
     stars={[]}
     lovedFor={[]}
     restaurantInfo={[]}
+    percentages={['23%', '24%', '25%', '26%', '27%', '28%']}
   />);
   it('should display the length of reviews in the title', () => {
     expect(wrapper.find('.summaryHeader').text()).toBe("What 2 People Are Saying")
@@ -177,6 +182,9 @@ describe('ReviewSummary', () => {
   })
   it('should display the total ratings with the proper text', () => {
     expect(wrapper.find('#summaryStarText').text()).toBe("   2.9 Based on Recent Ratings")
+  })
+  it ('should should display 6 rating bars when given an array of 6 percentages', () => {
+    expect(wrapper.find('#summaryToolbarContainer').html()).toBe('<div id=\"summaryToolbarContainer\"><div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">5</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:27%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">4</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:26%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">3</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:25%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">2</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:24%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">1</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:23%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">0</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\"></div></div></div></div></div>')
   })
 })
 
@@ -205,3 +213,46 @@ describe('Pagination', () => {
     expect(wrapper3.find('#middleRight').text()).toBe('7');
   })
 });
+
+describe('ReportPopUp', () => {
+  const wrapper = shallow(<ReportPopUp />)
+  expect(wrapper.html()).toBe('<div id=\"modalContainer\"><div class=\"modalBackground\"><div class=\"modalContent\"><div id=\"reviewReport\"><div id=\"reportHeadContainer\"><div id=\"reportHeadText\"><strong>Report this review as inappropriate?</strong></div></div><div id=\"reportBodyContainer\"><div id=\"reportBodyText\"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div><form><input type=\"hidden\"/><textarea id=\"reviewReasonText\" placeholder=\"Tell us why you find the review inappropriate.\" required=\"\"></textarea><div id=\"reportButtonsContainer\"><button id=\"reportConfirm\" type=\"submit\">Report</button><button id=\"reportCancel\" type=\"button\">Cancel</button></div></form></div></div></div></div></div>')
+})
+
+// describe('App', () => {
+//   const wrapper = shallow(<App />);
+//   it('should show no reviews data when there are no reviews', () => {
+//     expect(wrapper.html()).toBe('<h3>No reviews data available</h3>')
+//   })
+//   it('should start render subcomponents when given reviews data', () => {
+//     wrapper.state().reviews = [{id: 1}];
+//     wrapper.state();
+//     // expect(wrapper.html()).toBe('')
+//   })
+// })
+
+describe('RatingBar', () => {
+  const wrapper = shallow(<RatingBar i={1} percentages={['23%', '24%', '25%', '26%', '27%', '28%']}/>)
+  expect(wrapper.html()).toBe('<div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">4</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:26%\"></div></div></div>')
+})
+
+describe('UnChekedIcon', () => {
+  const wrapper = shallow(<UnCheckedIcon />)
+  it('should render the correct svg when called', () => {
+    expect(wrapper.html()).toBe('<svg id=\"UnCheckedIcon\" x=\"0px\" y=\"0px\" width=\"18px\" height=\"18px\" viewBox=\"0 0 430.602 430.602\"><g><path d=\"M215.301,60c41.482,0,80.481,16.154,109.814,45.486c29.332,29.332,45.485,68.332,45.485,109.814 c0,41.481-16.153,80.481-45.485,109.813c-29.333,29.332-68.332,45.486-109.814,45.486c-41.482,0-80.481-16.154-109.814-45.486 C76.155,295.781,60.001,256.781,60.001,215.3c0-41.482,16.154-80.482,45.486-109.814C134.82,76.155,173.819,60,215.301,60 M215.301,0C96.394,0,0,96.394,0,215.301s96.394,215.301,215.301,215.301s215.301-96.394,215.301-215.301S334.208,0,215.301,0 L215.301,0z\"></path></g></svg>')
+  })
+})
+
+describe('Error', () => {
+  const wrapper = shallow(<ErrorBoundary />)
+  it('should start out with no error', () => {
+    expect(wrapper.state().hasError).toBe(false)
+  })
+})
+
+describe('ReviewList', () => {
+  const wrapper = shallow(<ReviewList reviews={[{reviewText: 'test', dinedDate: 'test', userName: 'Chris W'}]}/>)
+  it('should pass reviews data down', () => {
+    expect(wrapper.html()).toBe('')
+  })
+})

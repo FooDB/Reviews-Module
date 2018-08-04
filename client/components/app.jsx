@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import ReviewSummary from './ReviewSummary.jsx';
 import ReviewToolbar from './ReviewToolbar.jsx';
@@ -17,7 +17,7 @@ const getAverage = (reviews, criteria) => {
   return Number.parseFloat(sum / reviews.length).toFixed(1);
 }
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,6 +68,7 @@ class App extends Component {
     }
     this.setState({ stars });
   }
+  
   getRatingPercentages() {
     const { allReviews } = this.state;
     let fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0;

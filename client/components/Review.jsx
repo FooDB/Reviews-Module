@@ -133,11 +133,12 @@ class Review extends React.Component {
             <div id="reviewStarsDateRating">
               <div id="reviewStarsDate">
                 <div id="reviewStarsContainer">
-                  <img className="reviewStar" src={stars[0]} alt="Star Icon" />
+                  {stars.map(star => <img className="reviewStar" src={star} alt="Star Icon" />)}
+                  {/* <img className="reviewStar" src={stars[0]} alt="Star Icon" />
                   <img className="reviewStar" src={stars[1]} alt="Star Icon" />
                   <img className="reviewStar" src={stars[2]} alt="Star Icon" />
                   <img className="reviewStar" src={stars[3]} alt="Star Icon" />
-                  <img className="reviewStar" src={stars[4]} alt="Star Icon" />
+                  <img className="reviewStar" src={stars[4]} alt="Star Icon" /> */}
                 </div>
                 <span className="reviewRatingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
               </div>
