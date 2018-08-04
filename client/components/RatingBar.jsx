@@ -13,7 +13,7 @@ const RatingBar = ({ i, filter, scrollToTopOfFeed, percentages }) => (
 
 export default RatingBar;
 
-ReviewSummary.propTypes = {
+RatingBar.propTypes = {
     filter: PropTypes.func.isRequired,
     scrollToTopOfFeed: PropTypes.func.isRequired,
     percentages: PropTypes.array.isRequired,
