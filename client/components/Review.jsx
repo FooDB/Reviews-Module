@@ -10,7 +10,7 @@ class Review extends React.Component {
     this.state = {
       hoveronHelp: false,
       helpful: false,
-      upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png',
+      upvoteIcon: this.props.review.is_helpful ? 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redUpvote.png' : 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png',
       readMoreClicked: false,
       reviewText: this.props.review.reviewText.slice(0, 200),
       stars: [],
@@ -49,7 +49,7 @@ class Review extends React.Component {
       ? this.setState({ upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redUpvote.png' }) 
       : this.setState({ upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png' });
     review.is_helpful ? review.is_helpful = 0 : review.is_helpful = 1;
-    axios.post(`/restaurant/${review.is_helpful}/id/${review.id}/helpfulEvent`)
+    axios.post(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${review.is_helpful}/id/${review.id}/helpfulEvent`)
       .then()
       .catch(err => console.error(err));
   }

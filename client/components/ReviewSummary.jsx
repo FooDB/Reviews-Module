@@ -7,34 +7,10 @@ import styles from './ReviewSummary.css';
 class ReviewSummary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      percentages: Array(5).fill('0%'),
-    };
-  }
-
-  componentDidMount() {
-    let { allReviews } = this.state;
-    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${this.props.id}/reviews`)
-      .then((res) => {
-        allReviews = res.data
-        let fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0;
-        for (let i = 0; i < allReviews.length; i++) {
-          let r = allReviews[i].overallRating;
-          if (r === 1) oneStarCount++;
-          if (r === 2) twoStarCount++;
-          if (r === 3) threeStarCount++;
-          if (r === 4) fourStarCount++;
-          if (r === 5) fiveStarCount++;
-        }
-        const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
-        this.setState({ percentages: counts.map(count => Math.round(count / allReviews.length * 100) + '%') })
-      })
-      .catch(err => console.log(err));
   }
 
   render() {
-    const { ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed } = this.props;
-    const { percentages } = this.state;
+    const { ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages } = this.props;
     let noiseLevel;
     if (ratings.noise > 1) {
       noiseLevel = 'Loud';
@@ -103,31 +79,31 @@ class ReviewSummary extends React.Component {
               <div className="toolbarAndNumber" onClick={() => {filter(5); scrollToTopOfFeed()}}>
                 <span className="toolbarNumber">5</span>
                 <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[4] }} />
+                  <div className="toolbar-red" style={{ width: percentages[4] }} key={percentages[0]} />
                 </div>
               </div>
               <div className="toolbarAndNumber" onClick={() => {filter(4); scrollToTopOfFeed()}}>
                 <span className="toolbarNumber">4</span>
                 <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[3] }} />
+                  <div className="toolbar-red" style={{ width: percentages[3] }} key={percentages[1]} />
                 </div>
               </div>
               <div className="toolbarAndNumber" onClick={() => {filter(3); scrollToTopOfFeed()}}>
                 <span className="toolbarNumber">3</span>
                 <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[2] }} />
+                  <div className="toolbar-red" style={{ width: percentages[2] }} key={percentages[2]} />
                 </div>
               </div>
               <div className="toolbarAndNumber" onClick={() => {filter(2); scrollToTopOfFeed()}}>
                 <span className="toolbarNumber">2</span>
                 <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[1] }} />
+                  <div className="toolbar-red" style={{ width: percentages[1] }} key={percentages[3]} />
                 </div>
               </div>
               <div className="toolbarAndNumber" onClick={() => {filter(1); scrollToTopOfFeed()}}>
                 <span className="toolbarNumber">1</span>
                 <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[0] }} />
+                  <div className="toolbar-red" style={{ width: percentages[0] }} key={percentages[4]} />
                 </div>
               </div>
             </div>

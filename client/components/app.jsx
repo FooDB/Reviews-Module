@@ -33,6 +33,7 @@ class App extends React.Component {
       filterWordsSelected: [],
       currentRestReviews: [],
       id: 1,
+      percentages: Array(5).fill('0%'),
     };
   }
 
@@ -69,6 +70,20 @@ class App extends React.Component {
     }
     this.setState({ stars });
   }
+  getRatingPercentages() {
+    const { allReviews } = this.state;
+    let fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0;
+    for (let i = 0; i < allReviews.length; i++) {
+      let r = allReviews[i].overallRating;
+      if (r === 1) oneStarCount++;
+      if (r === 2) twoStarCount++;
+      if (r === 3) threeStarCount++;
+      if (r === 4) fourStarCount++;
+      if (r === 5) fiveStarCount++;
+    }
+    const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
+    this.setState({ percentages: counts.map(count => Math.round(count / allReviews.length * 100) + '%') })
+  }
 
   pullDataById(id) {
     axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/reviews`)
@@ -87,7 +102,10 @@ class App extends React.Component {
             noise: this.getAverage(res.data, 'noise'),
             recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100),
           },
-        }, () => this.setDynamicStarRating());
+        }, () => {
+          this.setDynamicStarRating()
+          this.getRatingPercentages()
+        });
       })
       .catch(err => console.log(err));
   }
@@ -182,10 +200,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages, id } = this.state;
+    const { reviews, allReviews, ratings, stars, lovedFor, restaurantInfo, keyWords, currentPage, totalPages, id, percentages } = this.state;
 
     if (!reviews.length) {
-      return <h3>No data</h3>
+      return <h3>No reviews data available</h3>
     }
 
     return (
@@ -201,6 +219,7 @@ class App extends React.Component {
             scrollToTopOfFeed={this.scrollToTopOfFeed.bind(this)}
             restaurantInfo={restaurantInfo}
             id={id}
+            percentages={percentages}
           />
         </ErrorBoundary>
 
