@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LovedForBox from './LovedForBox.jsx';
+import RatingBar from './RatingBar.jsx';
 import styles from './ReviewSummary.css';
 
 const ReviewSummary = ({ ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages }) => {
@@ -65,16 +66,12 @@ const ReviewSummary = ({ ratings, allReviews, stars, restaurantInfo, filter, lov
 
           <div id="summaryToolbarContainer">
             <div>
-              {percentages.map((bar, i) => {
-                return (
-                  <div className="toolbarAndNumber" onClick={() => {filter(5 - i); scrollToTopOfFeed()}}>
-                    <span className="toolbarNumber">{5 - i}</span>
-                    <div className="toolbar-light-background">
-                      <div className="toolbar-red" style={{ width: percentages[4 - i] }} key={percentages[4 - i]} />
-                    </div>
-                  </div>
-                )
-              })}
+              {percentages.map((bar, i) => <RatingBar 
+                i={i} 
+                filter={() => filter()} 
+                scrollToTopOfFeed={() => scrollToTopOfFeed()}
+                percentages={percentages} 
+              />)}
             </div>
           </div>
         </div>
