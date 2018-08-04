@@ -4,7 +4,6 @@ import LovedForBox from './LovedForBox.jsx';
 import styles from './ReviewSummary.css';
 
 const ReviewSummary = ({ ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages }) => {
-    // const { ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages } = this.props;
     let noiseLevel;
     if (ratings.noise > 1) {
       noiseLevel = 'Loud';
