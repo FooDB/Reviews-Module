@@ -9,6 +9,14 @@ import styles from './App.css';
 
 const getIDFromURL = () => window.location.pathname.split('/')[2]
 
+const getAverage = (reviews, criteria) => {
+  let sum = 0;
+  for (let i = 0; i < reviews.length; i++) {
+    sum += reviews[i][criteria];
+  }
+  return Number.parseFloat(sum / reviews.length).toFixed(1);
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +40,6 @@ class App extends React.Component {
       restaurantInfo: [],
       filterWordsSelected: [],
       currentRestReviews: [],
-      id: 1,
       percentages: Array(5).fill('0%'),
     };
   }
@@ -43,15 +50,6 @@ class App extends React.Component {
     this.pullMenuItemsById(id);
     this.pullDataById(id);
     this.pullRestaurantInfoById(id);
-    this.setState({ id })
-  }
-
-  getAverage(reviews, criteria) {
-    let sum = 0;
-    for (let i = 0; i < reviews.length; i++) {
-      sum += reviews[i][criteria];
-    }
-    return Number.parseFloat(sum / reviews.length).toFixed(1);
   }
 
   setDynamicStarRating() {
@@ -94,13 +92,13 @@ class App extends React.Component {
           totalPages: Math.round(res.data.length / 20),
           currentRestReviews: res.data,
           ratings: {
-            totalAverage: this.getAverage(res.data, 'overallRating'),
-            foodAverage: this.getAverage(res.data, 'foodRating'),
-            serviceAverage: this.getAverage(res.data, 'serviceRating'),
-            ambianceAverage: this.getAverage(res.data, 'ambianceRating'),
-            valueAverage: this.getAverage(res.data, 'valueRating'),
-            noise: this.getAverage(res.data, 'noise'),
-            recommended: Math.round((this.getAverage(res.data, 'is_recommended')) * 100),
+            totalAverage: getAverage(res.data, 'overallRating'),
+            foodAverage: getAverage(res.data, 'foodRating'),
+            serviceAverage: getAverage(res.data, 'serviceRating'),
+            ambianceAverage: getAverage(res.data, 'ambianceRating'),
+            valueAverage: getAverage(res.data, 'valueRating'),
+            noise: getAverage(res.data, 'noise'),
+            recommended: Math.round((getAverage(res.data, 'is_recommended')) * 100),
           },
         }, () => {
           this.setDynamicStarRating()

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LovedForBox from './LovedForBox.jsx';
-import axios from 'axios';
 import styles from './ReviewSummary.css';
 
 class ReviewSummary extends React.Component {
@@ -31,11 +30,7 @@ class ReviewSummary extends React.Component {
             <div id="reviewConditional">Reviews can only be made by diners who have eaten at this restaurant</div>
             <div>
               <div className="summaryStarRating">
-                <span><img className="summaryStarIcon" src={starSource[0]} alt="Star Icon" /></span>
-                <span><img className="summaryStarIcon" src={starSource[1]} alt="Star Icon" /></span>
-                <span><img className="summaryStarIcon" src={starSource[2]} alt="Star Icon" /></span>
-                <span><img className="summaryStarIcon" src={starSource[3]} alt="Star Icon" /></span>
-                <span><img className="summaryStarIcon" src={starSource[4]} alt="Star Icon" /></span>
+                {stars.map((star, i) => <span><img className="summaryStarIcon" src={starSource[i]} alt="Star Icon" /></span>)}
               </div>
               <div className="summaryStarRating" id="summaryStarText">
                 <span> &nbsp; {ratings.totalAverage}</span>
@@ -76,36 +71,16 @@ class ReviewSummary extends React.Component {
 
           <div id="summaryToolbarContainer">
             <div>
-              <div className="toolbarAndNumber" onClick={() => {filter(5); scrollToTopOfFeed()}}>
-                <span className="toolbarNumber">5</span>
-                <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[4] }} key={percentages[0]} />
-                </div>
-              </div>
-              <div className="toolbarAndNumber" onClick={() => {filter(4); scrollToTopOfFeed()}}>
-                <span className="toolbarNumber">4</span>
-                <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[3] }} key={percentages[1]} />
-                </div>
-              </div>
-              <div className="toolbarAndNumber" onClick={() => {filter(3); scrollToTopOfFeed()}}>
-                <span className="toolbarNumber">3</span>
-                <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[2] }} key={percentages[2]} />
-                </div>
-              </div>
-              <div className="toolbarAndNumber" onClick={() => {filter(2); scrollToTopOfFeed()}}>
-                <span className="toolbarNumber">2</span>
-                <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[1] }} key={percentages[3]} />
-                </div>
-              </div>
-              <div className="toolbarAndNumber" onClick={() => {filter(1); scrollToTopOfFeed()}}>
-                <span className="toolbarNumber">1</span>
-                <div className="toolbar-light-background">
-                  <div className="toolbar-red" style={{ width: percentages[0] }} key={percentages[4]} />
-                </div>
-              </div>
+              {percentages.map((bar, i) => {
+                return (
+                  <div className="toolbarAndNumber" onClick={() => {filter(5 - i); scrollToTopOfFeed()}}>
+                    <span className="toolbarNumber">{5 - i}</span>
+                    <div className="toolbar-light-background">
+                      <div className="toolbar-red" style={{ width: percentages[4 - i] }} key={percentages[4 - i]} />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
