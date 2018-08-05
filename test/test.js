@@ -6,7 +6,7 @@ import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
 import ReportPopUp from '../client/components/ReportPopUp';
 import ReviewSummary from '../client/components/ReviewSummary';
-// import App from '../client/components/App';
+import App from '../client/components/App';
 import { wrap } from 'module';
 import ReviewToolbar from '../client/components/ReviewToolbar';
 import RatingBar from '../client/components/RatingBar';
@@ -219,17 +219,28 @@ describe('ReportPopUp', () => {
   expect(wrapper.html()).toBe('<div id=\"modalContainer\"><div class=\"modalBackground\"><div class=\"modalContent\"><div id=\"reviewReport\"><div id=\"reportHeadContainer\"><div id=\"reportHeadText\"><strong>Report this review as inappropriate?</strong></div></div><div id=\"reportBodyContainer\"><div id=\"reportBodyText\"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div><form><input type=\"hidden\"/><textarea id=\"reviewReasonText\" placeholder=\"Tell us why you find the review inappropriate.\" required=\"\"></textarea><div id=\"reportButtonsContainer\"><button id=\"reportConfirm\" type=\"submit\">Report</button><button id=\"reportCancel\" type=\"button\">Cancel</button></div></form></div></div></div></div></div>')
 })
 
-// describe('App', () => {
-//   const wrapper = shallow(<App />);
-//   it('should show no reviews data when there are no reviews', () => {
-//     expect(wrapper.html()).toBe('<h3>No reviews data available</h3>')
-//   })
-//   it('should start render subcomponents when given reviews data', () => {
-//     wrapper.state().reviews = [{id: 1}];
-//     wrapper.state();
-//     // expect(wrapper.html()).toBe('')
-//   })
-// })
+describe('App', () => {
+  const wrapper = shallow(<App />);
+  it('should show no reviews data when there are no reviews', () => {
+    expect(wrapper.html()).toBe('<h3>No reviews data available</h3>')
+  })
+  it('should get the correct percentages based on reviews rating data', () => {
+    wrapper.setState({allReviews: [{overallRating: 5, dinedDate: 'test', userName: 'Chris W', reviewDate: '03-04-05'}]})
+    wrapper.instance().getRatingPercentages()
+    expect(wrapper.state().percentages).toEqual(["100%", "0%", "0%", "0%", "0%"]);
+  })
+  it('should set it to 3 red stars, 1 low star, and 1 white star when the total average rating is 3.1', () => {
+    wrapper.setState({ratings: {totalAverage: 3}});
+    wrapper.instance().setDynamicStarRating();
+    expect(wrapper.state().stars).toEqual(["https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/lowStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png"]);
+  })
+  it('should change the current page on handlePageChange calls', () => {
+    expect(wrapper.state().currentPage).toBe(1) 
+    wrapper.instance().handlePageChange(2);
+    expect(wrapper.state().currentPage).toBe(2)
+  })
+
+})
 
 describe('RatingBar', () => {
   const wrapper = shallow(<RatingBar i={1} percentages={['23%', '24%', '25%', '26%', '27%', '28%']}/>)
@@ -250,9 +261,9 @@ describe('Error', () => {
   })
 })
 
-describe('ReviewList', () => {
-  const wrapper = shallow(<ReviewList reviews={[{reviewText: 'test', dinedDate: 'test', userName: 'Chris W'}]}/>)
-  it('should pass reviews data down', () => {
-    expect(wrapper.html()).toBe('')
-  })
-})
+// describe('ReviewList', () => {
+//   const wrapper = shallow(<ReviewList reviews={[{reviewText: 'test', dinedDate: 'test', userName: 'Chris W', reviewDate: '03-04-05'}]}/>)
+//   it('should pass reviews data down', () => {
+//     expect(wrapper.html()).toBe('')
+//   })
+// })
