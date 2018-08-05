@@ -68,7 +68,7 @@ const ReviewSummary = ({ ratings, allReviews, stars, restaurantInfo, filter, lov
             <div>
               {percentages.map((bar, i) => <RatingBar 
                 i={i} 
-                filter={() => filter()} 
+                filter={filter} 
                 scrollToTopOfFeed={() => scrollToTopOfFeed()}
                 percentages={percentages} 
               />)}

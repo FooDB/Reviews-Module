@@ -23,7 +23,7 @@ class Review extends React.Component {
   componentDidMount() {
     const { review } = this.props;
     this.setStars()
-    this.setColors()
+    this.setColor()
     if (review.is_helpful) this.setState({ helpful: true });
     if (review.reviewText.length > 200) this.setState({ reviewText: review.reviewText.slice(0, 200) + '...' });
   }
@@ -41,7 +41,7 @@ class Review extends React.Component {
     this.setState({ stars });
   }
 
-  setColors() {
+  setColor() {
     const circleColors = ['#df4e96', '#bb6acd', '#6c8ae4', '#d86441'];
     this.setState({ randomColor: circleColors[Math.floor(Math.random() * circleColors.length)] });
   }

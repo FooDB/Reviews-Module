@@ -121,18 +121,19 @@ describe('Review', () => {
         userName: 'Christopher Wildenradt',
         userReviewCount: 1,
         overallRating: 3,
-        dinedDate: "2018-07-20T07:00:00.000Z"
+        dinedDate: "2018-07-20T07:00:00.000Z",
+        overallRating: 3,
       }}
     />);
     let state = wrapperMount.state();
-    expect(state.stars[2]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png')
-    expect(state.stars[3]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png')
+    expect(state.stars[1]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png')
+    expect(state.stars[4]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png')
   })
   it('should change the date data into a more readable format', () => {
     expect(wrapper.find('.reviewRatingDate').text()).toBe(" Dined on Fri Jul 20 2018")
   })
   it('should offer to read more less depending on the length of the review', () => {
-    const wrapper = mount(<Review
+    const wrapper2 = mount(<Review
       review={{
         is_helpful: 0,
         dinedDate: "2018-07-20T07:00:00.000Z",
@@ -140,9 +141,13 @@ describe('Review', () => {
         reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
       }}
     />);
-    expect(wrapper.find('#readMore').text()).toBe('+ Read more');
-    wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
-    expect(wrapper.find('#readMore').text()).toBe('- Read less');
+    expect(wrapper2.find('#readMore').text()).toBe('+ Read more');
+    wrapper2.find('#readMore').simulate('click', {preventDefault: () => {}});
+    expect(wrapper2.find('#readMore').text()).toBe('- Read less');
+  })
+  it('should set the colors randomly', () => {
+    wrapper.instance().setColor();
+    expect(wrapper.state().randomColor).toBe('#df4e96' || '#bb6acd' || '#6c8ae4' || '#d86441') 
   })
 });
 
@@ -186,6 +191,7 @@ describe('ReviewSummary', () => {
   it ('should should display 6 rating bars when given an array of 6 percentages', () => {
     expect(wrapper.find('#summaryToolbarContainer').html()).toBe('<div id=\"summaryToolbarContainer\"><div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">5</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:27%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">4</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:26%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">3</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:25%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">2</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:24%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">1</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:23%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">0</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\"></div></div></div></div></div>')
   })
+
 })
 
 describe('Pagination', () => {
@@ -256,9 +262,10 @@ describe('UnChekedIcon', () => {
 
 describe('Error', () => {
   const wrapper = shallow(<ErrorBoundary />)
-  it('should start out with no error', () => {
-    expect(wrapper.state().hasError).toBe(false)
+  it('should change error to true on error', () => {
+    expect(wrapper.state().hasError).toBe(true)
   })
+  wrapper.instance().componentDidCatch();
 })
 
 // describe('ReviewList', () => {

@@ -161,6 +161,7 @@ class App extends React.Component {
   }
 
   filterReviewsByRating(target) {
+    console.log('checked')
     const { allReviews } = this.state;
     const filtered = allReviews.filter(review => review.overallRating === target);
     this.setState({ 
