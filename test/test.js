@@ -1,13 +1,18 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-// import Review from '../client/components/Review';
+import Review from '../client/components/Review';
 import FilterBox from '../client/components/FilterBox';
 import LovedForBox from '../client/components/LovedForBox';
 import Pagination from '../client/components/Pagination';
-// import ReportPopUp from '../client/components/ReportPopUp';
-// import ReviewSummary from '../client/components/ReviewSummary';
+import ReportPopUp from '../client/components/ReportPopUp';
+import ReviewSummary from '../client/components/ReviewSummary';
+import App from '../client/components/App';
 import { wrap } from 'module';
 import ReviewToolbar from '../client/components/ReviewToolbar';
+import RatingBar from '../client/components/RatingBar';
+import UnCheckedIcon from '../client/components/UnCheckedIcon';
+import ErrorBoundary from '../client/components/Error';
+import ReviewList from '../client/components/ReviewList';
 const request = require('supertest')('http://127.0.0.1:3005');
 
 describe('Server routes interact successfully', () => {
@@ -116,18 +121,19 @@ describe('Review', () => {
         userName: 'Christopher Wildenradt',
         userReviewCount: 1,
         overallRating: 3,
-        dinedDate: "2018-07-20T07:00:00.000Z"
+        dinedDate: "2018-07-20T07:00:00.000Z",
+        overallRating: 3,
       }}
     />);
     let state = wrapperMount.state();
-    expect(state.stars[2]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png')
-    expect(state.stars[3]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png')
+    expect(state.stars[1]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png')
+    expect(state.stars[4]).toBe('https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png')
   })
   it('should change the date data into a more readable format', () => {
     expect(wrapper.find('.reviewRatingDate').text()).toBe(" Dined on Fri Jul 20 2018")
   })
   it('should offer to read more less depending on the length of the review', () => {
-    const wrapper = mount(<Review
+    const wrapper2 = mount(<Review
       review={{
         is_helpful: 0,
         dinedDate: "2018-07-20T07:00:00.000Z",
@@ -135,10 +141,13 @@ describe('Review', () => {
         reviewText: 'longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length longwinded test review text that has to get past 200 characters in length',
       }}
     />);
-    expect(wrapper.find('#readMore').text()).toBe('+ Read more');
-    wrapper.find('#readMore').simulate('click', {preventDefault: () => {}});
-    expect(wrapper.find('#readMore').text()).toBe('- Read less');
-    Review.
+    expect(wrapper2.find('#readMore').text()).toBe('+ Read more');
+    wrapper2.find('#readMore').simulate('click', {preventDefault: () => {}});
+    expect(wrapper2.find('#readMore').text()).toBe('- Read less');
+  })
+  it('should set the colors randomly', () => {
+    wrapper.instance().setColor();
+    expect(wrapper.state().randomColor).toBe('#df4e96' || '#bb6acd' || '#6c8ae4' || '#d86441') 
   })
 });
 
@@ -165,6 +174,7 @@ describe('ReviewSummary', () => {
     stars={[]}
     lovedFor={[]}
     restaurantInfo={[]}
+    percentages={['23%', '24%', '25%', '26%', '27%', '28%']}
   />);
   it('should display the length of reviews in the title', () => {
     expect(wrapper.find('.summaryHeader').text()).toBe("What 2 People Are Saying")
@@ -178,6 +188,10 @@ describe('ReviewSummary', () => {
   it('should display the total ratings with the proper text', () => {
     expect(wrapper.find('#summaryStarText').text()).toBe("   2.9 Based on Recent Ratings")
   })
+  it ('should should display 6 rating bars when given an array of 6 percentages', () => {
+    expect(wrapper.find('#summaryToolbarContainer').html()).toBe('<div id=\"summaryToolbarContainer\"><div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">5</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:27%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">4</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:26%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">3</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:25%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">2</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:24%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">1</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:23%\"></div></div></div><div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">0</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\"></div></div></div></div></div>')
+  })
+
 })
 
 describe('Pagination', () => {
@@ -205,3 +219,58 @@ describe('Pagination', () => {
     expect(wrapper3.find('#middleRight').text()).toBe('7');
   })
 });
+
+describe('ReportPopUp', () => {
+  const wrapper = shallow(<ReportPopUp />)
+  expect(wrapper.html()).toBe('<div id=\"modalContainer\"><div class=\"modalBackground\"><div class=\"modalContent\"><div id=\"reviewReport\"><div id=\"reportHeadContainer\"><div id=\"reportHeadText\"><strong>Report this review as inappropriate?</strong></div></div><div id=\"reportBodyContainer\"><div id=\"reportBodyText\"><strong>If you believe this review should be removed from OpenTable, please let us know and someone will investigate.</strong></div><form><input type=\"hidden\"/><textarea id=\"reviewReasonText\" placeholder=\"Tell us why you find the review inappropriate.\" required=\"\"></textarea><div id=\"reportButtonsContainer\"><button id=\"reportConfirm\" type=\"submit\">Report</button><button id=\"reportCancel\" type=\"button\">Cancel</button></div></form></div></div></div></div></div>')
+})
+
+describe('App', () => {
+  const wrapper = shallow(<App />);
+  it('should show no reviews data when there are no reviews', () => {
+    expect(wrapper.html()).toBe('<h3>No reviews data available</h3>')
+  })
+  it('should get the correct percentages based on reviews rating data', () => {
+    wrapper.setState({allReviews: [{overallRating: 5, dinedDate: 'test', userName: 'Chris W', reviewDate: '03-04-05'}]})
+    wrapper.instance().getRatingPercentages()
+    expect(wrapper.state().percentages).toEqual(["100%", "0%", "0%", "0%", "0%"]);
+  })
+  it('should set it to 3 red stars, 1 low star, and 1 white star when the total average rating is 3.1', () => {
+    wrapper.setState({ratings: {totalAverage: 3}});
+    wrapper.instance().setDynamicStarRating();
+    expect(wrapper.state().stars).toEqual(["https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/redStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/lowStar.png", "https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png"]);
+  })
+  it('should change the current page on handlePageChange calls', () => {
+    expect(wrapper.state().currentPage).toBe(1) 
+    wrapper.instance().handlePageChange(2);
+    expect(wrapper.state().currentPage).toBe(2)
+  })
+
+})
+
+describe('RatingBar', () => {
+  const wrapper = shallow(<RatingBar i={1} percentages={['23%', '24%', '25%', '26%', '27%', '28%']}/>)
+  expect(wrapper.html()).toBe('<div class=\"toolbarAndNumber\"><span class=\"toolbarNumber\">4</span><div class=\"toolbar-light-background\"><div class=\"toolbar-red\" style=\"width:26%\"></div></div></div>')
+})
+
+describe('UnChekedIcon', () => {
+  const wrapper = shallow(<UnCheckedIcon />)
+  it('should render the correct svg when called', () => {
+    expect(wrapper.html()).toBe('<svg id=\"UnCheckedIcon\" x=\"0px\" y=\"0px\" width=\"18px\" height=\"18px\" viewBox=\"0 0 430.602 430.602\"><g><path d=\"M215.301,60c41.482,0,80.481,16.154,109.814,45.486c29.332,29.332,45.485,68.332,45.485,109.814 c0,41.481-16.153,80.481-45.485,109.813c-29.333,29.332-68.332,45.486-109.814,45.486c-41.482,0-80.481-16.154-109.814-45.486 C76.155,295.781,60.001,256.781,60.001,215.3c0-41.482,16.154-80.482,45.486-109.814C134.82,76.155,173.819,60,215.301,60 M215.301,0C96.394,0,0,96.394,0,215.301s96.394,215.301,215.301,215.301s215.301-96.394,215.301-215.301S334.208,0,215.301,0 L215.301,0z\"></path></g></svg>')
+  })
+})
+
+describe('Error', () => {
+  const wrapper = shallow(<ErrorBoundary />)
+  it('should change error to true on error', () => {
+    expect(wrapper.state().hasError).toBe(true)
+  })
+  wrapper.instance().componentDidCatch();
+})
+
+// describe('ReviewList', () => {
+//   const wrapper = shallow(<ReviewList reviews={[{reviewText: 'test', dinedDate: 'test', userName: 'Chris W', reviewDate: '03-04-05'}]}/>)
+//   it('should pass reviews data down', () => {
+//     expect(wrapper.html()).toBe('')
+//   })
+// })

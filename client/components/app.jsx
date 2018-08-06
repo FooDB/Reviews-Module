@@ -68,6 +68,7 @@ class App extends React.Component {
     }
     this.setState({ stars });
   }
+  
   getRatingPercentages() {
     const { allReviews } = this.state;
     let fiveStarCount = 0, fourStarCount = 0, threeStarCount = 0, twoStarCount = 0, oneStarCount = 0;
@@ -160,6 +161,7 @@ class App extends React.Component {
   }
 
   filterReviewsByRating(target) {
+    console.log('checked')
     const { allReviews } = this.state;
     const filtered = allReviews.filter(review => review.overallRating === target);
     this.setState({ 

@@ -22,6 +22,14 @@ class Review extends React.Component {
 
   componentDidMount() {
     const { review } = this.props;
+    this.setStars()
+    this.setColor()
+    if (review.is_helpful) this.setState({ helpful: true });
+    if (review.reviewText.length > 200) this.setState({ reviewText: review.reviewText.slice(0, 200) + '...' });
+  }
+
+  setStars() {
+    const { review } = this.props;
     const { stars } = this.state;
     let initialRating = review.overallRating;
     for (let i = 0; i < 5; i++) {
@@ -30,11 +38,12 @@ class Review extends React.Component {
         : stars.push("https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/greyStar.png");
       initialRating--;
     }
-    if (review.is_helpful) this.setState({ helpful: true });
     this.setState({ stars });
+  }
+
+  setColor() {
     const circleColors = ['#df4e96', '#bb6acd', '#6c8ae4', '#d86441'];
     this.setState({ randomColor: circleColors[Math.floor(Math.random() * circleColors.length)] });
-    if (review.reviewText.length > 200) this.setState({ reviewText: review.reviewText.slice(0, 200) + '...' });
   }
 
   setNode(node) {
@@ -50,7 +59,6 @@ class Review extends React.Component {
       : this.setState({ upvoteIcon: 'https://s3-us-west-1.amazonaws.com/review-photos-fec-open-table/whiteUpvote.png' });
     review.is_helpful ? review.is_helpful = 0 : review.is_helpful = 1;
     axios.post(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${review.is_helpful}/id/${review.id}/helpfulEvent`)
-      .then()
       .catch(err => console.error(err));
   }
 
@@ -125,11 +133,7 @@ class Review extends React.Component {
             <div id="reviewStarsDateRating">
               <div id="reviewStarsDate">
                 <div id="reviewStarsContainer">
-                  <img className="reviewStar" src={stars[0]} alt="Star Icon" />
-                  <img className="reviewStar" src={stars[1]} alt="Star Icon" />
-                  <img className="reviewStar" src={stars[2]} alt="Star Icon" />
-                  <img className="reviewStar" src={stars[3]} alt="Star Icon" />
-                  <img className="reviewStar" src={stars[4]} alt="Star Icon" />
+                  {stars.map(star => <img className="reviewStar" src={star} alt="Star Icon" />)}
                 </div>
                 <span className="reviewRatingDate"> Dined on {new Date(reviewDate[0], reviewDate[1] - 1, reviewDate[2].substr(0,2)).toDateString()}</span>
               </div>

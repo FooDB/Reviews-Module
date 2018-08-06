@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LovedForBox from './LovedForBox.jsx';
+import RatingBar from './RatingBar.jsx';
 import styles from './ReviewSummary.css';
 
-class ReviewSummary extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages } = this.props;
+const ReviewSummary = ({ ratings, allReviews, stars, restaurantInfo, filter, lovedFor, scrollToTopOfFeed, percentages }) => {
     let noiseLevel;
     if (ratings.noise > 1) {
       noiseLevel = 'Loud';
@@ -71,16 +66,12 @@ class ReviewSummary extends React.Component {
 
           <div id="summaryToolbarContainer">
             <div>
-              {percentages.map((bar, i) => {
-                return (
-                  <div className="toolbarAndNumber" onClick={() => {filter(5 - i); scrollToTopOfFeed()}}>
-                    <span className="toolbarNumber">{5 - i}</span>
-                    <div className="toolbar-light-background">
-                      <div className="toolbar-red" style={{ width: percentages[4 - i] }} key={percentages[4 - i]} />
-                    </div>
-                  </div>
-                )
-              })}
+              {percentages.map((bar, i) => <RatingBar 
+                i={i} 
+                filter={filter} 
+                scrollToTopOfFeed={() => scrollToTopOfFeed()}
+                percentages={percentages} 
+              />)}
             </div>
           </div>
         </div>
@@ -102,7 +93,7 @@ class ReviewSummary extends React.Component {
       </div>
     );
   }
-}
+
 
 export default ReviewSummary;
 
@@ -114,4 +105,5 @@ ReviewSummary.propTypes = {
   restaurantInfo: PropTypes.array.isRequired,
   stars: PropTypes.array.isRequired,
   ratings: PropTypes.object.isRequired,
+  percentages: PropTypes.array.isRequired
 };
