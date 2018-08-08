@@ -64,7 +64,7 @@ fs.readFile('./names.csv', 'utf8', (err, data) => {
       const randUserReviewCount = Math.floor(Math.random() * 50);
       console.log(`${reviewId}, ${randUserName}, ${randuserPhoto}, ${randuserArea}, ${randreviewText}, ${randRecommended}, ${randDate}, ${randRating[0]}, ${randRating[1]}, ${randRating[2]}, ${randRating[3]}, ${randRating[4]}, ${randNoise}, ${randUserReviewCount}, ${restaurantId}`);
       reviewId += 1;
-    }  
+    }
     restaurantId += 1;
   }
 });
