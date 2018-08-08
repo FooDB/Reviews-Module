@@ -67,6 +67,22 @@ app.post('/restaurant/:is_helpful/id/:id/helpfulEvent', (req, res) => {
   });
 });
 
+app.post('/restaurant/add/:id', (req, res) => {
+  console.log('new restaurant received', req.params);
+  db.postToDB(`;`, (err, result) => {
+    if (err) res.status(400).send('error');
+    res.send(result);
+  });
+});
+
+app.post('/restaurant/remove/:id', (req, res) => {
+  console.log('restaurant deleted', req.params);
+  db.postToDB(``, (err, result) => {
+    if (err) res.status(400).send('error');
+    res.send(result);
+  });
+});
+
 app.set('port', port);
 app.listen(port);
 console.log(`Listening on http://127.0.0.1:${port}`);
