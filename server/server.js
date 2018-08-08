@@ -67,7 +67,7 @@ app.post('/restaurant/:is_helpful/id/:id/helpfulEvent', (req, res) => {
   });
 });
 
-app.post('/restaurant/add/:id', (req, res) => {
+app.post('/restaurant/add/:name/:area/:menuitemlovedfor', (req, res) => {
   console.log('new restaurant received', req.params);
   db.postToDB(``, (err, result) => {
     if (err) res.status(400).send('error');

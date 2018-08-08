@@ -3,7 +3,7 @@
 
 ## API Documentation
   - CREATE
-    - CREATE restaurant record by id: '/restaurant/add/:id'
+    - CREATE restaurant record by id: '/restaurant/add/:name/:area/:menuitemlovedfor'
   - READ
     - READ restaurant reviews by id: '/restaurant/:id/reviews'
     - READ restaurant filter keywords by id: '/restaurant/:id/filterKeywords'
