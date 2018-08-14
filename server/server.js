@@ -86,7 +86,7 @@ app.post('*/api/restaurant/:id/remove', (req, res) => {
 });
 
 app.use('/', express.static('./public'));
-// app.use('/restaurant/:id', express.static('./public'));
+app.use('/restaurant/:id', express.static('./public'));
 
 app.set('port', port);
 app.listen(port);

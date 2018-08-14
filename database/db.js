@@ -1,11 +1,18 @@
-require('dotenv').config();
+// require('dotenv').config();
 const mysql = require('mysql');
 
+// const con = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   database: process.env.DB_DATABASE,
+// });
+
 const con = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_DATABASE,
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'reviews',
 });
 
 const pullFromDB = (query, cb) => {

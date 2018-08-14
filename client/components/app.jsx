@@ -80,7 +80,7 @@ class App extends React.Component {
       if (r === 4) fourStarCount++;
       if (r === 5) fiveStarCount++;
     }
-    const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
+    const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount];
     this.setState({ percentages: counts.map(count => Math.round(count / allReviews.length * 100) + '%') })
   }
 
@@ -196,7 +196,9 @@ class App extends React.Component {
   }
 
   scrollToTopOfFeed() {
-    document.getElementById('reviewContainer').scrollIntoView({ behavior: 'smooth' });
+    if (document.getElementById('reviewContainer')) {
+      document.getElementById('reviewContainer').scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   render() {
