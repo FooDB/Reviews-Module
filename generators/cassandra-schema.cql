@@ -1,3 +1,5 @@
+DROP KEYSPACE reviews;
+
 CREATE KEYSPACE reviews WITH REPLICATION = { 'class' : 'NetworkTopologyStrategy', 'datacenter1' : 1 };
 
 CREATE TABLE restaurant (id text PRIMARY KEY,restaurantname text,restaurantarea text);
