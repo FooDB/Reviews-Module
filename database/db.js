@@ -1,6 +1,8 @@
+// uncomment for Docker deployment
 // require('dotenv').config();
 const mysql = require('mysql');
 
+// uncomment this for Docker deployment (and comment out lines 13-18)
 // const con = mysql.createConnection({
 //   host: process.env.DB_HOST,
 //   user: process.env.DB_USER,
