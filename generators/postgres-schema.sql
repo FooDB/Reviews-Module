@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS reviews;
 CREATE DATABASE reviews;
-\connect reviews;
+\c reviews;
 
 CREATE TABLE Restaurant (id SERIAL,restaurantName VARCHAR(50) NOT NULL,restaurantArea VARCHAR(50) NOT NULL);
 
