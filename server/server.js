@@ -33,6 +33,7 @@ app.get('*/api/restaurant/:id/reviews', (req, res) => {
     res.send('Undefined ID');
   }
 });
+
 app.get('*/api/restaurant/:id/filterKeywords', (req, res) => {
   if (req.params.id < 100 && req.params.id > 0) {
     db.pullFromDB(`SELECT * FROM Filters WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
@@ -43,6 +44,7 @@ app.get('*/api/restaurant/:id/filterKeywords', (req, res) => {
     res.send('Undefined ID');
   }
 });
+
 app.get('*/api/restaurant/:id/lovedFor', (req, res) => {
   if (req.params.id < 100 && req.params.id > 0) {
     db.pullFromDB(`SELECT * FROM LovedFor WHERE rest_id IN (SELECT id FROM Restaurant WHERE id = ${req.params.id});`, (err, data) => {
@@ -53,6 +55,7 @@ app.get('*/api/restaurant/:id/lovedFor', (req, res) => {
     res.send('Undefined ID');
   }
 });
+
 app.get('*/api/restaurant/:id/info', (req, res) => {
   if (req.params.id < 100 && req.params.id > 0) {
     db.pullFromDB(`SELECT * FROM Restaurant WHERE id = ${req.params.id};`, (err, data) => {
@@ -63,10 +66,12 @@ app.get('*/api/restaurant/:id/info', (req, res) => {
     res.send('Undefined ID');
   }
 });
+
 app.post('*/api/restaurant/:id/helpfulEvent', (req, res) => {
   console.log('helpful post received', req.params);
   db.postToDB(`UPDATE Reviews SET is_helpful = is_helpful + 1 WHERE id = ${req.params.id};`, (err, result) => {
     if (err) res.status(400).send('error');
+    res.status(201);
     res.send(result);
   });
 });
@@ -74,6 +79,7 @@ app.post('*/api/restaurant/:id/helpfulEvent', (req, res) => {
 app.post('*/api/restaurant/add/:name/:area', (req, res) => {
   db.postToDB(`INSERT INTO Restaurant (restaurantName, restaurantArea) VALUES("${req.params.name}", "${req.params.area}");`, (err, result) => {
     if (err) res.status(400).send('error');
+    res.status(201);
     res.send(result);
   });
 });
@@ -81,6 +87,7 @@ app.post('*/api/restaurant/add/:name/:area', (req, res) => {
 app.post('*/api/restaurant/:id/remove', (req, res) => {
   db.postToDB(`DELETE FROM Restaurant WHERE id='${req.params.id}';`, (err, result) => {
     if (err) res.status(400).send('error');
+    res.status(201);
     res.send(result);
   });
 });
