@@ -104,7 +104,6 @@ class Review extends React.Component {
     if (!readMoreClicked && review.reviewText.length < 200) readMorePhrase = '';
     const reviewPluralCase = (review.userReviewCount === 1 ? 'review' : 'reviews');
     const initials = review.userName.split(' ')[0][0] + review.userName.split(' ')[1][0];
-
     return (
       <div id="reviewContainer">
         {reportPopUp}

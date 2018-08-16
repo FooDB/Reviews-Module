@@ -80,12 +80,12 @@ class App extends React.Component {
       if (r === 4) fourStarCount++;
       if (r === 5) fiveStarCount++;
     }
-    const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount]
+    const counts = [fiveStarCount, fourStarCount, threeStarCount, twoStarCount, oneStarCount];
     this.setState({ percentages: counts.map(count => Math.round(count / allReviews.length * 100) + '%') })
   }
 
   pullDataById(id) {
-    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/reviews`)
+    axios.get(`api/restaurant/${id}/reviews`)
       .then((res) => {
         this.setState({
           reviews: res.data.slice(0, 20),
@@ -110,7 +110,7 @@ class App extends React.Component {
   }
 
   pullRestaurantInfoById(id) {
-    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/info`)
+    axios.get(`api/restaurant/${id}/info`)
       .then((res) => {
         this.setState({ restaurantInfo: res.data });
       })
@@ -118,7 +118,7 @@ class App extends React.Component {
   }
 
   pullKeywordsById(id) {
-    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/filterKeywords`)
+    axios.get(`api/restaurant/${id}/filterKeywords`)
       .then((res) => {
         this.setState({ keyWords: res.data });
       })
@@ -126,7 +126,7 @@ class App extends React.Component {
   }
 
   pullMenuItemsById(id) {
-    axios.get(`http://ec2-34-207-216-56.compute-1.amazonaws.com/restaurant/${id}/LovedFor`)
+    axios.get(`api/restaurant/${id}/lovedFor`)
       .then((res) => {
         this.setState({ lovedFor: res.data });
       })
@@ -196,7 +196,9 @@ class App extends React.Component {
   }
 
   scrollToTopOfFeed() {
-    document.getElementById('reviewContainer').scrollIntoView({ behavior: 'smooth' });
+    if (document.getElementById('reviewContainer')) {
+      document.getElementById('reviewContainer').scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   render() {
